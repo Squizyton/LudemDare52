@@ -1,81 +1,168 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using UI;
 using UnityEngine;
 
-public class BaseGun : MonoBehaviour
+namespace Guns
 {
-    [Header("Important Things")] public Transform spawnPoint;
-
-    [Header("Bullet")] [SerializeField] private BaseBullet currentBullet;
-
-
-    [Header("Base Stats")] [SerializeField]
-    private int maxAmmo;
-
-    [SerializeField] private int currentMagazine;
-    [SerializeField] private int ammoInSack;
-    [SerializeField] private float reloadTime;
-    [SerializeField] private float fireRate;
-
-
-    [Header("Is Clauses")] private bool isReloading;
-    [SerializeField] private bool isAutomatic;
-    [SerializeField] private bool hasInfiniteAmmo;
-    
-    private bool canFire = true;
-
-    private void Start()
+    public class BaseGun : MonoBehaviour
     {
-        currentMagazine = 10;
-    }
+        [Header("Important Things")] public Transform spawnPoint;
 
-    public void FeedStatsIntoGun(PlantInfo info)
-    {
-        maxAmmo = info.maxClipSize;
-        fireRate = info.bulletFireRate;
-        reloadTime = info.reloadTime;
-    }
+        [Header("Bullet")] public BaseBullet currentBullet;
 
 
-    public virtual void Shoot()
-    {
-        if (!canFire) return;
+        [Header("Base Stats")] [SerializeField]
+        private int maxAmmoPerClip;
 
-        Debug.Log("hello");
+        [SerializeField] private int currentMagazine;
+        [SerializeField] private int ammoInSack;
+        [SerializeField] private float reloadTime;
+        [SerializeField] private float fireRate;
 
-        Debug.Log(currentMagazine);
-        if (currentMagazine <= 0) return;
-        
-        Debug.Log("We gucci fam?");
-        currentMagazine--;
-        canFire = false;
+
+        [Header("Is Clauses")] private bool isReloading;
+        [SerializeField] private bool isAutomatic;
+        [SerializeField] private bool hasInfiniteAmmo;
+
+        private bool canFire = true;
+        private float totalReloadTime;
+        private Vector3 hitPoint;
+        private void Start()
+        {
+            currentMagazine = 10;
+            SpecificGunStart();
+        }
+
+        protected virtual void SpecificGunStart()
+        {
+            FeedStatsIntoGun(currentBullet.GetBulletInfo());
+        }
+
+        private void FeedStatsIntoGun(PlantInfo info)
+        {
+            maxAmmoPerClip = info.maxClipSize;
+            fireRate = info.gunFireRate;
+        }
+
+
+        public virtual void Shoot()
+        {
+            if (!canFire) return;
+
+            if (currentMagazine > 0)
+            {
+                currentMagazine--;
+                canFire = false;
+
+                //shoot a raycast from the middle of the screen
+
+
+                //rotate the bullet to face the hit point
+                var position = spawnPoint.position;
+                Instantiate(currentBullet, position,
+                    Quaternion.LookRotation(hitPoint - position));
+
+                if (IsAutomatic())
+                    StartCoroutine(CoolDown());
+            }
+            else
+            {
+                ReloadSequence(currentBullet.GetBulletInfo().gunReloadTime);
+            }
+        }
+
+
+        public void ReloadSequence(float timeToReload)
+        {
+            UIManager.Instance.ReloadGroupStatus(true, timeToReload);
+            isReloading = true;
+            reloadTime = timeToReload;
+            totalReloadTime = 0;
+        }
+
+
+        private void Update()
+        {
+         
+            var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
-        if (IsAutomatic())
-            StartCoroutine(CoolDown());
-    }
+            if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
+            {
+                hitPoint = hit.point;
+            }
 
-    private IEnumerator CoolDown()
-    {
-        yield return new WaitForSeconds(fireRate);
-        canFire = true;
-    }
+            //Developer's note: I wanna make this cleaner. It's NOT pretty
+            #region Reloading
+
+            if (!isReloading) return;
+            if (reloadTime > 0f)
+            {
+                reloadTime -= Time.deltaTime;
+                totalReloadTime += Time.deltaTime;
+                UIManager.Instance.FeedReloadTime(totalReloadTime);
+            }
+            else
+            {
+                if (!hasInfiniteAmmo)
+                {
+                    //get the difference between the current ammo and the max ammo
+                    var difference = maxAmmoPerClip - currentMagazine;
 
 
-    public bool IsAutomatic()
-    {
-        return isAutomatic;
-    }
+                    //If the player has enough ammo to reload
+                    if (ammoInSack >= maxAmmoPerClip)
+                    {
+                        ammoInSack -= difference;
+                        currentMagazine = maxAmmoPerClip;
+                    }
+                    else
+                    {
+                        currentMagazine = ammoInSack;
+                        ammoInSack = 0;
+                    }
+                }
+                else
+                {
+                    currentMagazine = maxAmmoPerClip;
+                }
+
+                isReloading = false;
+                UIManager.Instance.ReloadGroupStatus(false, 0);
+            }
+
+            #endregion
+        }
+
+        private IEnumerator CoolDown()
+        {
+            yield return new WaitForSeconds(fireRate);
+            canFire = true;
+        }
 
 
-    public void SetCanFire(bool value)
-    {
-        this.canFire = value;
-    }
+        public bool IsAutomatic()
+        {
+            return isAutomatic;
+        }
 
-    public bool CanFire()
-    {
-        return canFire;
+        public bool IsReloading()
+        {
+            return isReloading;
+        }
+
+
+        public void SetCanFire(bool value)
+        {
+            this.canFire = value;
+        }
+
+
+        public bool CanFire()
+        {
+            return canFire;
+        }
+
+
+      
     }
 }

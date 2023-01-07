@@ -15,10 +15,11 @@ MonoBehaviour:
   PlantName: 
   GrowTime: 0
   plantModel: {fileID: 0}
-  plantBullet: {fileID: 0}
   bulletSpeed: 15
   bulletDamage: 1
   bulletLifeTime: 5
-  bulletFireRate: 0.35
-  bulletSpread: 0
+  isAutomatic: 0
+  gunFireRate: 1
+  gunBulletSpread: 0
   maxClipSize: 15
+  gunReloadTime: 4

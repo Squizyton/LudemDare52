@@ -9,16 +9,13 @@ public class PlantInfo : ScriptableObject
     public string PlantName;
     public float GrowTime;
     public GameObject plantModel;
-    
-    
     [Header("Bullet Info")]
-    public GameObject plantBullet;
-
-    public float reloadTime;
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletLifeTime;
-    public float bulletFireRate;
-    public float bulletSpread;
+    [Header("Gun Info")] public bool isAutomatic;
+    public float gunFireRate;
+    public float gunBulletSpread;
     public int maxClipSize;
+    public float gunReloadTime;
 }
