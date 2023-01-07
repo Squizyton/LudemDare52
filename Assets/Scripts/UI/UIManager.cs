@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Weapon Related Things")] [SerializeField]
+    private CanvasGroup reloadGroup;
+    private Slider reloadSlider;
+
+
+    #region Reload
+
+    public void ReloadGroupStatus(bool value, float reloadTime)
     {
-        
+        reloadGroup.alpha = value ? 1 : 0;
+        reloadSlider.value = 0;
+        reloadSlider.maxValue = reloadTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FeedReloadTime(float time)
     {
-        
+        reloadSlider.value = time;
     }
+
+    #endregion
 }
