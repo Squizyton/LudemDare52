@@ -98,6 +98,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""54610a63-9b6c-496f-ac9a-6bfd70ee8daf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,7 +170,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""6554c431-fa42-4d2e-8ea8-b375fced7109"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=5,y=5)"",
                     ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -320,6 +329,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""ConvertToBullets"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b418c4e-3977-4dd6-81b1-88917ec5ff7f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac5f2894-c2a9-47ee-9a4c-e8fab144b070"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -328,12 +359,44 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             ""name"": ""Desktop"",
             ""bindingGroup"": ""Desktop"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         },
         {
             ""name"": ""Controller"",
             ""bindingGroup"": ""Controller"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -347,6 +410,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Harvest = m_Player.FindAction("Harvest", throwIfNotFound: true);
         m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -414,6 +478,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Harvest;
     private readonly InputAction m_Player_ConvertToBullets;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -426,6 +491,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Harvest => m_Wrapper.m_Player_Harvest;
         public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -459,6 +525,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ConvertToBullets.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
                 @ConvertToBullets.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
                 @ConvertToBullets.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -487,6 +556,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ConvertToBullets.started += instance.OnConvertToBullets;
                 @ConvertToBullets.performed += instance.OnConvertToBullets;
                 @ConvertToBullets.canceled += instance.OnConvertToBullets;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -519,5 +591,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnHarvest(InputAction.CallbackContext context);
         void OnConvertToBullets(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

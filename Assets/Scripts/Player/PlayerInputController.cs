@@ -15,6 +15,7 @@ public class PlayerInputController : MonoBehaviour
         playerControls = new PlayerControls();
         playerControls.Player.Shoot.performed += ctx => Shoot();
         playerControls.Player.Shoot.canceled += ctx => StopShoot();
+        playerControls.Player.Reload.performed += ctx => OnReload();
         playerControls.Enable();
     }
 
@@ -28,17 +29,18 @@ public class PlayerInputController : MonoBehaviour
 
     private void Update()
     {
-
+        if (!isShooting) return;
+        
+    
+        //TODO: These two are redundant. Fix it.
+        if (!PlayerInventory.Instance.currentActiveGun.IsReloading()) return;    
         var gunController = PlayerInventory.Instance.currentActiveGun;
-        
-        
-        if (gunController.IsAutomatic() && isShooting)
+
+        if (gunController.IsAutomatic())
         {
-            Debug.Log("Gun is automatic and is shooting");
             gunController.Shoot();
-        }else if (gunController.CanFire() && isShooting)
+        }else if (gunController.CanFire())
         {
-            Debug.Log("Semi Automatic");
             gunController.Shoot();
             gunController.SetCanFire(false);
         }
@@ -55,5 +57,16 @@ public class PlayerInputController : MonoBehaviour
 
         isShooting = false;
     }
+    
+    private void OnReload()
+    {
+        
+        
+        var gunController = PlayerInventory.Instance.currentActiveGun;
+        
+        if(gunController.IsReloading()) return;
+        gunController.ReloadSequence(gunController.currentBullet.GetBulletInfo().gunReloadTime);
+    }
+    
     #endregion
 }

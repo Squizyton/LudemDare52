@@ -9,11 +9,12 @@ public class BaseGun : MonoBehaviour
 {
     [Header("Important Things")] public Transform spawnPoint;
 
-    [Header("Bullet")] [SerializeField] private BaseBullet currentBullet;
+    [Header("Bullet")] public BaseBullet currentBullet;
 
 
-    [FormerlySerializedAs("maxAmmo")] [Header("Base Stats")] [SerializeField]
-    private int maxAmmoPerClick;
+    [Header("Base Stats")] [SerializeField]
+    private int maxAmmoPerClip;
+
     [SerializeField] private int currentMagazine;
     [SerializeField] private int ammoInSack;
     [SerializeField] private float reloadTime;
@@ -23,8 +24,9 @@ public class BaseGun : MonoBehaviour
     [Header("Is Clauses")] private bool isReloading;
     [SerializeField] private bool isAutomatic;
     [SerializeField] private bool hasInfiniteAmmo;
-    
+
     private bool canFire = true;
+    private float totalReloadTime;
 
     private void Start()
     {
@@ -39,25 +41,20 @@ public class BaseGun : MonoBehaviour
 
     private void FeedStatsIntoGun(PlantInfo info)
     {
-        maxAmmoPerClick = info.maxClipSize;
+        maxAmmoPerClip = info.maxClipSize;
         fireRate = info.gunFireRate;
-        reloadTime = info.gunReloadTime;
     }
 
 
     public virtual void Shoot()
     {
         if (!canFire) return;
-
-        Debug.Log("hello");
-
-        Debug.Log(currentMagazine);
+      
         if (currentMagazine > 0)
         {
-            Debug.Log("We gucci fam?");
             currentMagazine--;
             canFire = false;
-            
+
             //Rotate the bullet to the correct direction
             var bullet = Instantiate(currentBullet, spawnPoint.position, spawnPoint.rotation);
 
@@ -67,14 +64,63 @@ public class BaseGun : MonoBehaviour
         }
         else
         {
-            ReloadSequence();
+            ReloadSequence(currentBullet.GetBulletInfo().gunReloadTime);
         }
     }
 
 
-    private void ReloadSequence()
+    public void ReloadSequence(float timeToReload)
     {
-        Debug.Log("Reloading");
+        UIManager.Instance.ReloadGroupStatus(true, timeToReload);
+        isReloading = true;
+        reloadTime = timeToReload;
+        totalReloadTime = 0;
+    }
+
+
+    private void Update()
+    {
+        //Developer's note: I wanna make this cleaner. It's NOT pretty
+
+        #region Reloading
+
+        if (!isReloading) return;
+        if (reloadTime > 0f)
+        {
+            reloadTime -= Time.deltaTime;
+            totalReloadTime += Time.deltaTime;
+            UIManager.Instance.FeedReloadTime(totalReloadTime);
+        }
+        else
+        {
+            if (!hasInfiniteAmmo)
+            {
+                //get the difference between the current ammo and the max ammo
+                var difference = maxAmmoPerClip - currentMagazine;
+
+
+                //If the player has enough ammo to reload
+                if (ammoInSack >= maxAmmoPerClip)
+                {
+                    ammoInSack -= difference;
+                    currentMagazine = maxAmmoPerClip;
+                }
+                else
+                {
+                    currentMagazine = ammoInSack;
+                    ammoInSack = 0;
+                }
+            }
+            else
+            {
+                currentMagazine = maxAmmoPerClip;
+            }
+            
+            isReloading = false;
+            UIManager.Instance.ReloadGroupStatus(false, 0);
+        }
+
+        #endregion
     }
 
     private IEnumerator CoolDown()
@@ -89,11 +135,17 @@ public class BaseGun : MonoBehaviour
         return isAutomatic;
     }
 
+    public bool IsReloading()
+    {
+        return isReloading;
+    }
+
 
     public void SetCanFire(bool value)
     {
         this.canFire = value;
     }
+
 
     public bool CanFire()
     {

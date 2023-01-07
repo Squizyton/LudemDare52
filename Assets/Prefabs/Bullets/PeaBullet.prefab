@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8221742896767587145}
   - component: {fileID: 8221742896767587148}
   - component: {fileID: 6302676976050844464}
+  - component: {fileID: 1531071187805719236}
   m_Layer: 0
   m_Name: PeaBullet
   m_TagString: Untagged
@@ -153,3 +154,16 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &1531071187805719236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221742896767587147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a620fcb6c408b4b8002983b46f4aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 5

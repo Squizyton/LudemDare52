@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,17 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    
     [Header("Weapon Related Things")] [SerializeField]
     private CanvasGroup reloadGroup;
-    private Slider reloadSlider;
+    [SerializeField]private Slider reloadSlider;
+
+    private void Awake()
+    {
+        Instance = this;
+      
+    }
 
 
     #region Reload

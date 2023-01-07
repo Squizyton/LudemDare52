@@ -59,14 +59,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (Physics.Raycast(transform.position, Vector3.down, RaycastDistance, groundLayer))
+            if (!Physics.Raycast(transform.position, Vector3.down, RaycastDistance, groundLayer)) return;
+            
+            if (!canJump)
             {
-                if (!canJump)
-                {
-                    PlayerLandSFX();
-                }
-                canJump = true;
+                PlayerLandSFX();
             }
+            canJump = true;
         }
     }
 
