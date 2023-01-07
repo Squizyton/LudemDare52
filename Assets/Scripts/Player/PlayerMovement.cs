@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
     private bool sprinting;
     private float currentSpeed;
 
+    private bool isWalking;
+
+    private FMOD.Studio.EventInstance FMODPlayerWalk;
+
     private void Start()
     {
         controls = new PlayerControls();
@@ -85,10 +89,14 @@ public class PlayerMovement : MonoBehaviour
         var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
         //Set the velocity of the player based on the velocity * transform.foward
         rb.velocity = transform.TransformDirection(playerVelocity);
-        if(rb.velocity.x != 0 || rb.velocity.z != 0)
+
+        /*
+        if (rb.velocity.x != 0 || rb.velocity.z != 0)
         {
             PlayerMoveSFX();
         }
+        else
+            PlayerStopMoveSFX(); */
     }
 
     private void OnDrawGizmos()
@@ -97,14 +105,26 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawRay(transform.position, Vector3.down * RaycastDistance);
     }
 
-    
+
     private void PlayerMoveSFX()
     {
+        //play
+        if (!isWalking)
+        {
+            FMODPlayerWalk.start();
+            isWalking = true;
+        }
         return;
     }
 
-    private void PlayerSprintSFX()
+    private void PlayerStopMoveSFX()
     {
+        //stop
+        if (isWalking)
+        {
+            FMODPlayerWalk.release();
+            isWalking = false;
+        }
         return;
     }
 
@@ -119,4 +139,24 @@ public class PlayerMovement : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
         return;
     }
+
+
+    /* private void CheckSurfaceMaterial()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distance))
+        {
+            RaycastReturn = hit.collider.gameObject.name;
+            FoundObject = GameObject.Find(RaycastReturn);
+            if (FoundObject.TryGetComponent(out ImpactSoundMaterial soundMaterial))
+            {
+                soundMaterial.CheckMaterial(gameObject);
+            }
+            else
+            {
+                Debug.Log($"Object {FoundObject} doesn't have <b>ImpactSoundMaterial</b> on self!");
+            }
+        }
+
+    }
+    */
 }
