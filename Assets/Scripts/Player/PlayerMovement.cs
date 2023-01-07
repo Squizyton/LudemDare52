@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Movement.canceled += GetMovement;
         controls.Player.Sprint.performed += GetSprint;
         controls.Player.Sprint.canceled += GetSprint;
-        
         controls.Enable();
     }
 
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void GetSprint(InputAction.CallbackContext context)
     {
+        Debug.Log(context.ReadValueAsButton());
         sprinting = context.ReadValueAsButton();
     }
     
@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         if (!canJump) return;
+        
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         PlayerJumpSFX();
         canJump = false;

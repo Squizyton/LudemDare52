@@ -7,17 +7,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private static PlayerInventory _instance;
-    public static PlayerInventory Instance { get { return _instance;  } }
+    public static PlayerInventory Instance { get; private set; }
+
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            _instance = this;
+            Instance = this;
         }
     }
 
@@ -30,8 +30,8 @@ public class PlayerInventory : MonoBehaviour
     
     
     /// TODO: Switch these from GameObject's to Gun Class when ready
-    [SerializeField] public GameObject currentActiveGun;
-    [SerializeField] private GameObject[] guns;
+    [SerializeField] public BaseGun currentActiveGun;
+    [SerializeField] private BaseGun[] guns;
     [SerializeField] private int currentGun;
 
     
@@ -41,16 +41,15 @@ public class PlayerInventory : MonoBehaviour
         controls = new PlayerControls();
         controls.Player.WeaponSwapping.performed += ctx => WeaponSwap();
         //Set the Peashooter to the first gun
-        currentActiveGun = guns[0];
-        
+
         controls.Enable();
     }
     private void WeaponSwap()
     {
         currentGun = (currentGun + 1) % guns.Length;
-        currentActiveGun.SetActive(false);
+        currentActiveGun.gameObject.SetActive(false);
         currentActiveGun = guns[currentGun];
-        currentActiveGun.SetActive(true);
+        currentActiveGun.gameObject.SetActive(true);
     }
 
     

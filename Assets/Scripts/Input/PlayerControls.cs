@@ -34,7 +34,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -74,8 +74,26 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""2511e800-b170-46d1-a76a-7733ab3db726"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Harvest"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d97147f-acab-4534-bda0-574359d5da5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ConvertToBullets"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dba77ff-e752-485f-a6bb-6a7b3ae09227"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -86,7 +104,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""bcd5c86b-4ddc-418b-9f4e-9056c038b2fc"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Desktop"",
@@ -258,6 +276,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b99a901e-15c4-4c27-907f-f6d6611e6172"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Harvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b2e8703-13be-4135-85f9-3d2987a12745"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Harvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a629a776-c0f5-4d37-8dca-f6bb8a25f2d5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConvertToBullets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d429b34d-d72d-4811-b760-be4b78ee3f5e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConvertToBullets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +345,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_WeaponSwapping = m_Player.FindAction("WeaponSwapping", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Harvest = m_Player.FindAction("Harvest", throwIfNotFound: true);
+        m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -348,6 +412,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_WeaponSwapping;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_Harvest;
+    private readonly InputAction m_Player_ConvertToBullets;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -358,6 +424,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @WeaponSwapping => m_Wrapper.m_Player_WeaponSwapping;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @Harvest => m_Wrapper.m_Player_Harvest;
+        public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -385,6 +453,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Harvest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
+                @Harvest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
+                @Harvest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
+                @ConvertToBullets.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @ConvertToBullets.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @ConvertToBullets.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -407,6 +481,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Harvest.started += instance.OnHarvest;
+                @Harvest.performed += instance.OnHarvest;
+                @Harvest.canceled += instance.OnHarvest;
+                @ConvertToBullets.started += instance.OnConvertToBullets;
+                @ConvertToBullets.performed += instance.OnConvertToBullets;
+                @ConvertToBullets.canceled += instance.OnConvertToBullets;
             }
         }
     }
@@ -437,5 +517,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnWeaponSwapping(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnHarvest(InputAction.CallbackContext context);
+        void OnConvertToBullets(InputAction.CallbackContext context);
     }
 }
