@@ -90,24 +90,26 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawRay(transform.position, Vector3.down * RaycastDistance);
     }
 
-    //Note: Do these need to be public?
-    public void PlayerMoveSFX()
+    
+    private void PlayerMoveSFX()
     {
         return;
     }
 
-    public void PlayerSprintSFX()
+    private void PlayerSprintSFX()
     {
         return;
     }
 
-    public void PlayerJumpSFX()
+    private void PlayerJumpSFX()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
         return;
     }
 
-    public void PlayerLandSFX()
+    private void PlayerLandSFX()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
         return;
     }
 }
