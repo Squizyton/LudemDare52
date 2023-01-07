@@ -9,14 +9,20 @@ public class PlotCell : MonoBehaviour
     private int value;
     private bool isMouseHovering;
     private float timeElapsed;
-    [SerializeField] private float timeToGrow = 1.5f;
+    private float timeToGrow;
     [SerializeField] private TextMeshPro mesh;
+    private GameObject plantModel;
 
-
+    public void plant(PlantInfo plant)
+    {
+        plantModel = plant.plantModel;
+        timeToGrow = plant.GrowTime;
+        value = 1;
+    }
 
     private void Update()
     {
-        if(value != 0)
+        if(value != 1)
         {
             return;
         }
