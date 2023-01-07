@@ -1050,6 +1050,7 @@ GameObject:
   - component: {fileID: 869936248}
   - component: {fileID: 869936249}
   - component: {fileID: 869936250}
+  - component: {fileID: 869936251}
   m_Layer: 0
   m_Name: Bean
   m_TagString: Untagged
@@ -1209,6 +1210,18 @@ MonoBehaviour:
   - {fileID: 1859679125}
   - {fileID: 1423759973}
   currentGun: 0
+--- !u!114 &869936251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869936243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8067e3584697e3409b6eadebb19833b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &875532779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,6 +2403,7 @@ GameObject:
   - component: {fileID: 1859679129}
   - component: {fileID: 1859679128}
   - component: {fileID: 1859679127}
+  - component: {fileID: 1859679130}
   m_Layer: 0
   m_Name: Gun1
   m_TagString: Untagged
@@ -2483,6 +2497,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859679125}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1859679130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859679125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eea11f61d57aa4580358beb47dcab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAmmo: 0
+  currentAmmo: 0
+  ammoInSack: 0
+  reloadTime: 0
+  fireRate: 0
+  isReloading: 0
+  isAutomatic: 0
+  hasInfiniteAmmo: 0
 --- !u!1 &1866436630
 GameObject:
   m_ObjectHideFlags: 0

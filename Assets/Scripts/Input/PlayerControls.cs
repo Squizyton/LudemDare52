@@ -71,6 +71,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""2511e800-b170-46d1-a76a-7733ab3db726"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,10 +218,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9d11783f-f8ad-474f-8f0e-858a2a9e251b"",
-                    ""path"": ""<Mouse>/backButton"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Desktop"",
+                    ""groups"": ""Controller"",
                     ""action"": ""WeaponSwapping"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -220,11 +229,33 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fe8ef767-34a4-4088-9661-e6ebcf8e41fa"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Mouse>/Scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""WeaponSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""440fe532-8fab-47bf-9e9c-9c80483e6ec0"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c445dd89-9e09-466a-a1b4-701959a1eb6e"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -251,6 +282,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_WeaponSwapping = m_Player.FindAction("WeaponSwapping", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +347,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_WeaponSwapping;
+    private readonly InputAction m_Player_Sprint;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -324,6 +357,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @WeaponSwapping => m_Wrapper.m_Player_WeaponSwapping;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -348,6 +382,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WeaponSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
                 @WeaponSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
                 @WeaponSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +404,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WeaponSwapping.started += instance.OnWeaponSwapping;
                 @WeaponSwapping.performed += instance.OnWeaponSwapping;
                 @WeaponSwapping.canceled += instance.OnWeaponSwapping;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -396,5 +436,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnWeaponSwapping(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

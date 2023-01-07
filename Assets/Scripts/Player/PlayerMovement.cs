@@ -9,20 +9,26 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls controls;
 
 
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float runSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 5f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private LayerMask groundLayer;
-
+    [SerializeField] private float RaycastDistance = 0.5f;
+    
     private Vector2 movePos;
     private bool canJump;
-    [SerializeField] private float RaycastDistance = 0.5f;
+    private bool sprinting;
+    private float currentSpeed;
 
     private void Start()
     {
         controls = new PlayerControls();
         controls.Player.Movement.performed += GetMovement;
         controls.Player.Movement.canceled += GetMovement;
+        controls.Player.Sprint.performed += GetSprint;
+        controls.Player.Sprint.canceled += GetSprint;
+        
         controls.Enable();
     }
 
@@ -30,7 +36,12 @@ public class PlayerMovement : MonoBehaviour
     {
         movePos = context.ReadValue<Vector2>();
     }
-
+    private void GetSprint(InputAction.CallbackContext context)
+    {
+        sprinting = context.ReadValueAsButton();
+    }
+    
+    
     private void Jump()
     {
         if (!canJump) return;
@@ -60,10 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Move Player based movePos
+        currentSpeed = sprinting ? sprintSpeed : runSpeed;
 
         //Get the velocity of the player
-        var playerVelocity = new Vector3(movePos.x * speed, rb.velocity.y, movePos.y * speed);
+        var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
         //Set the velocity of the player based on the velocity * transform.foward
         rb.velocity = transform.TransformDirection(playerVelocity);
         if(rb.velocity.x != 0 || rb.velocity.z != 0)
