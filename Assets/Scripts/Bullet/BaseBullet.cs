@@ -48,7 +48,7 @@ public class BaseBullet : MonoBehaviour
 
    protected virtual void OnHit(Transform hit)
    {
-        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
+        //FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
         
         hit.TryGetComponent(out BasicEnemy enemy);
         
@@ -58,9 +58,14 @@ public class BaseBullet : MonoBehaviour
         }
         
         Destroy(gameObject);
-   }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
+        Debug.Log("bullet hits");
+    }
 
-   private void OnDrawGizmos()
+    private void OnDrawGizmos()
    {
          Gizmos.color = Color.red;
          Gizmos.DrawRay(transform.position, transform.forward * bulletRaycastLength);
