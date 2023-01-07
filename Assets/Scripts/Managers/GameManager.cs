@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentScore;
     [SerializeField] public int currentKills;
 
+
+    [Header("Game Settings")] public Transform currentTarget;
+    
     //Timer Stats
     [Header("Timers")]
     [SerializeField]private float timeTillNextWave;
@@ -42,8 +45,12 @@ public class GameManager : MonoBehaviour
         switch (currentMode)
         {
             case CurrentMode.FPS:
+                ChangeMode(CurrentMode.FPS);
                 //Increment total time alive
                 timeAlive += Time.deltaTime;
+                break;
+            case CurrentMode.TopDown:
+                ChangeMode(CurrentMode.TopDown);
                 break;
         }
     }
@@ -62,6 +69,7 @@ public class GameManager : MonoBehaviour
         
         //Tell Camera Manager to change the camera mode
         camManager.ChangeMode(newMode);
+        uiManager.ChangeModeUI(newMode);
     }
     public enum CurrentMode
     {

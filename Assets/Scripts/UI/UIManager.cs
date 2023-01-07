@@ -16,11 +16,19 @@ namespace UI
         [Header("Weapon Related Things")] [SerializeField]
         private CanvasGroup reloadGroup;
         [SerializeField]private Slider reloadSlider;
+        private PlayerInventory playerInventory;
 
         private void Awake()
         {
             Instance = this;
-      
+
+            //TODO: Change this to something more performant
+            GameObject playerObj = FindObjectOfType<PlayerInventory>().gameObject;
+            playerObj.TryGetComponent(typeof(PlayerInventory), out Component inventory);
+            if (inventory)
+            {
+                playerInventory = (PlayerInventory)inventory;
+            }
         }
         
         #region Mode Changing
@@ -32,9 +40,11 @@ namespace UI
                 case GameManager.CurrentMode.FPS:
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
+                    topDownCanvasGroup.interactable = false;
                     break;
                 case GameManager.CurrentMode.TopDown:
                     topDownCanvasGroup.alpha = 1;
+                    topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
                     break;
                 default:
@@ -59,6 +69,15 @@ namespace UI
             reloadSlider.value = time;
         }
 
+        #endregion
+
+        #region SeedMenu
+        public void SelectSeeds(string seedName)
+        {
+            playerInventory.SetSeed(seedName);
+            Debug.Log("playerInventory set to " + seedName);
+            Debug.Log(playerInventory.SelectedSeed);
+        }
         #endregion
     }
 }
