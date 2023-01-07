@@ -1,6 +1,8 @@
+using FMOD.Studio;
 using System.Collections;
 using UI;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Guns
 {
@@ -33,6 +35,21 @@ namespace Guns
             SpecificGunStart();
         }
 
+        private void OnEnable()
+        {
+            if (isAutomatic)
+            {
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("isAutomatic", "Automatic");
+                Debug.Log("Automatic");
+            }
+            else
+            {
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("isAutomatic", "SingleFire");
+                Debug.Log("SingleFire");
+            }
+
+        }
+
         protected virtual void SpecificGunStart()
         {
             FeedStatsIntoGun(currentBullet.GetBulletInfo());
@@ -56,6 +73,8 @@ namespace Guns
 
                 //shoot a raycast from the middle of the screen
 
+
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Player_Gun");   //FMOD gun test
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;

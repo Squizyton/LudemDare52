@@ -1010,6 +1010,18 @@ Transform:
   m_Father: {fileID: 1668949290}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716433817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3970727370273614930, guid: 8f747239faf8c95429cec780631f8feb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3970727368775704520}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eea11f61d57aa4580358beb47dcab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &727677667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3757,6 +3769,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1023133940194039136, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      propertyPath: guns.Array.data[0]
+      value: 
+      objectReference: {fileID: 716433817}
     - target: {fileID: 1023133940194039145, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       propertyPath: m_Name

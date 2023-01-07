@@ -53,7 +53,8 @@ public class PlayerInputController : MonoBehaviour
         if (gunController.IsAutomatic())
         {
             gunController.Shoot();
-        }else if (gunController.CanFire())
+        }
+        else if (gunController.CanFire())
         {
             gunController.Shoot();
             gunController.SetCanFire(false);
