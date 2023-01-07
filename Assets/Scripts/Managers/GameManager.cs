@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Header("Managers")] 
     [SerializeField]private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
-    
+    [SerializeField]private MonsterSpawner creditManager;
     //MOde
     [Header("Current Mode")]
     public CurrentMode currentMode;
@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentScore;
     [SerializeField] public int currentKills;
 
+    
+    
 
     [Header("Game Settings")] public Transform currentTarget;
-    
+    public int enemiesRemaining;
     //Timer Stats
     [Header("Timers")]
     [SerializeField]private float timeTillNextWave;
@@ -88,5 +90,22 @@ public class GameManager : MonoBehaviour
     public void FpsTest()
     {
         ChangeMode(CurrentMode.FPS);
+    }
+    
+    public void RoundEnded()
+    {
+        if (enemiesRemaining > 0) return;
+        //Have an action that automatically updates this
+        creditManager.availableCredits = 25 * currentWave;
+        StartCoroutine(StartWaveCountdown());
+    }
+    
+    private IEnumerator StartWaveCountdown()
+    {
+        yield return new WaitForSeconds(5);
+        currentWave++;
+        
+        //uiManager.UpdateWave(waveNumber);
+        creditManager.StartWave();
     }
 }

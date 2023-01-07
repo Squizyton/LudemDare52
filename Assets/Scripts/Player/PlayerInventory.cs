@@ -27,6 +27,7 @@ public class PlayerInventory : MonoBehaviour
     }
     [SerializeField] PlantInfo CornSeed;
     [SerializeField] PlantInfo PepperSeed;
+    
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     
@@ -43,6 +44,8 @@ public class PlayerInventory : MonoBehaviour
     private PlotCell selectedPlot;
     public PlantInfo SelectedSeed { get; set; }
 
+    
+    private int health = 100;
     public void Start()
     {
         controls = new PlayerControls();
@@ -52,6 +55,21 @@ public class PlayerInventory : MonoBehaviour
         //Set the Peashooter to the first gun
 
         controls.Enable();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("taking Damage");
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        //Lose Screen here
     }
 
     private void WeaponSwap()
@@ -137,7 +155,9 @@ public class PlayerInventory : MonoBehaviour
         }
         return false;
     }
-
+    
+    
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(typeof(PlotCell), out Component cell))
