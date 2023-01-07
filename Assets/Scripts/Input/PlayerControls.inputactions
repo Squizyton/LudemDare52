@@ -12,7 +12,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
@@ -52,8 +52,26 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "2511e800-b170-46d1-a76a-7733ab3db726",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Harvest",
+                    "type": "Button",
+                    "id": "4d97147f-acab-4534-bda0-574359d5da5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ConvertToBullets",
+                    "type": "Button",
+                    "id": "8dba77ff-e752-485f-a6bb-6a7b3ae09227",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -64,7 +82,7 @@
                 {
                     "name": "",
                     "id": "bcd5c86b-4ddc-418b-9f4e-9056c038b2fc",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
@@ -234,6 +252,50 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b99a901e-15c4-4c27-907f-f6d6611e6172",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Harvest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b2e8703-13be-4135-85f9-3d2987a12745",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Harvest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a629a776-c0f5-4d37-8dca-f6bb8a25f2d5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConvertToBullets",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d429b34d-d72d-4811-b760-be4b78ee3f5e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConvertToBullets",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
