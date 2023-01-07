@@ -13,10 +13,12 @@ public class PlantInfo : ScriptableObject
     
     [Header("Bullet Info")]
     public GameObject plantBullet;
+
+    public float reloadTime;
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletLifeTime;
     public float bulletFireRate;
     public float bulletSpread;
-    public float maxClipSize;
+    public int maxClipSize;
 }

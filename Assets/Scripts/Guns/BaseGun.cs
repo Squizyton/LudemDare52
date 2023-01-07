@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseGun : MonoBehaviour
 {
-   private Bullet currentBullet;
+   private BaseBullet currentBullet;
    
    
    [Header("Base Stats")] 
@@ -18,8 +18,16 @@ public class BaseGun : MonoBehaviour
    [SerializeField]private bool isReloading;
    [SerializeField]private bool isAutomatic;
    [SerializeField]private bool hasInfiniteAmmo;
-   
-   
-   
-   
+
+
+
+   public void FeedStatsIntoGun(PlantInfo info)
+   {
+      maxAmmo = info.maxClipSize;
+      fireRate = info.bulletFireRate;
+      reloadTime = info.reloadTime;
+   }
+
+
+
 }
