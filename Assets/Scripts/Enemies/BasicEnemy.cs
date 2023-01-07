@@ -47,6 +47,8 @@ public class BasicEnemy : MonoBehaviour
 
     protected void Update()
     {
+        Debug.Log("Called");
+        
         var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
 
         switch (state)
