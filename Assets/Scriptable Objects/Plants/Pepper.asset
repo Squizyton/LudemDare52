@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58cc38da8b34ee449bec9250e3f0781, type: 3}
+  m_Name: Pepper
+  m_EditorClassIdentifier: 
+  PlantName: pepper
+  GrowTime: 5
+  plantModel: {fileID: 5529012603557650017, guid: 255847d3103ed82449069b4145a75c4e,
+    type: 3}
+  bulletSpeed: 3
+  bulletDamage: 2
+  bulletLifeTime: 1
+  isAutomatic: 0
+  gunFireRate: 1
+  gunBulletSpread: 1
+  maxClipSize: 1
+  gunReloadTime: 1

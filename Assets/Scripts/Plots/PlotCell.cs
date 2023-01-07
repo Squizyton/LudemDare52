@@ -23,6 +23,7 @@ namespace Plots
         {
             if (!playerInventory.SelectedSeed) return;
             if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
+            mesh.color = Color.white;
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
             plantModel = Instantiate(plantInfo.plantModel, this.transform.position, Quaternion.identity);
@@ -53,7 +54,7 @@ namespace Plots
         {
             //TODO: Change this to something more performant
             player = FindObjectOfType<PlayerInventory>().gameObject;
-       
+            
         
             player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
             if(inventory)
@@ -64,8 +65,8 @@ namespace Plots
 
         private void Update()
         {
-            // Only grows in state 1
-            if(value != 1) return;
+            // Only grows in state 1 during first-person mode
+            if(value != 1 || GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
             // Growth
             timeElapsed += Time.deltaTime;
             if(timeElapsed > plantInfo.GrowTime)
@@ -99,7 +100,7 @@ namespace Plots
         private void OnMouseEnter()
         {
             isMouseHovering = true;
-            if (value != 0) return;
+            if (value != 0 || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
             mesh.color = Color.red;
         }
 
@@ -112,22 +113,18 @@ namespace Plots
 
         private void OnMouseDown()
         {
-            if (!isMouseHovering) return;
+            if (!isMouseHovering || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
             isSelected = true;
             mesh.color = Color.yellow;
         }
 
         private void OnMouseUp()
         {
-            if (!isSelected) return;
+            if (!isSelected || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
 
             if(value == 0)
             {
-                if (playerInventory.RemoveSeed(plantInfo))
-                {
-                    Plant();
-                    mesh.color = Color.white;
-                }
+                Plant();
             }
             mesh.text = value.ToString();
         }
