@@ -223,7 +223,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 5.17e-43, y: 1e-45, z: 1.02e-43, w: 6e-45}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 2.1e-44, w: 6.9418e-41}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -308,6 +308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4f5991b8c2ab74fa6f75efc8d2913d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fpsCanvasGroup: {fileID: 0}
+  topDownCanvasGroup: {fileID: 0}
   reloadGroup: {fileID: 727677669}
   reloadSlider: {fileID: 292667467}
 --- !u!4 &297047072
@@ -419,6 +421,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514400895 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1023133940194039138, guid: 8f747239faf8c95429cec780631f8feb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3970727368775704520}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20693570bf88e5040bd5c2751552802a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &706319276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -990,6 +1004,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   RaycastDistance: 1.15
+  movePos: {x: 0, y: 0}
+  canJump: 0
 --- !u!54 &869936249
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1690,6 +1706,31 @@ Transform:
   m_Father: {fileID: 798882174}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1434797610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1023133939988856935, guid: 8f747239faf8c95429cec780631f8feb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3970727368775704520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1434797612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434797610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6de97772f98d842867d7356820b3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 514400895}
+  speedMultiplier: 1
+  distanceMultiplier: 1
+  positionOffsetPlus: {x: 0.1, y: 0.05, z: 0.05}
+  positionOffsetMinus: {x: -0.1, y: 0.05, z: 0.05}
+  rotationOffsetPlus: {x: 0, y: 0, z: 0, w: 0}
+  rotationOffsetMinus: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1453035981
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,7 +2097,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 1.02e-43, w: 2.2e-44}
+  m_BoundingSphereOverride: {x: 4.5904e-41, y: -1.4942584e-25, z: 4.5904e-41, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2447,5 +2488,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1023133939988856935, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1434797612}
   m_SourcePrefab: {fileID: 100100000, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
