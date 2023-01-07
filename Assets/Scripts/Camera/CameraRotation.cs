@@ -46,8 +46,9 @@ namespace Camera
             //Clamp the rotation so the camera doesn't go upside down
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-
+            //Rotate the camera
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            //Rotate the player on the Y axis
             playerBody.Rotate(Vector3.up * mousePos.x);
         }
         

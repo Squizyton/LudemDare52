@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections;
+using Player;
 using UI;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -55,7 +56,7 @@ namespace Guns
             FeedStatsIntoGun(currentBullet.GetBulletInfo());
         }
 
-        private void FeedStatsIntoGun(PlantInfo info)
+        protected virtual void FeedStatsIntoGun(PlantInfo info)
         {
             maxAmmoPerClip = info.maxClipSize;
             fireRate = info.gunFireRate;
@@ -103,10 +104,13 @@ namespace Guns
         private void Update()
         {
          
+            //Shoot a ray from the middle of the screen
             var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
+            //If we hit something
             if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
             {
+                //Store the hit point
                 hitPoint = hit.point;
             }
 
