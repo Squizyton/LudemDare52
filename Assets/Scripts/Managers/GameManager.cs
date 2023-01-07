@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         if(Instance) Destroy(this); else Instance = this;
         
         
-        
+        ChangeMode(CurrentMode.FPS);
     }
 
     // Update is called once per framez
