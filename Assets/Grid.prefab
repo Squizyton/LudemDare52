@@ -47,5 +47,6 @@ MonoBehaviour:
   width: 2
   height: 2
   cellSize: 10
-  textMeshPrefab: {fileID: 4479538889850768153, guid: 8cc4dec3a3e289a4dbfc3f1d2f3c2718,
+  textMeshPrefab: {fileID: 9077586244926390025, guid: 8cc4dec3a3e289a4dbfc3f1d2f3c2718,
     type: 3}
+  playerInventory: {fileID: 0}

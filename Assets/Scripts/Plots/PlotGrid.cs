@@ -8,7 +8,8 @@ public class PlotGrid : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private float cellSize;
-    [SerializeField] private GameObject textMeshPrefab;
+    [SerializeField] private PlotCell textMeshPrefab;
+    [SerializeField] private PlayerInventory playerInventory;
     private int[,] array;
     // Start is called before the first frame update
     void Start()
