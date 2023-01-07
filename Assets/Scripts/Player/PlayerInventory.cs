@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Guns;
+using Plots;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,7 +31,7 @@ public class PlayerInventory : MonoBehaviour
     
     //[SerializeField]Dictionary<BulletStuff, int> bulletInventory = new Dictionary<BulletStuff, int>();
     
-    PlayerControls controls;
+    private PlayerControls controls;
     
     
     /// TODO: Switch these from GameObject's to Gun Class when ready
@@ -62,7 +64,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (selectedPlot)
         {
-            selectedPlot.harvestAmmo();
+            selectedPlot.HarvestAmmo();
             selectedPlot = null;
         }
     }
@@ -71,11 +73,14 @@ public class PlayerInventory : MonoBehaviour
     {
         if(selectedPlot)
         {
-            PlantInfo harvested = selectedPlot.harvestSeeds();
+            PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
             AddSeed(harvested);
             selectedPlot = null;
         }
+        
+        
+        
     }
     
     public void AddSeed(PlantInfo seed,int amount = 1)

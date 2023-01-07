@@ -54,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
+        //If we are in top down mode, don't allow anyting else to happen
+        if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
+        
         if (controls.Player.Jump.triggered)
         {
             Jump();
@@ -72,6 +76,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
+        
         currentSpeed = sprinting ? sprintSpeed : runSpeed;
 
         //Get the velocity of the player
