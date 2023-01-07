@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58cc38da8b34ee449bec9250e3f0781, type: 3}
-  m_Name: CornInfo
+  m_Name: Pea
   m_EditorClassIdentifier: 
-  PlantName: corn
-  GrowTime: 50
-  plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
-    type: 3}
+  PlantName: 
+  GrowTime: 0
+  plantModel: {fileID: 0}
   plantBullet: {fileID: 0}
-  bulletSpeed: 5
-  bulletDamage: 0
-  bulletLifeTime: 0
-  bulletFireRate: 0
+  bulletSpeed: 15
+  bulletDamage: 1
+  bulletLifeTime: 5
+  bulletFireRate: 0.35
   bulletSpread: 0
-  maxClipSize: 0
+  maxClipSize: 15

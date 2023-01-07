@@ -209,10 +209,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9d11783f-f8ad-474f-8f0e-858a2a9e251b"",
-                    ""path"": ""<Mouse>/backButton"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Desktop"",
+                    ""groups"": ""Controller"",
                     ""action"": ""WeaponSwapping"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -220,7 +220,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fe8ef767-34a4-4088-9661-e6ebcf8e41fa"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Mouse>/Scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
