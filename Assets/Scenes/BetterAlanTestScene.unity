@@ -1600,7 +1600,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CornSeed: {fileID: 0}
-  PepperSeed: {fileID: 0}
   currentActiveGun: {fileID: 1859679130}
   guns:
   - {fileID: 1859679125}

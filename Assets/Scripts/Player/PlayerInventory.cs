@@ -26,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
         seedInventory = new Dictionary<PlantInfo, int>();
     }
     [SerializeField] PlantInfo CornSeed;
+    [SerializeField] PlantInfo PepperSeed;
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     
@@ -40,6 +41,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int currentGun;
 
     private PlotCell selectedPlot;
+    public PlantInfo SelectedSeed { get; set; }
 
     public void Start()
     {
@@ -82,7 +84,13 @@ public class PlayerInventory : MonoBehaviour
         
         
     }
-    
+
+    public void SetSeed(string seedName)
+    {
+        PlantInfo seedToSelect = seedInventory.FirstOrDefault(i => (i.Key.PlantName == seedName)).Key;
+        if (seedToSelect) SelectedSeed = seedToSelect;
+    }
+
     public void AddSeed(PlantInfo seed,int amount = 1)
     {
         if (seedInventory.ContainsKey(seed))
@@ -134,12 +142,21 @@ public class PlayerInventory : MonoBehaviour
     public void AddTestSeed()
     {
       AddSeed(CornSeed,19);
-        Debug.Log(CornSeed);
-        Debug.Log(seedInventory[CornSeed]);
+      AddSeed(PepperSeed, 2);
     }
     [ContextMenu("Check Dictionary")]
     public void CheckDictionarySize()
     {
         Debug.Log("Dictionary Size: " +seedInventory.Count);
+    }
+    [ContextMenu("Check Peppercount")]
+    public void CheckPepperCount()
+    {
+        Debug.Log("Pepper count: " + seedInventory[PepperSeed]);
+    }
+    [ContextMenu("Check Corncount")]
+    public void CheckCornCount()
+    {
+        Debug.Log("Corn count: " + seedInventory[CornSeed]);
     }
 }

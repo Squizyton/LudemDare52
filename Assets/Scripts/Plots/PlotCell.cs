@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Plots
 {
@@ -18,12 +19,15 @@ namespace Plots
         private PlayerInventory playerInventory;
         private GameObject plantModel;
 
-        public void Plant(PlantInfo plant)
+        public void Plant()
         {
-            plantInfo = plant;
+            if (!playerInventory.SelectedSeed) return;
+            if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
+            mesh.color = Color.white;
+            plantInfo = playerInventory.SelectedSeed;
             value = 1;
             plantModel = Instantiate(plantInfo.plantModel, this.transform.position, Quaternion.identity);
-        }
+    }
 
         public PlantInfo HarvestSeeds()
         {
@@ -32,8 +36,6 @@ namespace Plots
             mesh.text = value.ToString();
             mesh.color = Color.white;
             Destroy(plantModel);
-            Debug.Log("returning!");
-            Debug.Log(plantInfo.ToString());
             return plantInfo;
         }
 
@@ -52,7 +54,7 @@ namespace Plots
         {
             //TODO: Change this to something more performant
             player = FindObjectOfType<PlayerInventory>().gameObject;
-       
+            
         
             player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
             if(inventory)
@@ -63,8 +65,8 @@ namespace Plots
 
         private void Update()
         {
-            // Only grows in state 1
-            if(value != 1) return;
+            // Only grows in state 1 during first-person mode
+            if(value != 1 || GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
             // Growth
             timeElapsed += Time.deltaTime;
             if(timeElapsed > plantInfo.GrowTime)
@@ -98,7 +100,7 @@ namespace Plots
         private void OnMouseEnter()
         {
             isMouseHovering = true;
-            if (value != 0) return;
+            if (value != 0 || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
             mesh.color = Color.red;
         }
 
@@ -111,26 +113,18 @@ namespace Plots
 
         private void OnMouseDown()
         {
-            if (!isMouseHovering) return;
+            if (!isMouseHovering || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
             isSelected = true;
             mesh.color = Color.yellow;
         }
 
         private void OnMouseUp()
         {
-            if (!isSelected) return;
+            if (!isSelected || GameManager.Instance.currentMode == GameManager.CurrentMode.FPS) return;
 
             if(value == 0)
             {
-                Debug.Log("WE PLANTIN");
-                Debug.Log(plantInfo.ToString());
-            
-                if (playerInventory.RemoveSeed(plantInfo))
-                {
-                    Debug.Log("THE SEED IS REMOVED. IT IS DONE.");
-                    Plant(plantInfo);
-                    mesh.color = Color.white;
-                }
+                Plant();
             }
             mesh.text = value.ToString();
         }
