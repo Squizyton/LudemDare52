@@ -46,7 +46,8 @@ public class BaseBullet : MonoBehaviour
 
    protected virtual void OnHit()
    {
-       Destroy(gameObject);
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
+        Destroy(gameObject);
    }
 
    private void OnDrawGizmos()
