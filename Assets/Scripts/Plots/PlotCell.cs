@@ -15,30 +15,32 @@ public class PlotCell : MonoBehaviour
     private bool isPlayerNear;
 
     private float timeElapsed; //Growth stuff/models
-    private float timeToGrow;
     [SerializeField] private TextMeshPro mesh;
-    [SerializeField] private PlantInfo CornInfo;
+    [SerializeField] private PlantInfo plantInfo;
+    [SerializeField] private GameObject player;
+    private PlayerInventory playerInventory;
     private GameObject plantModel;
 
     public void plant(PlantInfo plant)
     {
-        timeToGrow = plant.GrowTime;
+        plantInfo = plant;
         value = 1;
-        plantModel = Instantiate(plant.plantModel, this.transform.position, Quaternion.identity);
+        plantModel = Instantiate(plantInfo.plantModel, this.transform.position, Quaternion.identity);
     }
 
-    public void harvestSeeds()
+    public PlantInfo harvestSeeds()
     {
-        if(value == 2)
-        {
-            value = 0;
-            mesh.text = value.ToString();
-            mesh.color = Color.white;
-            Destroy(plantModel);
-        }
+        if(value != 2) return null;
+        value = 0;
+        mesh.text = value.ToString();
+        mesh.color = Color.white;
+        Destroy(plantModel);
+        Debug.Log("returning!");
+        Debug.Log(plantInfo.ToString());
+        return plantInfo;
     }
 
-    public void harvestAmmo()
+    public void harvestAmmo() //NOTE: Make me return plantinfo when ready, and compile it into bulletstuff
     {
         if (value == 2)
         {
@@ -49,24 +51,22 @@ public class PlotCell : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
+        if(inventory)
+        {
+            playerInventory = (PlayerInventory)inventory;
+        }
+    }
+
     private void Update()
     {
-        // Check if player is near and harvesting
-        if(value == 2 && isPlayerNear)
-        {
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                harvestAmmo();
-            }
-        }
         // Only grows in state 1
-        if(value != 1)
-        {
-            return;
-        }
+        if(value != 1) return;
         // Growth
         timeElapsed += Time.deltaTime;
-        if(timeElapsed > timeToGrow)
+        if(timeElapsed > plantInfo.GrowTime)
         {
             timeElapsed = 0;
             value = 2;
@@ -99,6 +99,7 @@ public class PlotCell : MonoBehaviour
     private void OnMouseEnter()
     {
         isMouseHovering = true;
+        if (value != 0) return;
         mesh.color = Color.red;
     }
 
@@ -111,29 +112,25 @@ public class PlotCell : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!isMouseHovering)
-        {
-            return;
-        }
+        if (!isMouseHovering) return;
         isSelected = true;
         mesh.color = Color.yellow;
     }
 
     private void OnMouseUp()
     {
-        if (!isSelected)
-        {
-            return;
-        }
+        if (!isSelected) return;
+
         if(value == 0)
         {
-            plant(CornInfo);
-            mesh.color = Color.white;
-        }
-        else if(value == 2)
-        {
-            harvestSeeds();
-            mesh.color = Color.red;
+            Debug.Log("WE PLANTIN");
+            Debug.Log(plantInfo.ToString());
+            if (playerInventory.RemoveSeed(plantInfo))
+            {
+                Debug.Log("THE SEED IS REMOVED. IT IS DONE.");
+                plant(plantInfo);
+                mesh.color = Color.white;
+            }
         }
         mesh.text = value.ToString();
     }

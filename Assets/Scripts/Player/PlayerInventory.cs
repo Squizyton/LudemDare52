@@ -20,7 +20,7 @@ public class PlayerInventory : MonoBehaviour
             Instance = this;
         }
     }
-
+    [SerializeField] PlantInfo CornSeed;
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     
@@ -34,16 +34,21 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private BaseGun[] guns;
     [SerializeField] private int currentGun;
 
-    
-    
+    private PlotCell selectedPlot;
+
     public void Start()
     {
         controls = new PlayerControls();
         controls.Player.WeaponSwapping.performed += ctx => WeaponSwap();
+        controls.Player.ConvertToBullets.performed += ctx => HarvestAmmo();
+        controls.Player.Harvest.performed += ctx => HarvestSeeds();
+
+        seedInventory = new Dictionary<PlantInfo, int>();
         //Set the Peashooter to the first gun
 
         controls.Enable();
     }
+
     private void WeaponSwap()
     {
         currentGun = (currentGun + 1) % guns.Length;
@@ -52,36 +57,74 @@ public class PlayerInventory : MonoBehaviour
         currentActiveGun.gameObject.SetActive(true);
     }
 
+    private void HarvestAmmo()
+    {
+        if (selectedPlot)
+        {
+            selectedPlot.harvestAmmo();
+            selectedPlot = null;
+        }
+    }
+
+    private void HarvestSeeds()
+    {
+        if(selectedPlot)
+        {
+            PlantInfo harvested = selectedPlot.harvestSeeds();
+            if (!harvested) return;
+            AddSeed(harvested);
+            selectedPlot = null;
+        }
+    }
     
-    
-   public void AddSeed(PlantInfo seed,int amount = 1)
-   {
-       if (seedInventory.ContainsKey(seed))
-       {
-           seedInventory[seed] += amount;
-       }
-       else
-       {
-           seedInventory.Add(seed, amount);
-       }
-   }
+    public void AddSeed(PlantInfo seed,int amount = 1)
+    {
+        if (seedInventory.ContainsKey(seed))
+        {
+            seedInventory[seed] += amount;
+        }
+        else
+        {
+            seedInventory.Add(seed, amount);
+        }
+        Debug.Log(seedInventory[seed]);
+    }
    
    
-   ///<summary>
-   /// We make this a bool so we can check if we have enough seeds to plant/use if it doesn, return false
-   /// </summary>
-   public bool RemoveSeed(PlantInfo seed, int amount = 1)
-   {
-       if (seedInventory.ContainsKey(seed) && seedInventory[seed] >= amount)
-       {
-           seedInventory[seed] -= amount;
-           if (seedInventory[seed] <= 0)
-           {
-               seedInventory.Remove(seed);
-           }
-           return true;
-       }
-       return false;
-   }
-    
+    ///<summary>
+    /// We make this a bool so we can check if we have enough seeds to plant/use if it doesn, return false
+    /// </summary>
+    public bool RemoveSeed(PlantInfo seed, int amount = 1)
+    {
+        Debug.Log(seedInventory.ContainsKey(seed));
+        if (seedInventory.ContainsKey(seed) && seedInventory[seed] >= amount)
+        {
+            seedInventory[seed] -= amount;
+            if (seedInventory[seed] <= 0)
+            {
+                seedInventory.Remove(seed);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(typeof(PlotCell), out Component cell))
+        {
+            if (cell)
+            {
+                selectedPlot = (PlotCell)cell;
+            }
+        }
+    }
+
+    [ContextMenu("Add Test Seed")]
+    public void AddTestSeed()
+    {
+        seedInventory.Add(CornSeed, 10);
+        Debug.Log(CornSeed);
+        Debug.Log(seedInventory[CornSeed]);
+    }
 }
