@@ -190,9 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 7175233406187362010}
   plantInfo: {fileID: 11400000, guid: ea7de7e0bdfaa514fbdc7c47e41eb5dd, type: 2}
-  player: {fileID: 1023133940194039145, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
-  playerInventory: {fileID: 1023133940194039136, guid: 8f747239faf8c95429cec780631f8feb,
-    type: 3}
+  player: {fileID: 0}
 --- !u!65 &2254317756709881924
 BoxCollider:
   m_ObjectHideFlags: 0
