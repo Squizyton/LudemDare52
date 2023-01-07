@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
     
     //[SerializeField]Dictionary<BulletStuff, int> bulletInventory = new Dictionary<BulletStuff, int>();
     
-    PlayerControls controls;
+    private PlayerControls controls;
     
     
     /// TODO: Switch these from GameObject's to Gun Class when ready

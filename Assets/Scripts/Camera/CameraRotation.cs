@@ -34,6 +34,8 @@ namespace Camera
 
         private void Update()
         {
+            if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
+            
             GetMousePos();
             RotateCamera();
         }
