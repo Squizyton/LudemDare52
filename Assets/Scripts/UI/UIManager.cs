@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,11 @@ namespace UI
     {
         public static UIManager Instance;
     
+        [Header("Mode UI")]
+        [SerializeField]private CanvasGroup fpsCanvasGroup;
+        [SerializeField]private CanvasGroup topDownCanvasGroup;
+        
+        
         [Header("Weapon Related Things")] [SerializeField]
         private CanvasGroup reloadGroup;
         [SerializeField]private Slider reloadSlider;
@@ -24,7 +30,30 @@ namespace UI
                 playerInventory = (PlayerInventory)inventory;
             }
         }
+        
+        #region Mode Changing
 
+        public void ChangeModeUI(GameManager.CurrentMode newMode)
+        {
+            switch (newMode)
+            {
+                case GameManager.CurrentMode.FPS:
+                    fpsCanvasGroup.alpha = 1;
+                    topDownCanvasGroup.alpha = 0;
+                    topDownCanvasGroup.interactable = false;
+                    break;
+                case GameManager.CurrentMode.TopDown:
+                    topDownCanvasGroup.alpha = 1;
+                    topDownCanvasGroup.interactable = true;
+                    fpsCanvasGroup.alpha = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
+            }
+        }
+
+        #endregion
+        
 
         #region Reload
 
