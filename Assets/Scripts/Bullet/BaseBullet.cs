@@ -16,6 +16,8 @@ public class BaseBullet : MonoBehaviour
 
    [Header("Other")] [SerializeField] private Rigidbody rb;
    [SerializeField]private LayerMask whatIsEnemy;
+
+   [SerializeField] private float bulletRaycastLength;
    private void Start()
    {
        speed = bulletInfo.bulletSpeed;
@@ -27,9 +29,9 @@ public class BaseBullet : MonoBehaviour
 
    public void Update()
    {
-       if(Physics.Raycast(transform.position, transform.forward, out var hit,1f,whatIsEnemy))
+       if(Physics.Raycast(transform.position, transform.forward, out var hit,bulletRaycastLength,whatIsEnemy))
        {
-           OnHit();
+           OnHit(hit.transform);
        }
    }
 
@@ -39,26 +41,29 @@ public class BaseBullet : MonoBehaviour
    }
 
    protected virtual void OnMove()
-    {
-        //move the bullet foward
+   {
+      //move the bullet foward
+      
+   }
 
-    }
-
-    protected virtual void OnHit()
-    {
-        Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
+   protected virtual void OnHit(Transform hit)
+   {
         FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
-        Debug.Log("bullet hits");
-    }
+        
+        hit.TryGetComponent(out BasicEnemy enemy);
+        
+        if(enemy)
+        {
+         enemy.OnHit(damage);   
+        }
+        
+        Destroy(gameObject);
+   }
 
-    private void OnDrawGizmos()
+   private void OnDrawGizmos()
    {
          Gizmos.color = Color.red;
-         Gizmos.DrawRay(transform.position, transform.forward);
+         Gizmos.DrawRay(transform.position, transform.forward * bulletRaycastLength);
    }
 
    public PlantInfo GetBulletInfo()
