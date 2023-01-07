@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentScore;
     [SerializeField] public int currentKills;
 
+
+    [Header("Game Settings")] public Transform currentTarget;
+    
     //Timer Stats
     [Header("Timers")]
     [SerializeField]private float timeTillNextWave;
