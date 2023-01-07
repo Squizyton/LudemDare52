@@ -36,7 +36,7 @@ public class PlayerInventory : MonoBehaviour
     
     /// TODO: Switch these from GameObject's to Gun Class when ready
     [SerializeField] public BaseGun currentActiveGun;
-    [SerializeField] private BaseGun[] guns;
+    [SerializeField] private GameObject[] guns;
     [SerializeField] private int currentGun;
 
     private PlotCell selectedPlot;
@@ -54,19 +54,30 @@ public class PlayerInventory : MonoBehaviour
 
     private void WeaponSwap()
     {
+        Debug.Log("Gun Length" + guns.Length);
         currentGun = (currentGun + 1) % guns.Length;
-        currentActiveGun.gameObject.SetActive(false);
-        currentActiveGun = guns[currentGun];
-        currentActiveGun.gameObject.SetActive(true);
+        Debug.Log("Current Gun" + guns[currentGun]);
+        //Disable the current gun
+        
+        if(currentActiveGun.gameObject.activeSelf)
+            currentActiveGun.gameObject.SetActive(false);
+    
+        
+        //set the new gun to the current gun
+         guns[currentGun].TryGetComponent(out BaseGun gun);
+         currentActiveGun = gun;
+         
+         
+        //Enable the new gun
+        guns[currentGun].SetActive(true);
     }
 
     private void HarvestAmmo()
     {
-        if (selectedPlot)
-        {
-            selectedPlot.HarvestAmmo();
-            selectedPlot = null;
-        }
+        if (!selectedPlot) return;
+        
+        selectedPlot.HarvestAmmo();
+        selectedPlot = null;
     }
 
     private void HarvestSeeds()

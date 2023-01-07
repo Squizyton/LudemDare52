@@ -17,10 +17,10 @@ namespace Guns
         [Header("Base Stats")] [SerializeField]
         private int maxAmmoPerClip;
 
-        [SerializeField] private int currentMagazine;
-        [SerializeField] private int ammoInSack;
-        [SerializeField] private float reloadTime;
-        [SerializeField] private float fireRate;
+        [SerializeField] protected int currentMagazine;
+        [SerializeField] protected int ammoInSack;
+        [SerializeField] protected float reloadTime;
+        [SerializeField] protected float fireRate;
 
 
         [Header("Is Clauses")] private bool isReloading;
@@ -32,7 +32,7 @@ namespace Guns
         private Vector3 hitPoint;
         private void Start()
         {
-            currentMagazine = 10;
+         
             SpecificGunStart();
         }
 
@@ -51,15 +51,20 @@ namespace Guns
 
         }
 
+        //Called if you want the gun to do a specific thing on start
         protected virtual void SpecificGunStart()
         {
             FeedStatsIntoGun(currentBullet.GetBulletInfo());
         }
 
+        //Use this to change the gun stats
+        //This is the base for the PEA SHOOTER. --------- Override this-------------
         protected virtual void FeedStatsIntoGun(PlantInfo info)
         {
+            
             maxAmmoPerClip = info.maxClipSize;
             fireRate = info.gunFireRate;
+            currentMagazine = 15;
         }
 
 

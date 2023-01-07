@@ -6,7 +6,7 @@ namespace Enemies.Enemy_Types
     {
         private void Start()
         {
-               
+         
             healthBar.maxValue = health;
             healthBar.value = health;
         }
