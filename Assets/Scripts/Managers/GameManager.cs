@@ -45,8 +45,12 @@ public class GameManager : MonoBehaviour
         switch (currentMode)
         {
             case CurrentMode.FPS:
+                ChangeMode(CurrentMode.FPS);
                 //Increment total time alive
                 timeAlive += Time.deltaTime;
+                break;
+            case CurrentMode.TopDown:
+                ChangeMode(CurrentMode.TopDown);
                 break;
         }
     }
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour
         
         //Tell Camera Manager to change the camera mode
         camManager.ChangeMode(newMode);
+        uiManager.ChangeModeUI(newMode);
     }
     public enum CurrentMode
     {

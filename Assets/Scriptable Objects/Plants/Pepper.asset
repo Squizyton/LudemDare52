@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58cc38da8b34ee449bec9250e3f0781, type: 3}
-  m_Name: CornInfo
+  m_Name: Pepper
   m_EditorClassIdentifier: 
-  PlantName: corn
-  GrowTime: 3
-  plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
+  PlantName: pepper
+  GrowTime: 5
+  plantModel: {fileID: 5529012603557650017, guid: 255847d3103ed82449069b4145a75c4e,
     type: 3}
-  plantBullet: {fileID: 0}
-  bulletSpeed: 5
-  bulletDamage: 0
-  bulletLifeTime: 0
-  bulletFireRate: 0
-  bulletSpread: 0
-  maxClipSize: 0
+  bulletSpeed: 3
+  bulletDamage: 2
+  bulletLifeTime: 1
+  isAutomatic: 0
+  gunFireRate: 1
+  gunBulletSpread: 1
+  maxClipSize: 1
+  gunReloadTime: 1
