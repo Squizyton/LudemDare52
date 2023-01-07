@@ -57,6 +57,7 @@ public class PlayerInventory : MonoBehaviour
     
    public void AddSeed(PlantInfo seed,int amount = 1)
    {
+
        if (seedInventory.ContainsKey(seed))
        {
            seedInventory[seed] += amount;

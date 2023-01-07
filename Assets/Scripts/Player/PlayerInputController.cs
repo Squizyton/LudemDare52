@@ -44,8 +44,10 @@ public class PlayerInputController : MonoBehaviour
         if (!isShooting) return;
         
     
+        Debug.Log("Uh");
+        
         //TODO: These two are redundant. Fix it.
-        if (!PlayerInventory.Instance.currentActiveGun.IsReloading()) return;    
+        if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;    
         var gunController = PlayerInventory.Instance.currentActiveGun;
 
         if (gunController.IsAutomatic())

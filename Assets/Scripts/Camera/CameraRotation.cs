@@ -13,7 +13,7 @@ namespace Camera
 
         [SerializeField] private CinemachineVirtualCamera cam;
         [SerializeField] private float rotationSpeed = 1f;
-
+        [SerializeField] private UnityEngine.Camera mainCamera;
 
         private Vector2 mousePos;
         private float xRotation = 0f;
@@ -53,6 +53,11 @@ namespace Camera
         public CinemachineVirtualCamera GetCamera()
         {
             return cam;
+        }
+        
+        public UnityEngine.Camera GetMainCamera()
+        {
+            return mainCamera;
         }
     }
 }

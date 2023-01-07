@@ -26,7 +26,7 @@ namespace Guns
 
         private bool canFire = true;
         private float totalReloadTime;
-
+        private Vector3 hitPoint;
         private void Start()
         {
             currentMagazine = 10;
@@ -55,16 +55,12 @@ namespace Guns
                 canFire = false;
 
                 //shoot a raycast from the middle of the screen
-                PlayerInputController.Instance.cameraRotationClass.GetCamera()
-                    .TryGetComponent(out UnityEngine.Camera mainCamera);
-                var ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-                if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
                 Instantiate(currentBullet, position,
-                    Quaternion.LookRotation(hit.point - position));
+                    Quaternion.LookRotation(hitPoint - position));
 
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
@@ -87,8 +83,15 @@ namespace Guns
 
         private void Update()
         {
-            //Developer's note: I wanna make this cleaner. It's NOT pretty
+         
+            var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            
+            if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
+            {
+                hitPoint = hit.point;
+            }
 
+            //Developer's note: I wanna make this cleaner. It's NOT pretty
             #region Reloading
 
             if (!isReloading) return;
@@ -158,5 +161,8 @@ namespace Guns
         {
             return canFire;
         }
+
+
+      
     }
 }
