@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void GetSprint(InputAction.CallbackContext context)
     {
+        Debug.Log(context.ReadValueAsButton());
         sprinting = context.ReadValueAsButton();
     }
     
