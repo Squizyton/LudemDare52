@@ -38,15 +38,15 @@ namespace Guns
 
         private void OnEnable()
         {
-            if (isAutomatic)
+            if (!isAutomatic)
             {
-                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("isAutomatic", "Automatic");
-                Debug.Log("Automatic");
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", "BaseGun");
+                Debug.Log("BaseGun");
             }
             else
             {
-                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("isAutomatic", "SingleFire");
-                Debug.Log("SingleFire");
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", "SpecialGun");
+                Debug.Log("SpecialGun");
             }
 
         }
