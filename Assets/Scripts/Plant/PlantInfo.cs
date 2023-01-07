@@ -10,7 +10,6 @@ public class PlantInfo : ScriptableObject
     public float GrowTime;
     public GameObject plantModel;
     [Header("Bullet Info")]
-    public float reloadTime;
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletLifeTime;
@@ -18,4 +17,5 @@ public class PlantInfo : ScriptableObject
     public float gunFireRate;
     public float gunBulletSpread;
     public int maxClipSize;
+    public float gunReloadTime;
 }

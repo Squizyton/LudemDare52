@@ -2606,7 +2606,7 @@ GameObject:
   - component: {fileID: 1859679127}
   - component: {fileID: 1859679130}
   m_Layer: 0
-  m_Name: Gun1
+  m_Name: PeaShooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2714,12 +2714,12 @@ MonoBehaviour:
   spawnPoint: {fileID: 1453035982}
   currentBullet: {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6,
     type: 3}
-  maxAmmo: 0
+  maxAmmoPerClick: 0
   currentMagazine: 10
   ammoInSack: 0
   reloadTime: 0
   fireRate: 1
-  isAutomatic: 0
+  isAutomatic: 1
   hasInfiniteAmmo: 1
 --- !u!1 &1866436630
 GameObject:

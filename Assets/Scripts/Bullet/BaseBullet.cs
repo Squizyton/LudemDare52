@@ -8,20 +8,30 @@ public class BaseBullet : MonoBehaviour
    [Header("Bullet Info")]
    [SerializeField] private PlantInfo bulletInfo;
    
+   
+   
    [Header("Bullet Stats")]
    [SerializeField] private float speed;
    [SerializeField] private float damage;
-   
-   
+
+   [Header("Other")] [SerializeField] private Rigidbody rb;
+   [SerializeField]private LayerMask whatIsEnemy;
    private void Start()
    {
        speed = bulletInfo.bulletSpeed;
        damage = bulletInfo.bulletDamage;
+       
+       rb.velocity = transform.forward * speed;
    }
 
-   
-   
-   
+
+   public void Update()
+   {
+       if(Physics.Raycast(transform.position, transform.forward, out var hit,1f,whatIsEnemy))
+       {
+           OnHit();
+       }
+   }
 
    public void FixedUpdate()
    {
@@ -30,7 +40,8 @@ public class BaseBullet : MonoBehaviour
 
    protected virtual void OnMove()
    {
-       transform.Translate(transform.forward * (speed * Time.deltaTime));
+      //move the bullet foward
+      
    }
 
    protected virtual void OnHit()
@@ -38,8 +49,14 @@ public class BaseBullet : MonoBehaviour
        Destroy(gameObject);
    }
 
-   public void OnCollisionEnter(Collision collision)
+   private void OnDrawGizmos()
    {
-       OnHit();
+         Gizmos.color = Color.red;
+         Gizmos.DrawRay(transform.position, transform.forward);
+   }
+
+   public PlantInfo GetBulletInfo()
+   {
+       return bulletInfo;
    }
 }

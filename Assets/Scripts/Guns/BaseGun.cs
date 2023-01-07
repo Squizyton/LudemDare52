@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseGun : MonoBehaviour
 {
@@ -11,9 +12,8 @@ public class BaseGun : MonoBehaviour
     [Header("Bullet")] [SerializeField] private BaseBullet currentBullet;
 
 
-    [Header("Base Stats")] [SerializeField]
-    private int maxAmmo;
-
+    [FormerlySerializedAs("maxAmmo")] [Header("Base Stats")] [SerializeField]
+    private int maxAmmoPerClick;
     [SerializeField] private int currentMagazine;
     [SerializeField] private int ammoInSack;
     [SerializeField] private float reloadTime;
@@ -29,13 +29,19 @@ public class BaseGun : MonoBehaviour
     private void Start()
     {
         currentMagazine = 10;
+        SpecificGunStart();
     }
 
-    public void FeedStatsIntoGun(PlantInfo info)
+    protected virtual void SpecificGunStart()
     {
-        maxAmmo = info.maxClipSize;
+        FeedStatsIntoGun(currentBullet.GetBulletInfo());
+    }
+
+    private void FeedStatsIntoGun(PlantInfo info)
+    {
+        maxAmmoPerClick = info.maxClipSize;
         fireRate = info.gunFireRate;
-        reloadTime = info.reloadTime;
+        reloadTime = info.gunReloadTime;
     }
 
 
@@ -46,11 +52,15 @@ public class BaseGun : MonoBehaviour
         Debug.Log("hello");
 
         Debug.Log(currentMagazine);
-        if (currentMagazine < 0)
+        if (currentMagazine > 0)
         {
             Debug.Log("We gucci fam?");
             currentMagazine--;
             canFire = false;
+            
+            //Rotate the bullet to the correct direction
+            var bullet = Instantiate(currentBullet, spawnPoint.position, spawnPoint.rotation);
+
 
             if (IsAutomatic())
                 StartCoroutine(CoolDown());
