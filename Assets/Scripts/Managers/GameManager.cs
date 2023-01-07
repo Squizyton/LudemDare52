@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private float timeTillNextWave;
     
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         if(Instance) Destroy(this); else Instance = this;
         
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     
     public void RoundEnded()
     {
-        if (enemiesRemaining > 0) return;
+        if (creditManager.IsSpawning()||enemiesRemaining > 0) return;
         //Have an action that automatically updates this
         creditManager.availableCredits = 25 * currentWave;
         StartCoroutine(StartWaveCountdown());

@@ -16,19 +16,31 @@ public class MonsterSpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private List<Transform> spawnPoints;
 
+
+    private bool _isSpawning;
+    private int attemptsToSpawn = 0;
     private void Start()
     {
+        //Debug
         StartWave();
     }
 
     public void StartWave()
     {
+        attemptsToSpawn = 0;
+        _isSpawning = true;
         SpawnEnemy();
     }
 
+    public bool IsSpawning()
+    {
+        return _isSpawning;
+    }
+    
 
     private void SpawnEnemy()
     {
+        
         //Get a monster
         var pickedEnemy = GetMonster();
 
@@ -42,7 +54,7 @@ public class MonsterSpawner : MonoBehaviour
             var index = Random.Range(0, spawnPoints.Count);
             
             //Instantiate the monster
-            var enemy = Instantiate(pickedEnemy, spawnPoints[index].position, pickedEnemy.prefab.transform.rotation);
+            var enemy = Instantiate(pickedEnemy.prefab, spawnPoints[index].position, pickedEnemy.prefab.transform.rotation);
 
             //Start spawn cooldown
             StartCoroutine(Cooldown(pickedEnemy.coolDown));
@@ -59,6 +71,13 @@ public class MonsterSpawner : MonoBehaviour
 
     private MonsterObject GetMonster()
     {
+        
+        //make a temporary list of monsters
+        var tempList = monsterList;
+        
+        //shuffle the list
+        tempList = tempList.OrderBy(x => Random.value).ToList();
+
         var weightSum = 0f;
 
         var weightIndex = new List<float>();
