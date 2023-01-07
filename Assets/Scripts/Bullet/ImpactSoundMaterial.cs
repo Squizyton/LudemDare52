@@ -6,8 +6,9 @@ using UnityEngine;
 public class ImpactSoundMaterial : MonoBehaviour
 {
     public FMOD.Studio.EventInstance BulletImpact;
-    public enum Material { Wood, Flesh, Dirt, Stone }
-    private string ObjectMaterial;
+    public enum Material { Wood, Flesh, Dirt, Stone };
+    public Material m_Material;
+
 
     public GameObject FoundObject;
     public string RaycastReturn;
@@ -19,23 +20,21 @@ public class ImpactSoundMaterial : MonoBehaviour
         if(gameObject.layer == 1)
         {
             CheckSurfaceMaterial();
-            Debug.Log("siema to jest" + gameObject);
-            ObjectMaterial = Material.ToString();
-
+            Debug.Log("this is " + gameObject);
         }
         
     }
     public void ImpactSound(GameObject Object)
     {
-        BulletImpact.setParameterByNameWithLabel("ImpactMaterial", ObjectMaterial);
+        BulletImpact.setParameterByNameWithLabel("ImpactMaterial", m_Material.ToString());
         BulletImpact.start();
-        Debug.Log("czeœæ gram dŸwiêk");
+        Debug.Log("I'm playing impact for " + m_Material.ToString());
     }
 
 
     public void CheckMaterial(GameObject Feets)
     {
-        BulletImpact.setParameterByNameWithLabel("ImpactMaterial", ObjectMaterial);
+        BulletImpact.setParameterByNameWithLabel("ImpactMaterial", m_Material.ToString());
     }
 
     private void CheckSurfaceMaterial()
@@ -44,7 +43,7 @@ public class ImpactSoundMaterial : MonoBehaviour
         {
             RaycastReturn = hit.collider.gameObject.name;
             FoundObject = GameObject.Find(RaycastReturn);
-                Debug.Log($"trafi³em {FoundObject} ");
+                Debug.Log($"Hitted {FoundObject} ");
             if (FoundObject.TryGetComponent(out ImpactSoundMaterial soundMaterial))
             {
                 soundMaterial.ImpactSound(gameObject);
