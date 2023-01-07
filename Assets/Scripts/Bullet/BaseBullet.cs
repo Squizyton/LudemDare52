@@ -19,18 +19,23 @@ public class BaseBullet : MonoBehaviour
        damage = bulletInfo.bulletDamage;
    }
 
+   
+   
+   
 
-   public void Update()
+   public void FixedUpdate()
    {
       OnMove();
    }
 
    protected virtual void OnMove()
    {
+       transform.Translate(transform.forward * (speed * Time.deltaTime));
    }
 
    protected virtual void OnHit()
    {
+       Destroy(gameObject);
    }
 
    public void OnCollisionEnter(Collision collision)

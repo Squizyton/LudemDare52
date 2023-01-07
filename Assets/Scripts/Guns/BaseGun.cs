@@ -34,7 +34,7 @@ public class BaseGun : MonoBehaviour
     public void FeedStatsIntoGun(PlantInfo info)
     {
         maxAmmo = info.maxClipSize;
-        fireRate = info.bulletFireRate;
+        fireRate = info.gunFireRate;
         reloadTime = info.reloadTime;
     }
 
@@ -46,14 +46,25 @@ public class BaseGun : MonoBehaviour
         Debug.Log("hello");
 
         Debug.Log(currentMagazine);
-        if (currentMagazine <= 0) return;
-        
-        Debug.Log("We gucci fam?");
-        currentMagazine--;
-        canFire = false;
-            
-        if (IsAutomatic())
-            StartCoroutine(CoolDown());
+        if (currentMagazine < 0)
+        {
+            Debug.Log("We gucci fam?");
+            currentMagazine--;
+            canFire = false;
+
+            if (IsAutomatic())
+                StartCoroutine(CoolDown());
+        }
+        else
+        {
+            ReloadSequence();
+        }
+    }
+
+
+    private void ReloadSequence()
+    {
+        Debug.Log("Reloading");
     }
 
     private IEnumerator CoolDown()
