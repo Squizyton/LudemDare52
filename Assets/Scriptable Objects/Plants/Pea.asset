@@ -15,7 +15,7 @@ MonoBehaviour:
   PlantName: 
   GrowTime: 0
   plantModel: {fileID: 0}
-  bulletSpeed: 15
+  bulletSpeed: 20
   bulletDamage: 1
   bulletLifeTime: 5
   isAutomatic: 0
