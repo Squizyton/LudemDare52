@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         if(Instance) Destroy(this); else Instance = this;
+        
+        
+        
     }
 
     // Update is called once per framez
@@ -64,5 +67,18 @@ public class GameManager : MonoBehaviour
     {
         FPS,
         TopDown
+    }
+    
+    
+    [ContextMenu("TPS Test")]
+    public void TpsTest()
+    {
+        ChangeMode(CurrentMode.TopDown);
+    }
+    
+    [ContextMenu("FPS Test")]
+    public void FpsTest()
+    {
+        ChangeMode(CurrentMode.FPS);
     }
 }
