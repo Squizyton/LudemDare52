@@ -21,9 +21,11 @@ public class PlotCell : MonoBehaviour
     private PlayerInventory playerInventory;
     private GameObject plantModel;
 
-    public void plant(PlantInfo plant)
+    public void plant()
     {
-        plantInfo = plant;
+        if (!playerInventory.SelectedSeed) return;
+        if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
+        plantInfo = playerInventory.SelectedSeed;
         value = 1;
         plantModel = Instantiate(plantInfo.plantModel, this.transform.position, Quaternion.identity);
     }
@@ -35,8 +37,6 @@ public class PlotCell : MonoBehaviour
         mesh.text = value.ToString();
         mesh.color = Color.white;
         Destroy(plantModel);
-        Debug.Log("returning!");
-        Debug.Log(plantInfo.ToString());
         return plantInfo;
     }
 
@@ -125,18 +125,7 @@ public class PlotCell : MonoBehaviour
     {
         if (!isSelected) return;
 
-        if(value == 0)
-        {
-            Debug.Log("WE PLANTIN");
-            Debug.Log(plantInfo.ToString());
-            
-            if (playerInventory.RemoveSeed(plantInfo))
-            {
-                Debug.Log("THE SEED IS REMOVED. IT IS DONE.");
-                plant(plantInfo);
-                mesh.color = Color.white;
-            }
-        }
+        if(value == 0) plant();
         mesh.text = value.ToString();
     }
 }

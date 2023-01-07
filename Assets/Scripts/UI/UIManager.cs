@@ -10,11 +10,19 @@ namespace UI
         [Header("Weapon Related Things")] [SerializeField]
         private CanvasGroup reloadGroup;
         [SerializeField]private Slider reloadSlider;
+        private PlayerInventory playerInventory;
 
         private void Awake()
         {
             Instance = this;
-      
+
+            //TODO: Change this to something more performant
+            GameObject playerObj = FindObjectOfType<PlayerInventory>().gameObject;
+            playerObj.TryGetComponent(typeof(PlayerInventory), out Component inventory);
+            if (inventory)
+            {
+                playerInventory = (PlayerInventory)inventory;
+            }
         }
 
 
@@ -32,6 +40,15 @@ namespace UI
             reloadSlider.value = time;
         }
 
+        #endregion
+
+        #region SeedMenu
+        public void SelectSeeds(string seedName)
+        {
+            playerInventory.SetSeed(seedName);
+            Debug.Log("playerInventory set to " + seedName);
+            Debug.Log(playerInventory.SelectedSeed);
+        }
         #endregion
     }
 }
