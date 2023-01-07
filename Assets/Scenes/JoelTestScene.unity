@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4f5991b8c2ab74fa6f75efc8d2913d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsCanvasGroup: {fileID: 0}
+  fpsCanvasGroup: {fileID: 172098729}
   topDownCanvasGroup: {fileID: 0}
   reloadGroup: {fileID: 727677669}
   reloadSlider: {fileID: 292667467}
@@ -1623,6 +1623,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   RaycastDistance: 1.15
+  movePos: {x: 0, y: 0}
+  canJump: 0
 --- !u!54 &869936249
 Rigidbody:
   m_ObjectHideFlags: 0
