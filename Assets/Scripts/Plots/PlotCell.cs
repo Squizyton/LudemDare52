@@ -2,26 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.InputSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlotCell : MonoBehaviour
 {
-    private int value;
-    private bool isMouseHovering;
+    private int value; //Numerical display (replace with enum when I stop being dumb)
+
+    private bool isMouseHovering; //Bools for UI state
     private bool isSelected;
-    private float timeElapsed;
+    private bool isPlayerNear;
+
+    private float timeElapsed; //Growth stuff/models
     private float timeToGrow;
     [SerializeField] private TextMeshPro mesh;
     [SerializeField] private PlantInfo CornInfo;
     private GameObject plantModel;
-    private GameObject plantModelInstance;
 
     public void plant(PlantInfo plant)
     {
-        plantModel = plant.plantModel;
         timeToGrow = plant.GrowTime;
         value = 1;
-        plantModelInstance = Instantiate(plantModel, this.transform.position, Quaternion.identity);
+        plantModel = Instantiate(plant.plantModel, this.transform.position, Quaternion.identity);
     }
 
     public void harvestSeeds()
@@ -29,23 +32,67 @@ public class PlotCell : MonoBehaviour
         if(value == 2)
         {
             value = 0;
-            Destroy(plantModelInstance);
+            mesh.text = value.ToString();
+            mesh.color = Color.white;
+            Destroy(plantModel);
+        }
+    }
+
+    public void harvestAmmo()
+    {
+        if (value == 2)
+        {
+            value = 0;
+            mesh.text = value.ToString();
+            mesh.color = Color.white;
+            Destroy(plantModel);
         }
     }
 
     private void Update()
     {
+        // Check if player is near and harvesting
+        if(value == 2 && isPlayerNear)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                harvestAmmo();
+            }
+        }
+        // Only grows in state 1
         if(value != 1)
         {
             return;
         }
-        mesh.color = Color.white;
+        // Growth
         timeElapsed += Time.deltaTime;
         if(timeElapsed > timeToGrow)
         {
             timeElapsed = 0;
             value = 2;
+            if (isPlayerNear)
+            {
+                mesh.color = Color.green;
+            }
             mesh.text = value.ToString();
+        }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.name == "Bean" && value == 2)
+        {
+            mesh.color = Color.green;
+            isPlayerNear = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.name == "Bean" && value == 2)
+        {
+            mesh.color = Color.white;
+            isPlayerNear = false;
         }
     }
 
