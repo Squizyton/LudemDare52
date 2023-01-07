@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CornInfo
   m_EditorClassIdentifier: 
   PlantName: corn
-  GrowTime: 50
+  GrowTime: 3
   plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
     type: 3}
   plantBullet: {fileID: 0}

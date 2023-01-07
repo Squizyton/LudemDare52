@@ -8,16 +8,29 @@ public class PlotCell : MonoBehaviour
 {
     private int value;
     private bool isMouseHovering;
+    private bool isSelected;
     private float timeElapsed;
     private float timeToGrow;
     [SerializeField] private TextMeshPro mesh;
+    [SerializeField] private PlantInfo CornInfo;
     private GameObject plantModel;
+    private GameObject plantModelInstance;
 
     public void plant(PlantInfo plant)
     {
         plantModel = plant.plantModel;
         timeToGrow = plant.GrowTime;
         value = 1;
+        plantModelInstance = Instantiate(plantModel, this.transform.position, Quaternion.identity);
+    }
+
+    public void harvestSeeds()
+    {
+        if(value == 2)
+        {
+            value = 0;
+            Destroy(plantModelInstance);
+        }
     }
 
     private void Update()
@@ -26,6 +39,7 @@ public class PlotCell : MonoBehaviour
         {
             return;
         }
+        mesh.color = Color.white;
         timeElapsed += Time.deltaTime;
         if(timeElapsed > timeToGrow)
         {
@@ -44,26 +58,36 @@ public class PlotCell : MonoBehaviour
     private void OnMouseExit()
     {
         isMouseHovering = false;
+        isSelected = false;
         mesh.color = Color.white;
     }
 
     private void OnMouseDown()
     {
-        if(!isMouseHovering)
+        if (!isMouseHovering)
         {
             return;
         }
+        isSelected = true;
         mesh.color = Color.yellow;
     }
 
     private void OnMouseUp()
     {
-        if(!isMouseHovering)
+        if (!isSelected)
         {
             return;
         }
-        mesh.color = Color.white;
-        value++;
+        if(value == 0)
+        {
+            plant(CornInfo);
+            mesh.color = Color.white;
+        }
+        else if(value == 2)
+        {
+            harvestSeeds();
+            mesh.color = Color.red;
+        }
         mesh.text = value.ToString();
     }
 }

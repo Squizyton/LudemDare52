@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canJump) return;
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        PlayerJumpSFX();
         canJump = false;
     }
 
@@ -48,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, Vector3.down, RaycastDistance, groundLayer))
             {
+                if (!canJump)
+                {
+                    PlayerLandSFX();
+                }
                 canJump = true;
             }
         }
@@ -61,11 +66,36 @@ public class PlayerMovement : MonoBehaviour
         var playerVelocity = new Vector3(movePos.x * speed, rb.velocity.y, movePos.y * speed);
         //Set the velocity of the player based on the velocity * transform.foward
         rb.velocity = transform.TransformDirection(playerVelocity);
+        if(rb.velocity.x != 0 || rb.velocity.z != 0)
+        {
+            PlayerMoveSFX();
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.down * RaycastDistance);
+    }
+
+    //Note: Do these need to be public?
+    public void PlayerMoveSFX()
+    {
+        return;
+    }
+
+    public void PlayerSprintSFX()
+    {
+        return;
+    }
+
+    public void PlayerJumpSFX()
+    {
+        return;
+    }
+
+    public void PlayerLandSFX()
+    {
+        return;
     }
 }

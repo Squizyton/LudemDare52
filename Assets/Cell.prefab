@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 7175233406187362010}
+  CornInfo: {fileID: 11400000, guid: ea7de7e0bdfaa514fbdc7c47e41eb5dd, type: 2}
 --- !u!65 &2254317756709881924
 BoxCollider:
   m_ObjectHideFlags: 0
