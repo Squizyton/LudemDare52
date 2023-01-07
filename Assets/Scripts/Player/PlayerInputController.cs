@@ -1,15 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Camera;
 using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
 {
+    public static PlayerInputController Instance;
+
+
     [SerializeField] private PlayerControls playerControls;
 
+
+    public CameraRotation cameraRotationClass;
     
     
     bool isShooting = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         playerControls = new PlayerControls();
