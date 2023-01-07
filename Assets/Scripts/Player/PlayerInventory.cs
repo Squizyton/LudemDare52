@@ -19,6 +19,8 @@ public class PlayerInventory : MonoBehaviour
         {
             Instance = this;
         }
+        
+        seedInventory = new Dictionary<PlantInfo, int>();
     }
     [SerializeField] PlantInfo CornSeed;
     //Inventory for seeds
@@ -42,8 +44,6 @@ public class PlayerInventory : MonoBehaviour
         controls.Player.WeaponSwapping.performed += ctx => WeaponSwap();
         controls.Player.ConvertToBullets.performed += ctx => HarvestAmmo();
         controls.Player.Harvest.performed += ctx => HarvestSeeds();
-
-        seedInventory = new Dictionary<PlantInfo, int>();
         //Set the Peashooter to the first gun
 
         controls.Enable();
@@ -86,6 +86,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             seedInventory.Add(seed, amount);
+            Debug.Log("Seed Dictionary Count: " +seedInventory.Count);
         }
         Debug.Log(seedInventory[seed]);
     }
@@ -96,7 +97,10 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     public bool RemoveSeed(PlantInfo seed, int amount = 1)
     {
-        Debug.Log(seedInventory.ContainsKey(seed));
+        Debug.Log(seedInventory.Count);
+        Debug.Log("Contains Key: " + seedInventory.ContainsKey(seed));
+        
+        
         if (seedInventory.ContainsKey(seed) && seedInventory[seed] >= amount)
         {
             seedInventory[seed] -= amount;
@@ -123,8 +127,13 @@ public class PlayerInventory : MonoBehaviour
     [ContextMenu("Add Test Seed")]
     public void AddTestSeed()
     {
-        seedInventory.Add(CornSeed, 10);
+      AddSeed(CornSeed,19);
         Debug.Log(CornSeed);
         Debug.Log(seedInventory[CornSeed]);
+    }
+    [ContextMenu("Check Dictionary")]
+    public void CheckDictionarySize()
+    {
+        Debug.Log("Dictionary Size: " +seedInventory.Count);
     }
 }

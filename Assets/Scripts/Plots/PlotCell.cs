@@ -51,8 +51,12 @@ public class PlotCell : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
+        //TODO: Change this to something more performant
+        player = FindObjectOfType<PlayerInventory>().gameObject;
+       
+        
         player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
         if(inventory)
         {
@@ -125,6 +129,7 @@ public class PlotCell : MonoBehaviour
         {
             Debug.Log("WE PLANTIN");
             Debug.Log(plantInfo.ToString());
+            
             if (playerInventory.RemoveSeed(plantInfo))
             {
                 Debug.Log("THE SEED IS REMOVED. IT IS DONE.");
