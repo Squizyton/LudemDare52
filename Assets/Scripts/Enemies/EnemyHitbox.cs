@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class EnemyHitbox : MonoBehaviour
 {
-    [SerializeField]private BasicEnemy enemy;
-    
-  private void OnTriggerEnter(Collider other)
-  {
-      if (!other.gameObject.CompareTag("Player")) return;
-      other.TryGetComponent(out IHasHealth healthThing);
-      healthThing.TakeDamage((int)enemy.GetDamage());
-  }
+    public BasicEnemy enemy;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        other.TryGetComponent(out IHasHealth healthThing);
+        if (healthThing != null)
+            healthThing.TakeDamage((int) enemy.GetDamage());
+    }
 }

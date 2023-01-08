@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Lenny : BasicEnemy
 {
+    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Transform spawnPoint;
+
     private bool atTarget;
     private Vector3 moveToTarget;
 
@@ -63,14 +66,15 @@ public class Lenny : BasicEnemy
         {
             animator.SetTrigger("Run");
             atTarget = true;
-            
+
             state = State.Moving;
         }
 
         if (attackTimer > 0 && attacked)
         {
             //rotate to face the player + the forward vector of the player * 2
-            var targetRotation = Quaternion.LookRotation(GameManager.Instance.currentTarget.position - transform.position);
+            var targetRotation =
+                Quaternion.LookRotation(GameManager.Instance.currentTarget.position - transform.position);
             //rotate to face the target
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 20f);
             attackTimer -= Time.deltaTime;
@@ -78,15 +82,16 @@ public class Lenny : BasicEnemy
         else
         {
             animator.SetTrigger("Attack");
-            attacked = false;
+            SetAttack();
         }
-
-     
     }
 
 
     public void SpawnProjectile()
     {
+        Instantiate(_bullet, spawnPoint.position, Quaternion.identity)
+            .TryGetComponent(out EnemyHitbox bhitbox);
+        bhitbox.enemy = this;
         
     }
 
