@@ -8,6 +8,8 @@ public class PlantInfo : ScriptableObject
     [Header("Plant Info")]
     public string PlantName;
     public float GrowTime;
+    public int seedYield;
+    public int bulletYield;
     public GameObject plantModel;
     [Header("Bullet Info")]
     public float bulletSpeed;

@@ -11,11 +11,13 @@ namespace Guns
     {
         [Header("Important Things")] public Transform spawnPoint;
 
-        [Header("Bullet")] public BaseBullet currentBullet;
+        [Header("Bullet Index")] public int currentBullet;
+        [Header("AmmoTypes")]
+        [SerializeField] public BaseBullet[] bulletList;
 
 
         [Header("Base Stats")] [SerializeField]
-        private int maxAmmoPerClip;
+        protected int maxAmmoPerClip;
 
         [SerializeField] protected int currentMagazine;
         [SerializeField] protected int ammoInSack;
@@ -24,7 +26,7 @@ namespace Guns
 
 
         [Header("Is Clauses")] private bool isReloading;
-        [SerializeField] private bool isAutomatic;
+        [SerializeField] protected bool isAutomatic;
         [SerializeField] private bool hasInfiniteAmmo;
 
         private bool canFire = true;
@@ -54,17 +56,31 @@ namespace Guns
         //Called if you want the gun to do a specific thing on start
         protected virtual void SpecificGunStart()
         {
-            FeedStatsIntoGun(currentBullet.GetBulletInfo());
+            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
+            currentMagazine = 15;
         }
 
         //Use this to change the gun stats
         //This is the base for the PEA SHOOTER. --------- Override this-------------
-        protected virtual void FeedStatsIntoGun(PlantInfo info)
+        protected virtual void FeedStatsIntoGun(PlantInfo info) // Pea chooter ignores plantinfo because it can't change
         {
             
-            maxAmmoPerClip = info.maxClipSize;
-            fireRate = info.gunFireRate;
-            currentMagazine = 15;
+            maxAmmoPerClip = bulletList[currentBullet].GetBulletInfo().maxClipSize;
+            fireRate = bulletList[currentBullet].GetBulletInfo().gunFireRate;
+        }
+
+        public void SwapAmmo()
+        {
+             
+            for(int i = 0; i < bulletList.Length - 1; i++)
+            {
+                BaseBullet bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
+                if (PlayerInventory.Instance.HasAmmo(bullet.GetBulletInfo()))
+                {
+                    FeedStatsIntoGun(bullet.GetBulletInfo());
+                    break;
+                }
+            }
         }
 
 
@@ -84,7 +100,7 @@ namespace Guns
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
-                Instantiate(currentBullet, position,
+                Instantiate(bulletList[currentBullet], position,
                     Quaternion.LookRotation(hitPoint - position));
 
                 if (IsAutomatic())
@@ -92,7 +108,7 @@ namespace Guns
             }
             else
             {
-                ReloadSequence(currentBullet.GetBulletInfo().gunReloadTime);
+                ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             }
         }
 

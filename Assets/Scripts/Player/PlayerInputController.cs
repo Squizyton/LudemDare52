@@ -43,13 +43,17 @@ namespace Player
             if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
         
             if (!isShooting) return;
-        
-    
+
             Debug.Log("Uh");
         
             //TODO: These two are redundant. Fix it.
             if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;    
             var gunController = PlayerInventory.Instance.currentActiveGun;
+            if ()
+            {
+                Debug.Log("Trying to swap ammo!");
+                PlayerInventory.Instance.currentActiveGun.SwapAmmo();
+            }
 
             if (gunController.IsAutomatic())
             {
@@ -81,7 +85,8 @@ namespace Player
             var gunController = PlayerInventory.Instance.currentActiveGun;
         
             if(gunController.IsReloading()) return;
-            gunController.ReloadSequence(gunController.currentBullet.GetBulletInfo().gunReloadTime);
+            BaseBullet bullet = gunController.bulletList[gunController.currentBullet];
+            gunController.ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
         }
     
         #endregion
