@@ -22,6 +22,9 @@ namespace UI
         [Header("Player Related Things")] [SerializeField]
         private Slider staminaSlider;
         
+        [Header("Cow")]
+        public GameObject cowText;
+
         private void Awake()
         {
             Instance = this;
@@ -57,8 +60,18 @@ namespace UI
         }
 
         #endregion
-        
 
+        #region Cow
+
+        public void SetCowText(bool value)
+        {
+            cowText.SetActive(value);
+        }
+
+
+        #endregion
+        
+        
         #region Player Related
         public void UpdateStaminaSlider(float stamina)
         {

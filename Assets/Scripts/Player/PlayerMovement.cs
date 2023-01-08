@@ -73,7 +73,7 @@ private Coroutine staminaCoroutine;
 			StopCoroutine(staminaCoroutine);
 
 		if (sprinting) return;
-		Debug.Log("Start Recharging");
+	
 		staminaCoroutine = StartCoroutine(RechargeStamina());
 	}
 

@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour,IHasHealth
 {
     public static PlayerInventory Instance { get; private set; }
 
