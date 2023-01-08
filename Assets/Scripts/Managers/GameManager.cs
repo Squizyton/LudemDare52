@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public Transform player;
+    
     //Managers
     [Header("Managers")] 
     [SerializeField]private UIManager uiManager;
@@ -28,14 +29,22 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Settings")] public Transform currentTarget;
     public int enemiesRemaining;
+
+    [SerializeField] private Transform cow;
     //Timer Stats
     [Header("Timers")]
     [SerializeField]private float timeTillNextWave;
     
+    [Header("Cow SpawnPoints")]
+    public Transform[] spawnPoints;
+
+    public Vector3 normalCowPosition;
     // Start is called before the first frame update
     private void Awake()
     {
         if(Instance) Destroy(this); else Instance = this;
+        
+        normalCowPosition = cow.position;
         
         
         ChangeMode(CurrentMode.TopDown);
@@ -83,9 +92,34 @@ public class GameManager : MonoBehaviour
     public void StartRoundOfWaves()
     {
         totalAmountOfWaves++;
+        
         currentWave = 1;
         creditManager.StartWave();
         creditManager.availableCredits = 25 * totalAmountOfWaves;
+
+        cow.position = normalCowPosition;
+        
+        if (totalAmountOfWaves % 10 == 0)
+        {
+            currentTarget = cow;
+
+            var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            var collider = spawnPoint.GetComponent<Collider>();
+
+
+            //get a random position in collider bounds
+            var randomPos = new Vector3(
+                Random.Range(collider.bounds.min.x, collider.bounds.max.x),
+                0,
+                Random.Range(collider.bounds.min.z, collider.bounds.max.z)
+            );
+
+            cow.position = randomPos;
+
+            UIManager.Instance.SetCowText(true);
+        }
+        else currentTarget = player;
+
         ChangeMode(CurrentMode.FPS);
     }
 
@@ -110,10 +144,10 @@ public class GameManager : MonoBehaviour
 
     public void RoundEnded()
     {
-        if (creditManager.IsSpawning()||enemiesRemaining > 0) return;
+        if (creditManager.IsSpawning()|| enemiesRemaining > 0) return;
         //Have an action that automatically updates this
         currentWave++;
-
+        
         if (currentWave < 6)
         {
             totalAmountOfWaves++;
@@ -125,8 +159,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartWaveCountdown()
     {
         yield return new WaitForSeconds(5);
-        currentWave++;
-       
         //uiManager.UpdateWave(waveNumber);
         creditManager.StartWave();
     }

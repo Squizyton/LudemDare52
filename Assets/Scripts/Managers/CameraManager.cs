@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
                 Music.setParameterByName("GameMode", 1);
                 IsRTS = true;
             }
-            Debug.Log("FightMode");
+           
             topDownCamera.Priority = 0;
             fpsCamera.Priority = 10;
         }
@@ -46,7 +46,7 @@ public class CameraManager : MonoBehaviour
                 Music.setParameterByName("GameMode", 0);
                 IsRTS = false;
             }
-            Debug.Log("RTSMode");
+         
             fpsCamera.Priority = 0;
             topDownCamera.Priority = 10;
         }

@@ -33,8 +33,6 @@ public class BasicEnemy : MonoBehaviour
 
     public virtual void OnHit(float damage, bool fire = false)
     {
-        Debug.Log("Hit");
-
         if (isDead) return;
         if (fire)
         {
@@ -86,8 +84,6 @@ public class BasicEnemy : MonoBehaviour
 
     protected void Update()
     {
-        //Debug.Log("Called");
-
         if (isDead) return;
 
         //Handle tic damage, if any
