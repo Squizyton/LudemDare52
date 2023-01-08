@@ -160,7 +160,7 @@ private Coroutine staminaCoroutine;
 			Debug.Log("Recharging");
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
-			yield return new WaitForSeconds(.05f);
+			yield return new WaitForSeconds(.02f);
 		}
 		
 		if(exhausted)

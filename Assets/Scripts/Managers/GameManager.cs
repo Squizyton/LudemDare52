@@ -50,6 +50,9 @@ public class GameManager : MonoBehaviour
     {
         if(Instance) Destroy(this); else Instance = this;
         
+        
+        DontDestroyOnLoad(this);
+        
         normalCowPosition = cow.position;
     }
 
