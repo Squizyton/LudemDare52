@@ -27,11 +27,12 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
     }
     [SerializeField] PlantInfo CornSeed;
     [SerializeField] PlantInfo PepperSeed;
-    
+    [SerializeField] PlantInfo CarrotSeed;
+    [SerializeField] PlantInfo MelonSeed;
+
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
-    
-    //[SerializeField]Dictionary<BulletStuff, int> bulletInventory = new Dictionary<BulletStuff, int>();
+    [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
     
     private PlayerControls controls;
     
@@ -57,6 +58,14 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         controls.Enable();
     }
 
+    public int GetAmmo(PlantInfo seed)
+    {
+        if (bulletInventory.ContainsKey(seed))
+        {
+            return bulletInventory[seed];
+        }
+        return 0;
+    }
     public void TakeDamage(int damage)
     {
         Debug.Log("taking Damage");
@@ -96,7 +105,9 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
     {
         if (!selectedPlot) return;
         
-        selectedPlot.HarvestAmmo();
+        PlantInfo harvested = selectedPlot.HarvestSeeds();
+        if (!harvested) return;
+        AddSeed(bulletInventory, harvested, harvested.bulletYield);
         selectedPlot = null;
     }
 
@@ -106,12 +117,9 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         {
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
-            AddSeed(harvested);
+            AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
         }
-        
-        
-        
     }
 
     public void SetSeed(string seedName)
@@ -120,18 +128,18 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         if (seedToSelect) SelectedSeed = seedToSelect;
     }
 
-    public void AddSeed(PlantInfo seed,int amount = 1)
+    public void AddSeed(Dictionary<PlantInfo, int> inventory, PlantInfo seed,int amount = 1)
     {
-        if (seedInventory.ContainsKey(seed))
+        if (inventory.ContainsKey(seed))
         {
-            seedInventory[seed] += amount;
+            inventory[seed] += amount;
         }
         else
         {
-            seedInventory.Add(seed, amount);
-            Debug.Log("Seed Dictionary Count: " +seedInventory.Count);
+            inventory.Add(seed, amount);
+            Debug.Log("Seed Dictionary Count: " + inventory.Count);
         }
-        Debug.Log(seedInventory[seed]);
+        Debug.Log(inventory[seed]);
     }
    
    
@@ -155,9 +163,24 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         }
         return false;
     }
-    
-    
-    
+
+    ///<summary>
+    /// We make this a bool so we can check if we have enough seeds to plant/use if it doesn, return false
+    /// </summary>
+    public bool RemoveAmmo(PlantInfo seed, int amount = 1)
+    {
+        if (bulletInventory.ContainsKey(seed) && bulletInventory[seed] >= amount)
+        {
+            bulletInventory[seed] -= amount;
+            if (bulletInventory[seed] <= 0)
+            {
+                bulletInventory.Remove(seed);
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(typeof(PlotCell), out Component cell))
@@ -172,8 +195,18 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
     [ContextMenu("Add Test Seed")]
     public void AddTestSeed()
     {
-      AddSeed(CornSeed,19);
-      AddSeed(PepperSeed, 2);
+      AddSeed(seedInventory, CornSeed,19);
+      AddSeed(seedInventory, PepperSeed, 2);
+      AddSeed(seedInventory, CarrotSeed, 5);
+      AddSeed(seedInventory, MelonSeed, 5);
+    }
+    [ContextMenu("Add Test Bullets")]
+    public void AddTestBullets()
+    {
+        AddSeed(bulletInventory, CornSeed, 200);
+        AddSeed(bulletInventory, PepperSeed, 200);
+        AddSeed(bulletInventory, CarrotSeed, 200);
+        AddSeed(bulletInventory, MelonSeed, 200);
     }
     [ContextMenu("Check Dictionary")]
     public void CheckDictionarySize()

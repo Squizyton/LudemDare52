@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: corn
   GrowTime: 3
+  seedYield: 1
+  bulletYield: 30
   plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
     type: 3}
-  plantBullet: {fileID: 0}
-  bulletSpeed: 5
-  bulletDamage: 0
+  bulletSpeed: 20
+  bulletDamage: 1
   bulletLifeTime: 0
-  bulletFireRate: 0
-  bulletSpread: 0
-  maxClipSize: 0
+  isAutomatic: 1
+  gunFireRate: 0.05
+  gunBulletSpread: 0
+  maxClipSize: 30
+  gunReloadTime: 3

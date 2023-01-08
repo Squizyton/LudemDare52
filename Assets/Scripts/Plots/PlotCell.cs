@@ -39,22 +39,10 @@ namespace Plots
             return plantInfo;
         }
 
-        public void HarvestAmmo() //NOTE: Make me return plantinfo when ready, and compile it into bulletstuff
-        {
-            if (value == 2)
-            {
-                value = 0;
-                mesh.text = value.ToString();
-                mesh.color = Color.white;
-                Destroy(plantModel);
-            }
-        }
-
         private void Start()
         {
             //TODO: Change this to something more performant
             player = FindObjectOfType<PlayerInventory>().gameObject;
-            
         
             player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
             if(inventory)

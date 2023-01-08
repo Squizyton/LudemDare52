@@ -181,7 +181,6 @@ private Coroutine staminaCoroutine;
         {
             FMODPlayerWalk.start();
             isWalking = true;
-            Debug.Log("Starts Walking");
         }
         return;
     }
@@ -193,7 +192,6 @@ private Coroutine staminaCoroutine;
         {
             FMODPlayerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             isWalking = false;
-            Debug.Log("Stops Walking");
         }
         return;
     }
@@ -203,14 +201,12 @@ private Coroutine staminaCoroutine;
 		PlayerStopMoveSFX();
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
-        Debug.Log("Jumped");
         return;
 	}
 
 	private void PlayerLandSFX()
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
-		Debug.Log("Landed");
 		return;
 	}
 }

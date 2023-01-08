@@ -1434,7 +1434,7 @@ MonoBehaviour:
   player: {fileID: 1662305546}
   uiManager: {fileID: 776262861}
   camManager: {fileID: 497339885}
-  creditManager: {fileID: 1113192046}
+  creditManager: {fileID: 0}
   currentMode: 0
   timeAlive: 0
   currentWave: 0
@@ -2363,8 +2363,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1018809487}
-  currentBullet: {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6,
-    type: 3}
+  currentBullet: 0
+  bulletList:
+  - {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6, type: 3}
   maxAmmoPerClip: 0
   currentMagazine: 10
   ammoInSack: 0
@@ -3698,9 +3699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75eadd3547538e4a9903f0ad7d94fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  currentBullet: {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6,
-    type: 3}
+  spawnPoint: {fileID: 12602202}
+  currentBullet: 0
+  bulletList:
+  - {fileID: 4505986734506277558, guid: 6639bff2cab67bf4f82156d9b28d49a0, type: 3}
+  - {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6, type: 3}
+  - {fileID: 4505986734506277558, guid: 7b3c31c4edf8f5340a0af7de19e03810, type: 3}
   maxAmmoPerClip: 0
   currentMagazine: 0
   ammoInSack: 0
@@ -3708,6 +3712,7 @@ MonoBehaviour:
   fireRate: 0
   isAutomatic: 0
   hasInfiniteAmmo: 0
+  player: {fileID: 0}
 --- !u!65 &1397742298
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4218,8 +4223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d041bcd993a179d4aa16aeea15826239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CornSeed: {fileID: 0}
-  PepperSeed: {fileID: 0}
+  CornSeed: {fileID: 11400000, guid: ea7de7e0bdfaa514fbdc7c47e41eb5dd, type: 2}
+  PepperSeed: {fileID: 11400000, guid: aa41af2e038d48f4692ca2b54f934745, type: 2}
   currentActiveGun: {fileID: 874070427}
   guns:
   - {fileID: 874070425}
