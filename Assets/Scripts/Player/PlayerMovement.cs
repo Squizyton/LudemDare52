@@ -42,11 +42,17 @@ public class PlayerMovement : MonoBehaviour
 
 	private void GetMovement(InputAction.CallbackContext context)
 	{
-		movePos = context.ReadValue<Vector2>();
+		FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Walking");
+		PlayerMoveSFX();
+
+
+        movePos = context.ReadValue<Vector2>();
 	}
 	private void GetSprint(InputAction.CallbackContext context)
 	{
-		Debug.Log(context.ReadValueAsButton());
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
+		PlayerMoveSFX();
+        Debug.Log(context.ReadValueAsButton());
 		sprinting = context.ReadValueAsButton();
 	}
 
@@ -66,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 		//If we are in top down mode, don't allow anyting else to happen
 		if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
 
-		if (controls.Player.Jump.triggered)
+        if (controls.Player.Jump.triggered)
 		{
 			Jump();
 		}
@@ -88,16 +94,17 @@ public class PlayerMovement : MonoBehaviour
 		if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
 
 		currentSpeed = sprinting ? sprintSpeed : runSpeed;
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
-		//Get the velocity of the player
-		var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
+        //Get the velocity of the player
+        var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
 		//Set the velocity of the player based on the velocity * transform.foward
 		rb.velocity = transform.TransformDirection(playerVelocity);
 
 		//system thinks player is moving while there is no input
 		if (rb.velocity.x != 0 || rb.velocity.z != 0)
 		{
-			PlayerMoveSFX();
+			//PlayerMoveSFX();
         }
         else
             PlayerStopMoveSFX(); 
@@ -125,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         //stop
         if (isWalking)
         {
-            FMODPlayerWalk.release();
+            FMODPlayerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             isWalking = false;
         }
         return;
@@ -133,7 +140,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerJumpSFX()
 	{
-		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
+		PlayerStopMoveSFX();
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
         return;
 	}
 
