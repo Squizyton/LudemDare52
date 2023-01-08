@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentWave;
     [SerializeField] public int currentScore;
     [SerializeField] public int currentKills;
-
+    [SerializeField] public int totalAmountOfWaves;
     
     
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         if(Instance) Destroy(this); else Instance = this;
         
         
-        ChangeMode(CurrentMode.FPS);
+        ChangeMode(CurrentMode.TopDown);
     }
 
     // Update is called once per framez
@@ -78,8 +78,18 @@ public class GameManager : MonoBehaviour
         FPS,
         TopDown
     }
-    
-    
+
+
+    public void StartRoundOfWaves()
+    {
+        totalAmountOfWaves++;
+        currentWave = 1;
+        creditManager.StartWave();
+        creditManager.availableCredits = 25 * totalAmountOfWaves;
+        ChangeMode(CurrentMode.FPS);
+    }
+
+
     [ContextMenu("TPS Test")]
     public void TpsTest()
     {
@@ -91,20 +101,32 @@ public class GameManager : MonoBehaviour
     {
         ChangeMode(CurrentMode.FPS);
     }
-    
+
+    public void RemoveEnemy()
+    {
+        enemiesRemaining--;
+        RoundEnded();
+    }
+
     public void RoundEnded()
     {
         if (creditManager.IsSpawning()||enemiesRemaining > 0) return;
         //Have an action that automatically updates this
-        creditManager.availableCredits = 25 * currentWave;
-        StartCoroutine(StartWaveCountdown());
+        currentWave++;
+
+        if (currentWave < 6)
+        {
+            totalAmountOfWaves++;
+            creditManager.availableCredits = 25 * totalAmountOfWaves;
+            StartCoroutine(StartWaveCountdown());
+        }else ChangeMode(CurrentMode.TopDown);
     }
     
     private IEnumerator StartWaveCountdown()
     {
         yield return new WaitForSeconds(5);
         currentWave++;
-        
+       
         //uiManager.UpdateWave(waveNumber);
         creditManager.StartWave();
     }

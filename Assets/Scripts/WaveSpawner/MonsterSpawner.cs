@@ -21,8 +21,7 @@ public class MonsterSpawner : MonoBehaviour
     private int attemptsToSpawn = 0;
     private void Start()
     {
-        //Debug
-        StartWave();
+        
     }
 
     public void StartWave()
@@ -61,8 +60,13 @@ public class MonsterSpawner : MonoBehaviour
         }
         else
         {
-            //If we couldn't afford it, start cooldown
-            StartCoroutine(Cooldown(.1f));
+            attemptsToSpawn++;
+
+            if (attemptsToSpawn < 4)
+            {
+                //If we couldn't afford it, start cooldown
+                StartCoroutine(Cooldown(.1f));
+            }else _isSpawning = false;
         }
     }
 
@@ -84,7 +88,7 @@ public class MonsterSpawner : MonoBehaviour
         
         
         //loop through the collection of available monsters and grab each weight
-        foreach (var monster in monsterList.Where(monster => monster.weight > 0))
+        foreach (var monster in tempList.Where(monster => monster.weight > 0))
         {
             weightSum += monster.weight;
             weightIndex.Add(weightSum);
@@ -98,7 +102,7 @@ public class MonsterSpawner : MonoBehaviour
             //Do a probability check with a likelihood of weight. The greater the number, the greater the more likely its to spawn
             if (Random.Range(0, weightSum) > weightIndex[index])
             {
-                return monsterList[index];
+                return tempList[index];
             }
             
             //Remove the last item from the sum of total untested weights and try again
@@ -107,7 +111,7 @@ public class MonsterSpawner : MonoBehaviour
             index++;
         }
 
-        return monsterList[index];
+        return tempList[index];
     }
 
     private bool PayCredits(MonsterObject mon, bool actuallyBuy)

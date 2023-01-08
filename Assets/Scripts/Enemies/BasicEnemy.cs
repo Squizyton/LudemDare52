@@ -96,7 +96,7 @@ public class BasicEnemy : MonoBehaviour
         agent.enabled = false;
         healthBar.gameObject.SetActive(false);
         animator.SetTrigger("Death");
-        GameManager.Instance.enemiesRemaining--;
+        GameManager.Instance.RemoveEnemy();
         Destroy(gameObject, 10f);
     }
 
