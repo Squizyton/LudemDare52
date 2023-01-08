@@ -11,6 +11,6 @@ namespace SaveFile
         public int totalCropsPlanted;
         public int bulletsShot;
     
-        public string didTutorial;
+        public bool didTutorial;
     }
 }
