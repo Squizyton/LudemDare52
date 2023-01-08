@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
                 FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToRTSMode");
                 IsRTS = true;
             }
-            Debug.Log("FightMode");
+           
             topDownCamera.Priority = 0;
             fpsCamera.Priority = 10;
         }
@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
                 FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToFightMode");
                 IsRTS = false;
             }
-            Debug.Log("RTSMode");
+         
             fpsCamera.Priority = 0;
             topDownCamera.Priority = 10;
         }

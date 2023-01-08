@@ -18,6 +18,10 @@ namespace UI
         [SerializeField]private Slider reloadSlider;
         private PlayerInventory playerInventory;
 
+
+        [Header("Player Related Things")] [SerializeField]
+        private Slider staminaSlider;
+        
         private void Awake()
         {
             Instance = this;
@@ -55,6 +59,13 @@ namespace UI
         #endregion
         
 
+        #region Player Related
+        public void UpdateStaminaSlider(float stamina)
+        {
+            staminaSlider.value = stamina;
+        }
+        #endregion
+        
         #region Reload
 
         public void ReloadGroupStatus(bool value, float reloadTime)

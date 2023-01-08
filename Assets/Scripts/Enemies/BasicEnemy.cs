@@ -30,8 +30,6 @@ public class BasicEnemy : MonoBehaviour
 
     public virtual void OnHit(float damage)
     {
-        Debug.Log("Hit");
-
         if (isDead) return;
 
         health -= damage;
@@ -52,8 +50,6 @@ public class BasicEnemy : MonoBehaviour
 
     protected void Update()
     {
-        Debug.Log("Called");
-
         if (isDead) return;
         
         var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);

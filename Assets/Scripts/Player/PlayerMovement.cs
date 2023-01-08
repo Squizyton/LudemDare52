@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,13 +11,23 @@ public class PlayerMovement : MonoBehaviour
 	private PlayerControls controls;
 
 
+	[Header("Movement Values")]
 	[SerializeField] private float runSpeed = 5f;
 	[SerializeField] private float sprintSpeed = 5f;
 	[SerializeField] private float jumpForce = 5f;
+	
+	[Header("Ground Check")]
 	[SerializeField] private Rigidbody rb;
 	[SerializeField] private LayerMask groundLayer;
 	[SerializeField] private float RaycastDistance = 0.5f;
-
+	
+	[Header("Stamina")]
+	[SerializeField] private float staminaAmount;
+	[SerializeField] private float staminaDrain = 10f;
+	[SerializeField] private float staminaMax = 100f;
+	private bool staminaRecharging;
+	private bool exhausted;
+	
     private bool isWalking;
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
@@ -27,7 +38,9 @@ public class PlayerMovement : MonoBehaviour
 	public bool canJump;
 	private bool sprinting;
 	private float currentSpeed;
-
+private Coroutine staminaCoroutine;
+	
+	
 	private void Start()
 	{
 		controls = new PlayerControls();
@@ -36,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 		controls.Player.Sprint.performed += GetSprint;
 		controls.Player.Sprint.canceled += GetSprint;
 		controls.Enable();
-
+		staminaAmount = staminaMax;
         FMODPlayerWalk = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Movement/Player_FootSteps");
     }
 
@@ -50,10 +63,18 @@ public class PlayerMovement : MonoBehaviour
 	}
 	private void GetSprint(InputAction.CallbackContext context)
 	{
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
+		if (exhausted) return;
+		
+		FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
 		PlayerMoveSFX();
-        Debug.Log(context.ReadValueAsButton());
 		sprinting = context.ReadValueAsButton();
+
+		if(sprinting)
+			StopCoroutine(staminaCoroutine);
+
+		if (sprinting) return;
+		Debug.Log("Start Recharging");
+		staminaCoroutine = StartCoroutine(RechargeStamina());
 	}
 
 
@@ -96,7 +117,23 @@ public class PlayerMovement : MonoBehaviour
 		if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
 
 		currentSpeed = sprinting ? sprintSpeed : runSpeed;
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
+
+		switch (sprinting)
+		{
+			case true when staminaAmount > 0:
+				staminaAmount -= staminaDrain * Time.deltaTime;
+				UIManager.Instance.UpdateStaminaSlider(staminaAmount);
+				break;
+			case true when staminaAmount <= 0:
+				exhausted = true;
+				sprinting = false;
+				staminaRecharging = true;
+				StartCoroutine(RechargeStamina());
+				break;
+		}
+
+
+		FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
         //Get the velocity of the player
         var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
@@ -111,6 +148,25 @@ public class PlayerMovement : MonoBehaviour
         else
             PlayerStopMoveSFX(); 
 
+	}
+
+
+	private IEnumerator RechargeStamina()
+	{
+		yield return new WaitForSeconds(1f);
+		
+		while ((int)staminaAmount != (int)staminaMax)
+		{
+			Debug.Log("Recharging");
+			staminaAmount += staminaDrain * Time.deltaTime;
+			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
+			yield return new WaitForSeconds(.05f);
+		}
+		
+		if(exhausted)
+			exhausted = false;
+		
+		staminaRecharging = false;
 	}
 
 	private void OnDrawGizmos()
