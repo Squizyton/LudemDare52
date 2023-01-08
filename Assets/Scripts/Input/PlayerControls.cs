@@ -107,6 +107,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AmmoSwapping"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4443608-e33d-4169-a185-ee71cbbbf17a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -351,6 +360,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e517b85-f1c2-4163-985d-85e22e071ef8"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AmmoSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abe58f47-7c11-4a72-bbd5-ed47bd132837"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AmmoSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -411,6 +442,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Harvest = m_Player.FindAction("Harvest", throwIfNotFound: true);
         m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_AmmoSwapping = m_Player.FindAction("AmmoSwapping", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -479,6 +511,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Harvest;
     private readonly InputAction m_Player_ConvertToBullets;
     private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_AmmoSwapping;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -492,6 +525,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Harvest => m_Wrapper.m_Player_Harvest;
         public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @AmmoSwapping => m_Wrapper.m_Player_AmmoSwapping;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -528,6 +562,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @AmmoSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
+                @AmmoSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
+                @AmmoSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -559,6 +596,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @AmmoSwapping.started += instance.OnAmmoSwapping;
+                @AmmoSwapping.performed += instance.OnAmmoSwapping;
+                @AmmoSwapping.canceled += instance.OnAmmoSwapping;
             }
         }
     }
@@ -592,5 +632,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnHarvest(InputAction.CallbackContext context);
         void OnConvertToBullets(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnAmmoSwapping(InputAction.CallbackContext context);
     }
 }

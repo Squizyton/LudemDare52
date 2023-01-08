@@ -2873,8 +2873,8 @@ MonoBehaviour:
   availableCredits: 50
   monsterList:
   - {fileID: 11400000, guid: 805da6ea9c31b9147b53ee1d2f293b60, type: 2}
-  - {fileID: 11400000, guid: 4144de0aec40a764188077f607f5b5ab, type: 2}
   - {fileID: 11400000, guid: 0ea5bde2ad78cc64ab3d546e6e3cd6e7, type: 2}
+  - {fileID: 11400000, guid: 4144de0aec40a764188077f607f5b5ab, type: 2}
   spawnPoints:
   - {fileID: 1739497087}
   - {fileID: 800209488}
