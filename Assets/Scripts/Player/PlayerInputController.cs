@@ -8,7 +8,7 @@ namespace Player
         public static PlayerInputController Instance;
 
 
-       private PlayerControls playerControls;
+       public PlayerControls playerControls;
 
 
         public CameraRotation cameraRotationClass;

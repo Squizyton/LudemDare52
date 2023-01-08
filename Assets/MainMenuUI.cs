@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -37,9 +38,22 @@ public class MainMenuUI : MonoBehaviour
         
         nameText.text = loadSaveFile.saveFile.farmerName;
     }
+
+    public void UpdateName(string fName)
+    {
+        nameText.text = fName;
+    }
+
+
+    #endregion
+
+    #region LoadGameScene
     
+    public void LoadGameScene()
+    {
+        SceneManager.LoadSceneAsync("GameScene");
+    }
     
-    
-    
+
     #endregion
 }

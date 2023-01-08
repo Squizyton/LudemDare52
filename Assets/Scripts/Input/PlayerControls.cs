@@ -116,6 +116,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab8b024a-6fec-4b6e-a0f4-31811b5262f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +391,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""AmmoSwapping"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07d439a6-0745-4cd9-bc5a-b9932e85b303"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6533cc92-9609-407d-897f-03f60c9918ff"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -443,6 +474,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_AmmoSwapping = m_Player.FindAction("AmmoSwapping", throwIfNotFound: true);
+        m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -512,6 +544,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ConvertToBullets;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_AmmoSwapping;
+    private readonly InputAction m_Player_Confirm;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -526,6 +559,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @AmmoSwapping => m_Wrapper.m_Player_AmmoSwapping;
+        public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -565,6 +599,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AmmoSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
                 @AmmoSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
                 @AmmoSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
+                @Confirm.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -599,6 +636,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AmmoSwapping.started += instance.OnAmmoSwapping;
                 @AmmoSwapping.performed += instance.OnAmmoSwapping;
                 @AmmoSwapping.canceled += instance.OnAmmoSwapping;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
             }
         }
     }
@@ -633,5 +673,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnConvertToBullets(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnAmmoSwapping(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
     }
 }

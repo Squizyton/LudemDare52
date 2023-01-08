@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
     [SerializeField]private MonsterSpawner creditManager;
-
+    [SerializeField]private LoadSaveFile loadSaveFile;
     [SerializeField] public PlotGrid grid;
     //MOde
     [Header("Current Mode")]
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         
         
         DontDestroyOnLoad(this);
+        loadSaveFile = FindObjectOfType<LoadSaveFile>();
         
         normalCowPosition = cow.position;
     }
@@ -59,6 +61,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ChangeMode(CurrentMode.TopDown);
+
+        if (!loadSaveFile.saveFile.didTutorial)
+        {
+            StartTutorial();
+        }
     }
 
     // Update is called once per framez
@@ -173,4 +180,29 @@ public class GameManager : MonoBehaviour
         //uiManager.UpdateWave(waveNumber);
         creditManager.StartWave();
     }
+    
+    
+    
+    
+    #region Tutorial
+
+    private void StartTutorial()
+    {
+        PlayerInputController.Instance.playerControls.Player.Confirm.performed += _ => ProgressTutorial();
+    }
+
+    private void ProgressTutorial()
+    {
+        uiManager.NextTutorial();
+    }
+    
+    public void EndTutorial()
+    {
+        loadSaveFile.saveFile.didTutorial = true;
+        loadSaveFile.SaveFile();
+        
+        PlayerInputController.Instance.playerControls.Player.Confirm.performed -= _ => ProgressTutorial();
+    }
+
+    #endregion
 }

@@ -25,8 +25,8 @@ public class LoadSaveFile : MonoBehaviour
 
     public void LoadTheSaveFile()
     {
-        var path = Application.persistentDataPath + "/farmerInfo/saveFile.greg";
-
+        var path = Application.persistentDataPath+"/FarmerInfo";
+        Debug.Log("Looking At:" + path);
 
 
         if (!Directory.Exists(path))
@@ -39,9 +39,10 @@ public class LoadSaveFile : MonoBehaviour
         {
 
             var formatter = new BinaryFormatter();
-            var fileStream = new FileStream(path, FileMode.Open);
+            var fileStream = new FileStream(path + "/saveFile.greg", FileMode.Open);
 
-            var saveFile = (FarmerInfo) formatter.Deserialize(fileStream);
+            saveFile = (FarmerInfo) formatter.Deserialize(fileStream);
+            MainMenuUI.Instance.UpdateName(saveFile.farmerName);
             fileStream.Close();
         }
     }
@@ -51,10 +52,13 @@ public class LoadSaveFile : MonoBehaviour
     {
         saveFile = new FarmerInfo();
 
-        var path = Application.persistentDataPath + "/farmerInfo";
+        var path = Application.persistentDataPath + "/FarmerInfo";
         Directory.CreateDirectory(path);
+        
         var formatter = new BinaryFormatter();
+        Debug.Log(path);
         var fileStream = new FileStream(path+"/saveFile.greg", FileMode.Create);
+        
         formatter.Serialize(fileStream, saveFile);
         fileStream.Close();
 
@@ -70,6 +74,8 @@ public class LoadSaveFile : MonoBehaviour
         var formatter = new BinaryFormatter();
         var path = Application.persistentDataPath + "/farmerInfo/saveFile.greg";
         var fileStream = new FileStream(path, FileMode.Create);
+        formatter.Serialize(fileStream, saveFile);
+        
         fileStream.Close();
     }
     
