@@ -35,7 +35,6 @@ namespace Guns
         private Vector3 hitPoint;
 
 
-        public GameObject debugSphere;
         public LayerMask layerMask;
         private void Start()
         {
@@ -146,7 +145,6 @@ namespace Guns
             //Store the hit point
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
             {
-                debugSphere.transform.position = hit.point;
                 hitPoint = hit.point;
                 
                 
