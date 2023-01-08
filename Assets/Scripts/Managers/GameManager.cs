@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Header("Managers")] 
     [SerializeField]private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
-    
+    [SerializeField]private MonsterSpawner creditManager;
     //MOde
     [Header("Current Mode")]
     public CurrentMode currentMode;
@@ -22,21 +22,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int currentWave;
     [SerializeField] public int currentScore;
     [SerializeField] public int currentKills;
-
+    [SerializeField] public int totalAmountOfWaves;
+    
+    
 
     [Header("Game Settings")] public Transform currentTarget;
-    
+    public int enemiesRemaining;
     //Timer Stats
     [Header("Timers")]
     [SerializeField]private float timeTillNextWave;
     
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         if(Instance) Destroy(this); else Instance = this;
         
         
-        ChangeMode(CurrentMode.FPS);
+        ChangeMode(CurrentMode.TopDown);
     }
 
     // Update is called once per framez
@@ -76,8 +78,18 @@ public class GameManager : MonoBehaviour
         FPS,
         TopDown
     }
-    
-    
+
+
+    public void StartRoundOfWaves()
+    {
+        totalAmountOfWaves++;
+        currentWave = 1;
+        creditManager.StartWave();
+        creditManager.availableCredits = 25 * totalAmountOfWaves;
+        ChangeMode(CurrentMode.FPS);
+    }
+
+
     [ContextMenu("TPS Test")]
     public void TpsTest()
     {
@@ -88,5 +100,34 @@ public class GameManager : MonoBehaviour
     public void FpsTest()
     {
         ChangeMode(CurrentMode.FPS);
+    }
+
+    public void RemoveEnemy()
+    {
+        enemiesRemaining--;
+        RoundEnded();
+    }
+
+    public void RoundEnded()
+    {
+        if (creditManager.IsSpawning()||enemiesRemaining > 0) return;
+        //Have an action that automatically updates this
+        currentWave++;
+
+        if (currentWave < 6)
+        {
+            totalAmountOfWaves++;
+            creditManager.availableCredits = 25 * totalAmountOfWaves;
+            StartCoroutine(StartWaveCountdown());
+        }else ChangeMode(CurrentMode.TopDown);
+    }
+    
+    private IEnumerator StartWaveCountdown()
+    {
+        yield return new WaitForSeconds(5);
+        currentWave++;
+       
+        //uiManager.UpdateWave(waveNumber);
+        creditManager.StartWave();
     }
 }

@@ -6,7 +6,7 @@ namespace Enemies.Enemy_Types
     {
         private void Start()
         {
-         
+            agent.speed = speed;
             healthBar.maxValue = health;
             healthBar.value = health;
         }

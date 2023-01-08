@@ -2034,12 +2034,6 @@ NavMeshAgent:
     type: 3}
   m_PrefabInstance: {fileID: 1140867663}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1133659099 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6985273881787302220, guid: 2a586b2221766ab4e83ad0996ab4648f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1140867663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1140867663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2188,7 +2182,7 @@ MonoBehaviour:
   currentWave: 0
   currentScore: 0
   currentKills: 0
-  currentTarget: {fileID: 1133659099}
+  currentTarget: {fileID: 869936247}
   timeTillNextWave: 0
 --- !u!1 &1245561901
 GameObject:

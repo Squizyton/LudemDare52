@@ -27,6 +27,7 @@ public class PlayerInventory : MonoBehaviour
     }
     [SerializeField] PlantInfo CornSeed;
     [SerializeField] PlantInfo PepperSeed;
+    
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
@@ -42,6 +43,8 @@ public class PlayerInventory : MonoBehaviour
     private PlotCell selectedPlot;
     public PlantInfo SelectedSeed { get; set; }
 
+    
+    private int health = 100;
     public void Start()
     {
         controls = new PlayerControls();
@@ -56,6 +59,20 @@ public class PlayerInventory : MonoBehaviour
     public bool HasAmmo(PlantInfo plant)
     {
         return bulletInventory.ContainsKey(plant);
+    }
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("taking Damage");
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        //Lose Screen here
     }
 
     private void WeaponSwap()

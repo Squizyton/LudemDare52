@@ -17,7 +17,11 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private LayerMask groundLayer;
 	[SerializeField] private float RaycastDistance = 0.5f;
 
-	[HideInInspector]
+    private bool isWalking;
+
+    private FMOD.Studio.EventInstance FMODPlayerWalk;
+
+    [HideInInspector]
 	public Vector2 movePos;
 	[HideInInspector]
 	public bool canJump;
@@ -32,7 +36,9 @@ public class PlayerMovement : MonoBehaviour
 		controls.Player.Sprint.performed += GetSprint;
 		controls.Player.Sprint.canceled += GetSprint;
 		controls.Enable();
-	}
+
+        FMODPlayerWalk = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Movement/Player_FootSteps");
+    }
 
 	private void GetMovement(InputAction.CallbackContext context)
 	{
@@ -87,10 +93,15 @@ public class PlayerMovement : MonoBehaviour
 		var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
 		//Set the velocity of the player based on the velocity * transform.foward
 		rb.velocity = transform.TransformDirection(playerVelocity);
+
+		//system thinks player is moving while there is no input
 		if (rb.velocity.x != 0 || rb.velocity.z != 0)
 		{
 			PlayerMoveSFX();
-		}
+        }
+        else
+            PlayerStopMoveSFX(); 
+
 	}
 
 	private void OnDrawGizmos()
@@ -98,27 +109,41 @@ public class PlayerMovement : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, Vector3.down * RaycastDistance);
 	}
+    private void PlayerMoveSFX()
+    {
+        //play
+        if (!isWalking)
+        {
+            FMODPlayerWalk.start();
+            isWalking = true;
+            Debug.Log("Starts Walking");
+        }
+        return;
+    }
 
+    private void PlayerStopMoveSFX()
+    {
+        //stop
+        if (isWalking)
+        {
+            FMODPlayerWalk.release();
+            isWalking = false;
+            Debug.Log("Stops Walking");
+        }
+        return;
+    }
 
-	private void PlayerMoveSFX()
-	{
-		return;
-	}
-
-	private void PlayerSprintSFX()
-	{
-		return;
-	}
-
-	private void PlayerJumpSFX()
+    private void PlayerJumpSFX()
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
-		return;
+        Debug.Log("Jumped");
+        return;
 	}
 
 	private void PlayerLandSFX()
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
+		Debug.Log("Landed");
 		return;
 	}
 }
