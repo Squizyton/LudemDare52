@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Pepper
   m_EditorClassIdentifier: 
   PlantName: pepper
-  GrowTime: 5
+  GrowTime: 150
   seedYield: 1
   bulletYield: 3
-  plantModel: {fileID: 5529012603557650017, guid: 255847d3103ed82449069b4145a75c4e,
+  plantModel: {fileID: 919132149155446097, guid: d5c209400f782704aa1d6836540cf3ca,
     type: 3}
   bulletSpeed: 10
   bulletDamage: 1

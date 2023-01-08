@@ -45,11 +45,13 @@ namespace UI
             switch (newMode)
             {
                 case GameManager.CurrentMode.FPS:
+                    GameManager.Instance.grid.TurnOffCellUI();
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
                     topDownCanvasGroup.interactable = false;
                     break;
                 case GameManager.CurrentMode.TopDown:
+                    GameManager.Instance.grid.TurnOnCellUI();
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;

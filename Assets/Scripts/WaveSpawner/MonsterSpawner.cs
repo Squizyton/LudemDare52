@@ -56,7 +56,8 @@ public class MonsterSpawner : MonoBehaviour
             var enemy = Instantiate(pickedEnemy.prefab, spawnPoints[index].position, pickedEnemy.prefab.transform.rotation);
 
             //Start spawn cooldown
-            StartCoroutine(Cooldown(pickedEnemy.coolDown));
+            if(gameObject.activeSelf)
+                StartCoroutine(Cooldown(pickedEnemy.coolDown));
         }
         else
         {

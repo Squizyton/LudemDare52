@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Corn
   m_EditorClassIdentifier: 
   PlantName: corn
-  GrowTime: 3
+  GrowTime: 10
   seedYield: 1
   bulletYield: 30
-  plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
+  plantModel: {fileID: 919132149155446097, guid: a13443b6ebbf43940a2b469305c2845b,
     type: 3}
   bulletSpeed: 20
   bulletDamage: 1
