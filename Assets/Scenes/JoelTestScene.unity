@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4f5991b8c2ab74fa6f75efc8d2913d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsCanvasGroup: {fileID: 0}
+  fpsCanvasGroup: {fileID: 172098729}
   topDownCanvasGroup: {fileID: 0}
   reloadGroup: {fileID: 727677669}
   reloadSlider: {fileID: 292667467}
@@ -1623,6 +1623,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   RaycastDistance: 1.15
+  movePos: {x: 0, y: 0}
+  canJump: 0
 --- !u!54 &869936249
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2032,12 +2034,6 @@ NavMeshAgent:
     type: 3}
   m_PrefabInstance: {fileID: 1140867663}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1133659099 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6985273881787302220, guid: 2a586b2221766ab4e83ad0996ab4648f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1140867663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1140867663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2186,7 +2182,7 @@ MonoBehaviour:
   currentWave: 0
   currentScore: 0
   currentKills: 0
-  currentTarget: {fileID: 1133659099}
+  currentTarget: {fileID: 869936247}
   timeTillNextWave: 0
 --- !u!1 &1245561901
 GameObject:
