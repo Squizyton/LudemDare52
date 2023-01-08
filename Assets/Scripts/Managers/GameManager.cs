@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
     private void StartTutorial()
     {
         PlayerInputController.Instance.playerControls.Player.Confirm.performed += _ => ProgressTutorial();
+        uiManager.StartTutorial();
     }
 
     private void ProgressTutorial()
