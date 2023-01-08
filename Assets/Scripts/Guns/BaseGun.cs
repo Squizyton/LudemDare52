@@ -195,6 +195,7 @@ namespace Guns
 
         private IEnumerator CoolDown()
         {
+            
             yield return new WaitForSeconds(fireRate);
             canFire = true;
         }

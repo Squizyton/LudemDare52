@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : MonoBehaviour,IHasHealth
 {
     [Header("Base Stats")] [SerializeField]
     protected float health = 5;
@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour
 
     private bool isOnFire;
     private float currentFireCooldown;
-
+    
     public virtual void OnHit(float damage, bool fire = false)
     {
         if (isDead) return;
@@ -159,5 +159,10 @@ public class BasicEnemy : MonoBehaviour
     {
         Moving,
         Attacking,
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        OnHit(damageTaken);
     }
 }

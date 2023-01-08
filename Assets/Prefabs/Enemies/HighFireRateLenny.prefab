@@ -490,17 +490,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.75
+      value: 12.19705
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000021219254
+      value: 0.0000047683716
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.53
+      value: -20.370829
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -1440,7 +1440,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_Name
-      value: Lenny
+      value: HighFireRateLenny
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -2122,6 +2122,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 13.2175665
       objectReference: {fileID: 0}
+    - target: {fileID: 6547899606526611466, guid: 30e9850d98a53db4792a664e9301af21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 36d607a70b92b674aa7ce4b46c0792a6, type: 2}
     - target: {fileID: 6549559254190997776, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2600,10 +2605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3934a5a113c771408a88189de84efd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 7
-  speed: 4
+  health: 5
+  speed: 3
   damage: 5
-  attackRate: 4
+  attackRate: 2.75
   agent: {fileID: 861244515}
   state: 0
   healthBar: {fileID: 2189675407025765656}

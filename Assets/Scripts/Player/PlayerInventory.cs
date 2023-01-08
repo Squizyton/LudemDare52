@@ -68,10 +68,10 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         }
         return 0;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageTaken)
     {
         Debug.Log("taking Damage");
-        health -= damage;
+        health -= damageTaken;
         if (health <= 0)
         {
             Die();

@@ -50,13 +50,10 @@ public class BaseBullet : MonoBehaviour
    {
         //FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
         
-        hit.TryGetComponent(out BasicEnemy enemy);
-        
-        if(enemy)
-        {
-         enemy.OnHit(damage);   
-        }
-        
+        hit.TryGetComponent(out IHasHealth enemy);
+
+        enemy?.TakeDamage((int)damage);
+
         Destroy(gameObject);
     }
     private void OnCollisionEnter(Collision collision)

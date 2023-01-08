@@ -1440,7 +1440,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_Name
-      value: Lenny
+      value: HighSpeedLenny
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -2122,6 +2122,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 13.2175665
       objectReference: {fileID: 0}
+    - target: {fileID: 6547899606526611466, guid: 30e9850d98a53db4792a664e9301af21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7bc64125635adf241ac73ebec9a55624, type: 2}
     - target: {fileID: 6549559254190997776, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2601,9 +2606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 7
-  speed: 4
-  damage: 5
-  attackRate: 4
+  speed: 12
+  damage: 2
+  attackRate: 3.6
   agent: {fileID: 861244515}
   state: 0
   healthBar: {fileID: 2189675407025765656}

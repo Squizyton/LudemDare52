@@ -12,11 +12,14 @@ public class Lenny : BasicEnemy
 
     private bool attacked;
     private bool changeRotation;
-    public GameObject debugSpere;
+
 
 
     public void Start()
     {
+        agent.speed = speed;
+        healthBar.maxValue = health;
+        healthBar.value = health;
         atTarget = true;
         changeRotation = true;
     }
@@ -31,7 +34,7 @@ public class Lenny : BasicEnemy
             //Get a random point thats a certain distance from the player
             moveToTarget = position + Random.insideUnitSphere * 40;
             moveToTarget.y = transform.position.y;
-            debugSpere.transform.position = new Vector3(moveToTarget.x, transform.position.y, moveToTarget.z);
+            
 
 
             //Check to see if moveToTarget is in the monsterBounds
