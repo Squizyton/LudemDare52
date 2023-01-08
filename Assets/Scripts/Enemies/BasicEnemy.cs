@@ -40,7 +40,12 @@ public class BasicEnemy : MonoBehaviour
 
         if (health <= 0)
         {
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
             OnDeath();
+        }
+        else
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Hit", gameObject);
         }
     }
 
