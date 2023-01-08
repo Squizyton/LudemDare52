@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Player;
 using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -192,10 +193,11 @@ public class GameManager : MonoBehaviour
 
     private void StartTutorial()
     {
-        PlayerInputController.Instance.playerControls.Player.Confirm.performed += _ => ProgressTutorial();
+        PlayerInputController.Instance.playerControls.Player.Confirm.performed +=  ProgressTutorial;
+        uiManager.StartTutorial();
     }
 
-    private void ProgressTutorial()
+    private void ProgressTutorial(InputAction.CallbackContext ctx)
     {
         uiManager.NextTutorial();
     }
@@ -204,9 +206,8 @@ public class GameManager : MonoBehaviour
     {
         loadSaveFile.saveFile.didTutorial = true;
         loadSaveFile.SaveFile();
-        
-        PlayerInputController.Instance.playerControls.Player.Confirm.performed -= _ => ProgressTutorial();
-    }
 
+        PlayerInputController.Instance.playerControls.Player.Confirm.performed -= ProgressTutorial;
+    }
     #endregion
 }

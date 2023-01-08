@@ -37,6 +37,7 @@ public class MainMenuUI : MonoBehaviour
         loadSaveFile.SaveFile();
         
         nameText.text = loadSaveFile.saveFile.farmerName;
+        EnterNamePanel.SetActive(false);
     }
 
     public void UpdateName(string fName)
