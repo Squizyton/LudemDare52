@@ -44,8 +44,6 @@ namespace Player
             if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
         
             if (!isShooting) return;
-
-            Debug.Log("Uh");
         
             //TODO: These two are redundant. Fix it.
             if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;
@@ -65,8 +63,8 @@ namespace Player
         private void ChangeAmmo()
         {
             Debug.Log("ATTEMPTING TO CHANGE AMMO");
-            if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;
             var gunController = PlayerInventory.Instance.currentActiveGun;
+            if (gunController.IsReloading()) return;
             gunController.SwapAmmo();
         }
 

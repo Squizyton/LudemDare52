@@ -116,7 +116,6 @@ public class PlayerMovement : MonoBehaviour
         {
             FMODPlayerWalk.start();
             isWalking = true;
-            Debug.Log("Starts Walking");
         }
         return;
     }
@@ -128,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
         {
             FMODPlayerWalk.release();
             isWalking = false;
-            Debug.Log("Stops Walking");
         }
         return;
     }
@@ -136,14 +134,12 @@ public class PlayerMovement : MonoBehaviour
     private void PlayerJumpSFX()
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Jump");
-        Debug.Log("Jumped");
         return;
 	}
 
 	private void PlayerLandSFX()
 	{
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
-		Debug.Log("Landed");
 		return;
 	}
 }

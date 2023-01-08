@@ -27,7 +27,9 @@ public class PlayerInventory : MonoBehaviour
     }
     [SerializeField] PlantInfo CornSeed;
     [SerializeField] PlantInfo PepperSeed;
-    
+    [SerializeField] PlantInfo CarrotSeed;
+    [SerializeField] PlantInfo MelonSeed;
+
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
@@ -195,12 +197,16 @@ public class PlayerInventory : MonoBehaviour
     {
       AddSeed(seedInventory, CornSeed,19);
       AddSeed(seedInventory, PepperSeed, 2);
+      AddSeed(seedInventory, CarrotSeed, 5);
+      AddSeed(seedInventory, MelonSeed, 5);
     }
     [ContextMenu("Add Test Bullets")]
     public void AddTestBullets()
     {
         AddSeed(bulletInventory, CornSeed, 200);
         AddSeed(bulletInventory, PepperSeed, 200);
+        AddSeed(bulletInventory, CarrotSeed, 200);
+        AddSeed(bulletInventory, MelonSeed, 200);
     }
     [ContextMenu("Check Dictionary")]
     public void CheckDictionarySize()

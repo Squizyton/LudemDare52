@@ -28,11 +28,19 @@ public class BasicEnemy : MonoBehaviour
 
     private bool isDead;
 
-    public virtual void OnHit(float damage)
+    private bool isOnFire;
+    private float currentFireCooldown;
+
+    public virtual void OnHit(float damage, bool fire = false)
     {
         Debug.Log("Hit");
 
         if (isDead) return;
+        if (fire)
+        {
+            isOnFire = true;
+            currentFireCooldown = 10;
+        }
 
         health -= damage;
 
@@ -49,13 +57,41 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    public virtual bool TicDamage()
+    {
+        float damage = 0f;
+        if(currentFireCooldown - Time.deltaTime >= 0)
+        {
+            damage = Time.deltaTime;
+            Debug.Log("ON FIRE:" + damage.ToString());
+            currentFireCooldown -= Time.deltaTime;
+        }
+        else
+        {
+            damage = currentFireCooldown;
+            currentFireCooldown = 0;
+        }
+        health -= damage;
+
+        healthBar.value = health;
+
+        if (health <= 0)
+        {
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
+            OnDeath();
+        }
+        return currentFireCooldown > 0;
+    }
+
 
     protected void Update()
     {
-        Debug.Log("Called");
+        //Debug.Log("Called");
 
         if (isDead) return;
-        
+
+        //Handle tic damage, if any
+        if (isOnFire && !TicDamage()) isOnFire = false;
         var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
 
         switch (state)
