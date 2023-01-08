@@ -18,8 +18,8 @@ MonoBehaviour:
   bulletYield: 30
   plantModel: {fileID: 4092113242669196021, guid: 135c9cb967a02a746bb543fbb0df5fa9,
     type: 3}
-  bulletSpeed: 5
-  bulletDamage: 0
+  bulletSpeed: 20
+  bulletDamage: 1
   bulletLifeTime: 0
   isAutomatic: 0
   gunFireRate: 0

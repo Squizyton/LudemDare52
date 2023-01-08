@@ -27,6 +27,7 @@ namespace Player
             playerControls.Player.Shoot.performed += ctx => Shoot();
             playerControls.Player.Shoot.canceled += ctx => StopShoot();
             playerControls.Player.Reload.performed += ctx => OnReload();
+            playerControls.Player.AmmoSwapping.performed += ctx => ChangeAmmo();
             playerControls.Enable();
         }
 
@@ -47,14 +48,8 @@ namespace Player
             Debug.Log("Uh");
         
             //TODO: These two are redundant. Fix it.
-            if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;    
+            if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;
             var gunController = PlayerInventory.Instance.currentActiveGun;
-            if ()
-            {
-                Debug.Log("Trying to swap ammo!");
-                PlayerInventory.Instance.currentActiveGun.SwapAmmo();
-            }
-
             if (gunController.IsAutomatic())
             {
                 gunController.Shoot();
@@ -65,6 +60,14 @@ namespace Player
                 gunController.SetCanFire(false);
             }
 
+        }
+
+        private void ChangeAmmo()
+        {
+            Debug.Log("ATTEMPTING TO CHANGE AMMO");
+            if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;
+            var gunController = PlayerInventory.Instance.currentActiveGun;
+            gunController.SwapAmmo();
         }
 
         private void StopShoot()

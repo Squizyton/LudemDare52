@@ -56,9 +56,13 @@ public class PlayerInventory : MonoBehaviour
         controls.Enable();
     }
 
-    public bool HasAmmo(PlantInfo plant)
+    public int GetAmmo(PlantInfo seed)
     {
-        return bulletInventory.ContainsKey(plant);
+        if (bulletInventory.ContainsKey(seed))
+        {
+            return bulletInventory[seed];
+        }
+        return 0;
     }
     public void TakeDamage(int damage)
     {

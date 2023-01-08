@@ -75,9 +75,12 @@ namespace Guns
             for(int i = 0; i < bulletList.Length - 1; i++)
             {
                 BaseBullet bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
-                if (PlayerInventory.Instance.HasAmmo(bullet.GetBulletInfo()))
+                if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) > 0)
                 {
+                    currentBullet = (i + currentBullet + 1) % bulletList.Length;
                     FeedStatsIntoGun(bullet.GetBulletInfo());
+                    currentMagazine = 0;
+                    ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
                     break;
                 }
             }
@@ -92,6 +95,9 @@ namespace Guns
             {
                 currentMagazine--;
                 canFire = false;
+                // Update ammo in inventory
+                PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
 
                 //shoot a raycast from the middle of the screen
 
@@ -151,7 +157,9 @@ namespace Guns
                 {
                     //get the difference between the current ammo and the max ammo
                     var difference = maxAmmoPerClip - currentMagazine;
-
+                    PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                    //Set ammoInSack to inventory amount
+                    ammoInSack = PlayerInventory.Instance.GetAmmo(currentAmmoType) - currentMagazine;
 
                     //If the player has enough ammo to reload
                     if (ammoInSack >= maxAmmoPerClip)

@@ -12,6 +12,8 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             currentMagazine = newAmmo.maxClipSize;
+            isAutomatic = newAmmo.isAutomatic;
+            Debug.Log(isAutomatic);
         }
     }
 }
