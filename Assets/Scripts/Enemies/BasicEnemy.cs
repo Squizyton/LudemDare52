@@ -16,7 +16,7 @@ public class BasicEnemy : MonoBehaviour
 
     [Header("Attack Settings")] [SerializeField]
     private float attackRate;
-
+    private float attackTimer;
 
     [Header("AI")] [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected State state;
@@ -53,6 +53,8 @@ public class BasicEnemy : MonoBehaviour
     protected void Update()
     {
         Debug.Log("Called");
+
+        if (isDead) return;
         
         var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
 
@@ -60,8 +62,11 @@ public class BasicEnemy : MonoBehaviour
         {
             case State.Moving:
                 agent.SetDestination(GameManager.Instance.currentTarget.position);
+                
+               
                 if (distance <= agent.stoppingDistance)
                 {
+                    attackTimer = attackRate;
                     state = State.Attacking;
                 }
                 break;
@@ -71,6 +76,18 @@ public class BasicEnemy : MonoBehaviour
                     animator.SetTrigger("Run");
                     state = State.Moving;
                 }
+
+                if (attackTimer > 0)
+                {
+                    attackTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    animator.SetTrigger("Attack");
+                    attackTimer = attackRate;
+                }
+
+
                 break;
             default:
                 Debug.LogError("How are we out of this state machine?");
@@ -81,11 +98,18 @@ public class BasicEnemy : MonoBehaviour
     protected virtual void OnDeath()
     {
         isDead = true;
-        //agent.enabled = false;
+        agent.enabled = false;
         healthBar.gameObject.SetActive(false);
         animator.SetTrigger("Death");
+        GameManager.Instance.RemoveEnemy();
+        Destroy(gameObject, 10f);
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
+    
 
     protected enum State
     {
