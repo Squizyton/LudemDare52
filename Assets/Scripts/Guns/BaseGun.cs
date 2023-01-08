@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections;
+using Cinemachine;
 using Player;
 using UI;
 using UnityEngine;
@@ -32,6 +33,10 @@ namespace Guns
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
+
+
+        public GameObject debugSphere;
+        public LayerMask layerMask;
         private void Start()
         {
          
@@ -74,15 +79,13 @@ namespace Guns
              
             for(int i = 0; i < bulletList.Length - 1; i++)
             {
-                BaseBullet bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
-                if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) > 0)
-                {
-                    currentBullet = (i + currentBullet + 1) % bulletList.Length;
-                    FeedStatsIntoGun(bullet.GetBulletInfo());
-                    currentMagazine = 0;
-                    ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
-                    break;
-                }
+               var bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
+               if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) <= 0) continue;
+               currentBullet = (i + currentBullet + 1) % bulletList.Length;
+                FeedStatsIntoGun(bullet.GetBulletInfo());
+                currentMagazine = 0;
+                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
+                break;
             }
         }
 
@@ -106,8 +109,10 @@ namespace Guns
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
-                Instantiate(bulletList[currentBullet], position,
-                    Quaternion.LookRotation(hitPoint - position));
+                Quaternion rotation = Quaternion.LookRotation(hitPoint - position);
+                //spawn the bullet
+                GameObject bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+               
 
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
@@ -132,19 +137,27 @@ namespace Guns
         {
          
             //Shoot a ray from the middle of the screen
-            var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            //Camera.main is expensive
+            var ray = UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
-            //If we hit something
-            if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
-            {
-                //Store the hit point
-                hitPoint = hit.point;
-            }
+            
 
-            //Developer's note: I wanna make this cleaner. It's NOT pretty
+            //If we hit something
+            //Store the hit point
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
+            {
+                debugSphere.transform.position = hit.point;
+                hitPoint = hit.point;
+                
+                
+                Debug.Log(hit.point);
+
+            } //Developer's note: I wanna make this cleaner. It's NOT pretty
+
             #region Reloading
 
             if (!isReloading) return;
+           
             if (reloadTime > 0f)
             {
                 reloadTime -= Time.deltaTime;

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
     [SerializeField]private MonsterSpawner creditManager;
+
+    [SerializeField] public PlotGrid grid;
     //MOde
     [Header("Current Mode")]
     public CurrentMode currentMode;
@@ -39,14 +43,18 @@ public class GameManager : MonoBehaviour
     public Transform[] spawnPoints;
 
     public Vector3 normalCowPosition;
+
+    [Header("Other")] public GameObject sproutModel;
     // Start is called before the first frame update
     private void Awake()
     {
         if(Instance) Destroy(this); else Instance = this;
         
         normalCowPosition = cow.position;
-        
-        
+    }
+
+    private void Start()
+    {
         ChangeMode(CurrentMode.TopDown);
     }
 

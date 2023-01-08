@@ -24,6 +24,7 @@ public class CameraManager : MonoBehaviour
     {
         if (newMode == GameManager.CurrentMode.FPS)
         {
+            
             if (!IsRTS)
             {
                 //FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToRTSMode");
@@ -35,6 +36,7 @@ public class CameraManager : MonoBehaviour
            
             topDownCamera.Priority = 0;
             fpsCamera.Priority = 10;
+            
         }
         else
         {

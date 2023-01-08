@@ -55,6 +55,8 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         controls.Player.Harvest.performed += ctx => HarvestSeeds();
         //Set the Peashooter to the first gun
 
+
+        seedInventory = new Dictionary<PlantInfo, int>();
         controls.Enable();
     }
 
@@ -83,7 +85,9 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
 
     private void WeaponSwap()
     {
-        Debug.Log("Gun Length" + guns.Length);
+       
+        if(GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
+        
         currentGun = (currentGun + 1) % guns.Length;
         Debug.Log("Current Gun" + guns[currentGun]);
         //Disable the current gun
@@ -130,6 +134,9 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
 
     public void AddSeed(Dictionary<PlantInfo, int> inventory, PlantInfo seed,int amount = 1)
     {
+        
+        
+        
         if (inventory.ContainsKey(seed))
         {
             inventory[seed] += amount;

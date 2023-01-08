@@ -69,7 +69,7 @@ private Coroutine staminaCoroutine;
 		PlayerMoveSFX();
 		sprinting = context.ReadValueAsButton();
 
-		if(sprinting)
+		if(sprinting && staminaCoroutine != null)
 			StopCoroutine(staminaCoroutine);
 
 		if (sprinting) return;
