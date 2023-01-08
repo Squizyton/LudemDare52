@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public Vector3 normalCowPosition;
 
     [Header("Other")] public GameObject sproutModel;
+
+    public Collider monsterBounds;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeMode(CurrentMode.TopDown);
 
-        if (!loadSaveFile.saveFile.didTutorial)
+        if (loadSaveFile != null && !loadSaveFile.saveFile.didTutorial)
         {
             StartTutorial();
         }

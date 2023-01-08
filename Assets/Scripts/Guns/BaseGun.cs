@@ -139,14 +139,15 @@ namespace Guns
             //Camera.main is expensive, so...Idk find something to replace it
             var ray = UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
-            
-
             //If we hit something
             //Store the hit point
-            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
-            {
-                hitPoint = hit.point;
-            } //Developer's note: I wanna make this cleaner. It's NOT pretty
+            hitPoint = Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask) ? hit.point :
+                //If we don't hit anything
+                //Store the point 100 units in front of the camera
+                ray.GetPoint(100);
+
+
+            //Developer's note: I wanna make this cleaner. It's NOT pretty
 
             #region Reloading
 
