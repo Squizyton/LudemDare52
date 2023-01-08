@@ -3450,6 +3450,7 @@ MonoBehaviour:
   state: 0
   healthBar: {fileID: 1141548795}
   animator: {fileID: 4341568859715874749}
+  fireCooldown: 3
 --- !u!114 &5727447439654831879
 MonoBehaviour:
   m_ObjectHideFlags: 0

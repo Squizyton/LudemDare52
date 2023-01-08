@@ -12,10 +12,10 @@ public class BaseBullet : MonoBehaviour
    
    [Header("Bullet Stats")]
    [SerializeField] private float speed;
-   [SerializeField] private float damage;
+   [SerializeField] protected float damage;
 
    [Header("Other")] [SerializeField] private Rigidbody rb;
-   [SerializeField]private LayerMask whatIsEnemy;
+   [SerializeField] protected LayerMask whatIsEnemy;
 
    [SerializeField] private float bulletRaycastLength;
    private void Start()

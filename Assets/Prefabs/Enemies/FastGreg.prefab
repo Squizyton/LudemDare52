@@ -3451,3 +3451,4 @@ MonoBehaviour:
   state: 0
   healthBar: {fileID: 1141548795}
   animator: {fileID: 4341568859715874749}
+  fireCooldown: 3
