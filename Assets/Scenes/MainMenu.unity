@@ -2121,7 +2121,7 @@ GameObject:
   - component: {fileID: 1728093960}
   - component: {fileID: 1728093959}
   m_Layer: 5
-  m_Name: Options Menu (1)
+  m_Name: Quit  Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
