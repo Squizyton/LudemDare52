@@ -8,17 +8,31 @@ public class CameraManager : MonoBehaviour
     
     [SerializeField] private CinemachineVirtualCamera fpsCamera;
     [SerializeField] private CinemachineVirtualCamera topDownCamera;
+
+    private bool IsRTS;
     
     //Change priority of the cameras based on the mode
     public void ChangeMode(GameManager.CurrentMode newMode)
     {
         if (newMode == GameManager.CurrentMode.FPS)
         {
+            if (!IsRTS)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToRTSMode");
+                IsRTS = true;
+            }
+            Debug.Log("FightMode");
             topDownCamera.Priority = 0;
             fpsCamera.Priority = 10;
         }
         else
         {
+            if (IsRTS)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToFightMode");
+                IsRTS = false;
+            }
+            Debug.Log("RTSMode");
             fpsCamera.Priority = 0;
             topDownCamera.Priority = 10;
         }
