@@ -2914,7 +2914,7 @@ MonoBehaviour:
   - {fileID: 1517344273}
   - {fileID: 315006312}
   - {fileID: 1544275582}
-  startWaveButton: {fileID: 0}
+  startWaveButton: {fileID: 1756276685}
 --- !u!4 &776262862
 Transform:
   m_ObjectHideFlags: 0
