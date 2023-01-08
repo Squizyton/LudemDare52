@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 12602202}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -915,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464888742}
   - component: {fileID: 464888743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1927,7 +1927,7 @@ GameObject:
   - component: {fileID: 874070429}
   - component: {fileID: 874070427}
   - component: {fileID: 874070431}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PeaShooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2046,7 +2046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 914443969}
   - component: {fileID: 914443970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunHolder
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
@@ -2104,7 +2104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018809487}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -3096,7 +3096,7 @@ GameObject:
   - component: {fileID: 1397742298}
   - component: {fileID: 1397742297}
   - component: {fileID: 1397742301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpecialGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3588,7 +3588,7 @@ GameObject:
   - component: {fileID: 1662305540}
   - component: {fileID: 1662305539}
   - component: {fileID: 1662305538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bean
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4346,7 +4346,7 @@ GameObject:
   - component: {fileID: 1771749860}
   - component: {fileID: 1771749859}
   - component: {fileID: 1771749858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
