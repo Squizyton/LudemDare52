@@ -35,7 +35,6 @@ namespace Guns
         private Vector3 hitPoint;
 
 
-        public GameObject debugSphere;
         public LayerMask layerMask;
         private void Start()
         {
@@ -99,7 +98,7 @@ namespace Guns
                 currentMagazine--;
                 canFire = false;
                 // Update ammo in inventory
-                PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
                 PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
 
                 //shoot a raycast from the middle of the screen
@@ -109,9 +108,9 @@ namespace Guns
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
-                Quaternion rotation = Quaternion.LookRotation(hitPoint - position);
+                var rotation = Quaternion.LookRotation(hitPoint - position);
                 //spawn the bullet
-                GameObject bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+                var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
                
 
                 if (IsAutomatic())
@@ -137,7 +136,7 @@ namespace Guns
         {
          
             //Shoot a ray from the middle of the screen
-            //Camera.main is expensive
+            //Camera.main is expensive, so...Idk find something to replace it
             var ray = UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
             
@@ -146,12 +145,7 @@ namespace Guns
             //Store the hit point
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
             {
-                debugSphere.transform.position = hit.point;
                 hitPoint = hit.point;
-                
-                
-                Debug.Log(hit.point);
-
             } //Developer's note: I wanna make this cleaner. It's NOT pretty
 
             #region Reloading

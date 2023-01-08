@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace UI
         [Header("Mode UI")]
         [SerializeField]private CanvasGroup fpsCanvasGroup;
         [SerializeField]private CanvasGroup topDownCanvasGroup;
-        
+        [SerializeField] private CanvasGroup tutorialCanvasGroup;
         
         [Header("Weapon Related Things")] [SerializeField]
         private CanvasGroup reloadGroup;
@@ -25,12 +26,17 @@ namespace UI
         [Header("Cow")]
         public GameObject cowText;
 
+        
+        [Header("Tutorial")]
+        [SerializeField]private List<GameObject> tutorialList;
+        private int tutorialIndex = 0;
+        [SerializeField] private Button startWaveButton;
         private void Awake()
         {
             Instance = this;
 
             //TODO: Change this to something more performant
-            GameObject playerObj = FindObjectOfType<PlayerInventory>().gameObject;
+            var playerObj = FindObjectOfType<PlayerInventory>().gameObject;
             playerObj.TryGetComponent(typeof(PlayerInventory), out Component inventory);
             if (inventory)
             {
@@ -72,8 +78,7 @@ namespace UI
 
 
         #endregion
-        
-        
+
         #region Player Related
         public void UpdateStaminaSlider(float stamina)
         {
@@ -104,6 +109,42 @@ namespace UI
             Debug.Log("playerInventory set to " + seedName);
             Debug.Log(playerInventory.SelectedSeed);
         }
+        #endregion
+        
+        
+        #region Tutorial
+
+        public void StartTutorial()
+        {
+            tutorialList[tutorialIndex].SetActive(true);
+            startWaveButton.enabled = false;
+        }
+        
+        public void NextTutorial()
+        {
+            if (tutorialIndex < tutorialList.Count - 1)
+            {
+                //Set the previous tutorial to false
+                tutorialList[tutorialIndex].SetActive(false);
+                tutorialIndex++;
+                //Set the next tutorial to true
+                tutorialList[tutorialIndex].SetActive(true);
+            }
+            else
+            {
+                EndTutorial();
+            }
+
+        }
+        
+        public void EndTutorial()
+        {
+            tutorialList[tutorialIndex].SetActive(false);
+            tutorialIndex = 0;
+            startWaveButton.enabled = true;
+            GameManager.Instance.EndTutorial();
+        }
+
         #endregion
     }
 }

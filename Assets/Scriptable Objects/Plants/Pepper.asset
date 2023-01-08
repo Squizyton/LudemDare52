@@ -16,7 +16,7 @@ MonoBehaviour:
   GrowTime: 150
   seedYield: 1
   bulletYield: 3
-  plantModel: {fileID: 919132149155446097, guid: d5c209400f782704aa1d6836540cf3ca,
+  plantModel: {fileID: 3634822423367165017, guid: 5e562d7f97686304b85e6bf4760e9d16,
     type: 3}
   bulletSpeed: 10
   bulletDamage: 1
