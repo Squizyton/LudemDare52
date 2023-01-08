@@ -151,10 +151,6 @@ namespace Guns
 			if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
 			{
 				hitPoint = hit.point;
-
-
-				Debug.Log(hit.point);
-
 			} //Developer's note: I wanna make this cleaner. It's NOT pretty
 
 			#region Reloading
