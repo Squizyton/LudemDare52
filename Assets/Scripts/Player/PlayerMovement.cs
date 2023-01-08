@@ -77,7 +77,9 @@ public class PlayerMovement : MonoBehaviour
 			Jump();
 		}
 		else
-		{
+        {
+	        if (rb.velocity.y > 3) return;
+			
 			if (!Physics.Raycast(transform.position, Vector3.down, RaycastDistance, groundLayer)) return;
 
 			if (!canJump)
