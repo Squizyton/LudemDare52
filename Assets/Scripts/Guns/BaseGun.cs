@@ -130,6 +130,7 @@ namespace Guns
 
         public void ReloadSequence(float timeToReload)
         {
+            if (ammoInSack == 0) return;
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
             reloadTime = timeToReload;
@@ -235,6 +236,10 @@ namespace Guns
             return canFire;
         }
 
+        public bool IsMagFull()
+        {
+            return currentMagazine == maxAmmoPerClip;
+        }
 
       
     }

@@ -87,6 +87,7 @@ namespace Player
         
             if(gunController.IsReloading()) return;
             BaseBullet bullet = gunController.bulletList[gunController.currentBullet];
+            if (gunController.IsMagFull()) return;
             gunController.ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
         }
     

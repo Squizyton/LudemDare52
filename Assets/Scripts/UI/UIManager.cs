@@ -23,6 +23,7 @@ namespace UI
         [SerializeField] private CanvasGroup fpsCarrotIcon;
         [SerializeField] private CanvasGroup fpsMelonIcon;
         [SerializeField] private CanvasGroup fpsPepperIcon;
+        [SerializeField] private CanvasGroup hitIndicator;
 
         [Header("Stats")]
         [SerializeField] private TextMeshProUGUI waveCount;
@@ -102,6 +103,11 @@ namespace UI
         public void UpdateStaminaSlider(float stamina)
         {
             staminaSlider.value = stamina;
+        }
+
+        public void TriggerHitIndicator()
+        {
+            hitIndicator.alpha = 1;
         }
         #endregion
         
