@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,42 +9,43 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
-    
+
         [Header("Mode UI")]
-        [SerializeField]private CanvasGroup fpsCanvasGroup;
-        [SerializeField]private CanvasGroup topDownCanvasGroup;
+        [SerializeField] private CanvasGroup fpsCanvasGroup;
+        [SerializeField] private CanvasGroup topDownCanvasGroup;
         [SerializeField] private CanvasGroup tutorialCanvasGroup;
-        
-        [Header("Weapon Related Things")] [SerializeField]
+
+        [Header("Weapon Related Things")][SerializeField]
         private CanvasGroup reloadGroup;
-        [SerializeField]private Slider reloadSlider;
-        private PlayerInventory playerInventory;
+        [SerializeField] private Slider reloadSlider;
+        [SerializeField] private TextMeshProUGUI ammoCount;
+        [SerializeField] private CanvasGroup fpsCornIcon;
+        [SerializeField] private CanvasGroup fpsCarrotIcon;
+        [SerializeField] private CanvasGroup fpsMelonIcon;
+        [SerializeField] private CanvasGroup fpsPepperIcon;
+
+        [Header("Stats")]
+        [SerializeField] private TextMeshProUGUI waveCount;
+        [SerializeField] private TextMeshProUGUI remainingEnemies;
+        [SerializeField] private TextMeshProUGUI timeAlive;
 
 
-        [Header("Player Related Things")] [SerializeField]
+        [Header("Player Related Things")][SerializeField]
         private Slider staminaSlider;
-        
+
         [Header("Cow")]
         public GameObject cowText;
 
-        
+
         [Header("Tutorial")]
-        [SerializeField]private List<GameObject> tutorialList;
+        [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
         [SerializeField] private Button startWaveButton;
         private void Awake()
         {
             Instance = this;
-
-            //TODO: Change this to something more performant
-            var playerObj = FindObjectOfType<PlayerInventory>().gameObject;
-            playerObj.TryGetComponent(typeof(PlayerInventory), out Component inventory);
-            if (inventory)
-            {
-                playerInventory = (PlayerInventory)inventory;
-            }
         }
-        
+
         #region Mode Changing
 
         public void ChangeModeUI(GameManager.CurrentMode newMode)
@@ -67,6 +69,23 @@ namespace UI
             }
         }
 
+        #endregion
+
+        #region Stats
+        public void UpdateWaveCount(int wave)
+        {
+            waveCount.text = "Wave: " + wave.ToString();
+        }
+
+        public void UpdateEnemiesRemaining(int numEnemies)
+        {
+            remainingEnemies.text = "Enemies: " + numEnemies.ToString();
+        }
+
+        public void UpdateTimeAlive(float newTimeAlive)
+        {
+            timeAlive.text = "Time Alive: " + newTimeAlive.ToString();
+        }
         #endregion
 
         #region Cow
@@ -102,9 +121,47 @@ namespace UI
 
         #endregion
 
+        #region Ammo
+        public void UpdateAmmoCount(int inMagazine, int inSack, bool isInfinite)
+        {
+            if (isInfinite)
+            {
+                ammoCount.text = "∞ / ∞";
+                return;
+            }
+
+            ammoCount.text = inMagazine.ToString() + " / " + inSack.ToString();
+        }
+
+        public void UpdateAmmoType(PlantInfo plantInfo)
+        {
+            fpsCornIcon.alpha = 0;
+            fpsCarrotIcon.alpha = 0;
+            fpsMelonIcon.alpha = 0;
+            fpsPepperIcon.alpha = 0;
+
+            switch (plantInfo.PlantName)
+            {
+                case "corn":
+                    fpsCornIcon.alpha = 1;
+                    break;
+                case "carrot":
+                    fpsCarrotIcon.alpha = 1;
+                    break;
+                case "pepper":
+                    fpsPepperIcon.alpha = 1;
+                    break;
+                case "melon":
+                    fpsMelonIcon.alpha = 1;
+                    break;
+            }
+        }
+        #endregion
+
         #region SeedMenu
         public void SelectSeeds(string seedName)
         {
+            PlayerInventory playerInventory = PlayerInventory.Instance;
             playerInventory.SetSeed(seedName);
             Debug.Log("playerInventory set to " + seedName);
             Debug.Log(playerInventory.SelectedSeed);
