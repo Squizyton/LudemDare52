@@ -526,7 +526,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
         type: 3}
@@ -3405,10 +3405,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.73357344
+  m_Radius: 0.88630474
   m_Height: 3.6338243
   m_Direction: 1
-  m_Center: {x: 0.01833656, y: 1.6623499, z: 4.07481e-11}
+  m_Center: {x: 0.018336535, y: 1.6623499, z: -0.1527313}
 --- !u!195 &48929519
 NavMeshAgent:
   m_ObjectHideFlags: 0

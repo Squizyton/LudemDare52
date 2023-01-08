@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections;
+using Cinemachine;
 using Player;
 using UI;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace Guns
     {
         [Header("Important Things")] public Transform spawnPoint;
 
-        [Header("Bullet")] public BaseBullet currentBullet;
+        [Header("Bullet Index")] public int currentBullet;
+        [Header("AmmoTypes")]
+        [SerializeField] public BaseBullet[] bulletList;
 
 
         [Header("Base Stats")] [SerializeField]
-        private int maxAmmoPerClip;
+        protected int maxAmmoPerClip;
 
         [SerializeField] protected int currentMagazine;
         [SerializeField] protected int ammoInSack;
@@ -24,12 +27,16 @@ namespace Guns
 
 
         [Header("Is Clauses")] private bool isReloading;
-        [SerializeField] private bool isAutomatic;
+        [SerializeField] protected bool isAutomatic;
         [SerializeField] private bool hasInfiniteAmmo;
 
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
+
+
+        public GameObject debugSphere;
+        public LayerMask layerMask;
         private void Start()
         {
          
@@ -54,17 +61,32 @@ namespace Guns
         //Called if you want the gun to do a specific thing on start
         protected virtual void SpecificGunStart()
         {
-            FeedStatsIntoGun(currentBullet.GetBulletInfo());
+            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
+            currentMagazine = 15;
         }
 
         //Use this to change the gun stats
         //This is the base for the PEA SHOOTER. --------- Override this-------------
-        protected virtual void FeedStatsIntoGun(PlantInfo info)
+        protected virtual void FeedStatsIntoGun(PlantInfo info) // Pea chooter ignores plantinfo because it can't change
         {
             
-            maxAmmoPerClip = info.maxClipSize;
-            fireRate = info.gunFireRate;
-            currentMagazine = 15;
+            maxAmmoPerClip = bulletList[currentBullet].GetBulletInfo().maxClipSize;
+            fireRate = bulletList[currentBullet].GetBulletInfo().gunFireRate;
+        }
+
+        public void SwapAmmo()
+        {
+             
+            for(int i = 0; i < bulletList.Length - 1; i++)
+            {
+               var bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
+               if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) <= 0) continue;
+               currentBullet = (i + currentBullet + 1) % bulletList.Length;
+                FeedStatsIntoGun(bullet.GetBulletInfo());
+                currentMagazine = 0;
+                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
+                break;
+            }
         }
 
 
@@ -76,6 +98,9 @@ namespace Guns
             {
                 currentMagazine--;
                 canFire = false;
+                // Update ammo in inventory
+                PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
 
                 //shoot a raycast from the middle of the screen
 
@@ -84,15 +109,17 @@ namespace Guns
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
-                Instantiate(currentBullet, position,
-                    Quaternion.LookRotation(hitPoint - position));
+                Quaternion rotation = Quaternion.LookRotation(hitPoint - position);
+                //spawn the bullet
+                GameObject bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+               
 
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
             }
             else
             {
-                ReloadSequence(currentBullet.GetBulletInfo().gunReloadTime);
+                ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             }
         }
 
@@ -110,19 +137,27 @@ namespace Guns
         {
          
             //Shoot a ray from the middle of the screen
-            var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            //Camera.main is expensive
+            var ray = UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             
-            //If we hit something
-            if (!Physics.Raycast(ray.origin, transform.forward, out var hit, 10000)) return;
-            {
-                //Store the hit point
-                hitPoint = hit.point;
-            }
+            
 
-            //Developer's note: I wanna make this cleaner. It's NOT pretty
+            //If we hit something
+            //Store the hit point
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
+            {
+                debugSphere.transform.position = hit.point;
+                hitPoint = hit.point;
+                
+                
+                Debug.Log(hit.point);
+
+            } //Developer's note: I wanna make this cleaner. It's NOT pretty
+
             #region Reloading
 
             if (!isReloading) return;
+           
             if (reloadTime > 0f)
             {
                 reloadTime -= Time.deltaTime;
@@ -135,7 +170,9 @@ namespace Guns
                 {
                     //get the difference between the current ammo and the max ammo
                     var difference = maxAmmoPerClip - currentMagazine;
-
+                    PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                    //Set ammoInSack to inventory amount
+                    ammoInSack = PlayerInventory.Instance.GetAmmo(currentAmmoType) - currentMagazine;
 
                     //If the player has enough ammo to reload
                     if (ammoInSack >= maxAmmoPerClip)

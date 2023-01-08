@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: 
   GrowTime: 0
+  seedYield: 0
+  bulletYield: 0
   plantModel: {fileID: 0}
   bulletSpeed: 20
   bulletDamage: 1

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Plots;
 using UnityEngine;
 
@@ -9,19 +10,60 @@ public class PlotGrid : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private float cellSize;
-    [SerializeField] private PlotCell textMeshPrefab;
+    [SerializeField] private PlotCell cellPrefab;
     [SerializeField] private PlayerInventory playerInventory;
     private int[,] array;
+    private List<GameObject> cells;
+    
+
+    [SerializeField] private Vector3 offset;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        array = new int[width,height];
-        for(int i = 0; i < width; i++)
+        cells = new();
+        GenerateCells();
+    }
+
+
+    [ContextMenu("Generate")]
+    void GenerateCells()
+    {
+        array = new int[width, height];
+
+        foreach (var cell in cells.Where(cell => cell))
         {
-            for(int j = 0; j < height; j++)
+            Destroy(cell);
+        }
+
+        for (var i = 0; i < width; i++)
+        {
+            for (var j = 0; j < height; j++)
             {
-                Instantiate(textMeshPrefab, new Vector3(i*cellSize, 0, j*cellSize), Quaternion.AngleAxis(90,new Vector3(1,0,0)));
+            
+
+                cells.Add(Instantiate(cellPrefab, new Vector3(i * cellSize, 0, j * cellSize),
+                    Quaternion.AngleAxis(90, new Vector3(1, 0, 0)),transform).gameObject);
+
+                //Apply offset to the cell
+                cells.Last().transform.position += offset;
             }
         }
     }
+    
+    public void TurnOffCellUI()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetComponent<PlotCell>().ImageStatus(false);
+        }
+    }
+    
+    public void TurnOnCellUI()
+    {
+        foreach (var cell in cells)
+        {
+            cell.GetComponent<PlotCell>().ImageStatus(true);
+        }
+    }
+    
 }

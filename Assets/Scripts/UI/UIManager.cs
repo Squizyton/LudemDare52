@@ -18,6 +18,13 @@ namespace UI
         [SerializeField]private Slider reloadSlider;
         private PlayerInventory playerInventory;
 
+
+        [Header("Player Related Things")] [SerializeField]
+        private Slider staminaSlider;
+        
+        [Header("Cow")]
+        public GameObject cowText;
+
         private void Awake()
         {
             Instance = this;
@@ -38,11 +45,13 @@ namespace UI
             switch (newMode)
             {
                 case GameManager.CurrentMode.FPS:
+                    GameManager.Instance.grid.TurnOffCellUI();
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
                     topDownCanvasGroup.interactable = false;
                     break;
                 case GameManager.CurrentMode.TopDown:
+                    GameManager.Instance.grid.TurnOnCellUI();
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
@@ -53,8 +62,25 @@ namespace UI
         }
 
         #endregion
-        
 
+        #region Cow
+
+        public void SetCowText(bool value)
+        {
+            cowText.SetActive(value);
+        }
+
+
+        #endregion
+        
+        
+        #region Player Related
+        public void UpdateStaminaSlider(float stamina)
+        {
+            staminaSlider.value = stamina;
+        }
+        #endregion
+        
         #region Reload
 
         public void ReloadGroupStatus(bool value, float reloadTime)

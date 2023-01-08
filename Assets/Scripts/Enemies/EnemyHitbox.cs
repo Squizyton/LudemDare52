@@ -10,7 +10,7 @@ public class EnemyHitbox : MonoBehaviour
   private void OnTriggerEnter(Collider other)
   {
       if (!other.gameObject.CompareTag("Player")) return;
-      other.TryGetComponent(out PlayerInventory player);
-      player.TakeDamage((int)enemy.GetDamage());
+      other.TryGetComponent(out IHasHealth healthThing);
+      healthThing.TakeDamage((int)enemy.GetDamage());
   }
 }

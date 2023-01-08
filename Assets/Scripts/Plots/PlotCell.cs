@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
 namespace Plots
@@ -13,54 +14,60 @@ namespace Plots
         private bool isPlayerNear;
 
         private float timeElapsed; //Growth stuff/models
-        [SerializeField] private TextMeshPro mesh;
+        [SerializeField] private Image mesh;
         [SerializeField] private PlantInfo plantInfo;
         [SerializeField] private GameObject player;
         private PlayerInventory playerInventory;
         private GameObject plantModel;
+        
+        private Vector3 position;
+        
 
+        
+        
         public void Plant()
         {
+            Debug.Log("Planting");
             if (!playerInventory.SelectedSeed) return;
+            Debug.Log("Checking for seed");
+
             if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
+            
+            Debug.Log("Planted " + playerInventory.SelectedSeed.name);
             mesh.color = Color.white;
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
-            plantModel = Instantiate(plantInfo.plantModel, this.transform.position, Quaternion.identity);
+            
+            plantModel = Instantiate(GameManager.Instance.sproutModel, this.transform.position, GameManager.Instance.sproutModel.transform.rotation);
     }
 
         public PlantInfo HarvestSeeds()
         {
             if(value != 2) return null;
             value = 0;
-            mesh.text = value.ToString();
+            
             mesh.color = Color.white;
             Destroy(plantModel);
             return plantInfo;
         }
 
-        public void HarvestAmmo() //NOTE: Make me return plantinfo when ready, and compile it into bulletstuff
+        public void ImageStatus(bool value)
         {
-            if (value == 2)
-            {
-                value = 0;
-                mesh.text = value.ToString();
-                mesh.color = Color.white;
-                Destroy(plantModel);
-            }
+            mesh.enabled = value;
         }
 
         private void Start()
         {
             //TODO: Change this to something more performant
             player = FindObjectOfType<PlayerInventory>().gameObject;
-            
         
             player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
             if(inventory)
             {
                 playerInventory = (PlayerInventory)inventory;
             }
+            
+            position = transform.position;
         }
 
         private void Update()
@@ -71,13 +78,15 @@ namespace Plots
             timeElapsed += Time.deltaTime;
             if(timeElapsed > plantInfo.GrowTime)
             {
+                
+                Destroy(plantModel);
+                plantModel= Instantiate(plantInfo.plantModel,position, plantInfo.plantModel.transform.rotation);
                 timeElapsed = 0;
                 value = 2;
                 if (isPlayerNear)
                 {
                     mesh.color = Color.green;
                 }
-                mesh.text = value.ToString();
             }
         }
 
@@ -126,7 +135,6 @@ namespace Plots
             {
                 Plant();
             }
-            mesh.text = value.ToString();
         }
     }
 }
