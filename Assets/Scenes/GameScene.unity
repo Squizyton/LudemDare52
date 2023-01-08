@@ -1477,7 +1477,7 @@ MonoBehaviour:
   - {fileID: 30436136}
   - {fileID: 221360121}
   normalCowPosition: {x: 0, y: 0, z: 0}
-  sproutModel: {fileID: 919132149155446097, guid: 0dc2301d6ef30ed47b6f7efd5dc6a473,
+  sproutModel: {fileID: 2514445697912593223, guid: 699d761396c38344394e62099f28bb5e,
     type: 3}
 --- !u!1 &615691936
 GameObject:
