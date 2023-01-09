@@ -26,7 +26,8 @@ namespace Plots
         
         private Vector3 position;
         private Sprite defaultSprite;
-        
+
+        public bool beingChargedAt;
         public void Plant()
         {
             Debug.Log("Planting");
@@ -130,7 +131,7 @@ namespace Plots
             
             
             UIManager.Instance.HarvestText(true);
-            plantModel.GetComponent<Outline>().enabled = true;
+            //plantModel.GetComponent<Outline>().enabled = true;
             mesh.color = Color.green;
             isPlayerNear = true;
         }

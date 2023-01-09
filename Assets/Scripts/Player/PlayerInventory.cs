@@ -31,9 +31,9 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] PlantInfo PepperSeed;
     [SerializeField] PlantInfo CarrotSeed;
     [SerializeField] PlantInfo MelonSeed;
-
+    [SerializeField] PlantInfo StarFruitSeed;
     //Inventory for seeds
-    [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
+    [SerializeField]public Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
     
     private PlayerControls controls;
@@ -62,10 +62,11 @@ public class PlayerInventory : MonoBehaviour
         AddSeed(seedInventory, PepperSeed, 2);
         AddSeed(seedInventory, MelonSeed, 1);
         AddSeed(seedInventory, CarrotSeed, 1);
-        
-        
-        
-        
+        AddSeed(seedInventory, StarFruitSeed, 1);
+
+
+
+
         UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
         controls.Enable();
         
@@ -145,9 +146,15 @@ public class PlayerInventory : MonoBehaviour
         selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
-        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
+ FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
+        if (harvested.PlantName == "starfruit")
+        {
+            health += harvested.bulletYield;
+            UIManager.Instance.SetHealth(-1*harvested.bulletYield);
+            return;
+        }
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
-
+        UIManager.Instance.UpdateAmmoTotal(harvested, bulletInventory[harvested]);
         if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())
         {
             UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested],
@@ -166,7 +173,7 @@ public class PlayerInventory : MonoBehaviour
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
             selectedPlot.TurnOnGrowingInfo(false);
-
+FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
             FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
@@ -239,6 +246,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 bulletInventory.Remove(seed);
             }
+            UIManager.Instance.UpdateAmmoTotal(seed, bulletInventory[seed]);
             return true;
         }
         return false;

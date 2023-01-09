@@ -129,6 +129,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   bulletRaycastLength: 0.35
+  hitEffect: {fileID: 5468793762559589780, guid: 1c074c446c4f12445b3cc031b7cf1181,
+    type: 3}
+  hitFX: {fileID: 5468793762559589780, guid: 1c074c446c4f12445b3cc031b7cf1181, type: 3}
 --- !u!54 &5858894648460405255
 Rigidbody:
   m_ObjectHideFlags: 0

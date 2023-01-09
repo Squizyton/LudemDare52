@@ -5,6 +5,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Random = System.Random;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
 public class BasicEnemy : MonoBehaviour,IHasHealth
@@ -32,7 +33,12 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
 
     private bool isOnFire;
     private float currentFireCooldown;
-    
+
+
+    [Header("Seeds")] public float seedDropChance;
+    public List<PlantInfo> seeds;
+    public SeedPickup seedDropPrefab;
+
     public virtual void OnHit(float damage, bool fire = false)
     {
         if (isDead) return;
@@ -151,6 +157,15 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
         rb.isKinematic = true;
         animator.SetTrigger("Death");
         GameManager.Instance.RemoveEnemy();
+        
+        var weight = UnityEngine.Random.Range(0, 100);
+        if (weight <= seedDropChance)
+        {
+            var seedDrop = Instantiate(seedDropPrefab, transform.position, transform.rotation);
+            seedDrop.plantInfo = seeds[UnityEngine.Random.Range(0, seeds.Count)];
+            seedDrop.image.sprite = seedDrop.plantInfo.seedIcon;
+        }
+
         Destroy(gameObject, 10f);
     }
 
