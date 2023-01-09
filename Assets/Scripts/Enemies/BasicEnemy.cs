@@ -8,28 +8,30 @@ using UnityEngine.UI;
 using Random = System.Random;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
-public class BasicEnemy : MonoBehaviour,IHasHealth
+public class BasicEnemy : MonoBehaviour, IHasHealth
 {
-    [Header("Base Stats")] [SerializeField]
-    protected float health = 5;
+	[Header("Base Stats")]
+	[SerializeField]
+	protected float health = 5;
 
-    [SerializeField] protected float speed;
-    [SerializeField] protected float damage;
+	[SerializeField] protected float speed;
+	[SerializeField] protected float damage;
 
-    [Header("Attack Settings")] [SerializeField]
-    protected float attackRate;
+	[Header("Attack Settings")]
+	[SerializeField]
+	protected float attackRate;
 
-    protected float attackTimer;
+	protected float attackTimer;
 
-    [Header("AI")] [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected State state;
+	[Header("AI")][SerializeField] protected NavMeshAgent agent;
+	[SerializeField] protected State state;
 
-    [Header("UI")] [SerializeField] protected Slider healthBar;
+	[Header("UI")][SerializeField] protected Slider healthBar;
 
-    [Header("Animator")] [SerializeField] protected Animator animator;
+	[Header("Animator")][SerializeField] protected Animator animator;
 
 
-    private bool isDead;
+	private bool isDead;
 
     private bool isOnFire;
     private float currentFireCooldown;
@@ -49,19 +51,18 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
             currentFireCooldown = 10;
         }
 
-        health -= damage;
-        healthBar.value = health;
+	public virtual void OnHit(float damage, bool fire = false)
+	{
+		if (isDead) return;
+		UIManager.Instance.TriggerHitIndicator();
+		if (fire)
+		{
+			isOnFire = true;
+			currentFireCooldown = 10;
+		}
 
-        if (health <= 0)
-        {
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
-            OnDeath();
-        }
-        else
-        {
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Hit", gameObject);
-        }
-    }
+		health -= damage;
+		healthBar.value = health;
 
     public virtual bool TicDamage()
     {
@@ -78,73 +79,77 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
             currentFireCooldown = 0;
         }
 
-        health -= damage;
+	public virtual bool TicDamage()
+	{
+		float damage = 0f;
+		if (currentFireCooldown - Time.deltaTime >= 0)
+		{
+			damage = Time.deltaTime * .3f;
+			Debug.Log("ON FIRE:" + damage.ToString());
+			currentFireCooldown -= Time.deltaTime;
+		}
+		else
+		{
+			damage = currentFireCooldown;
+			currentFireCooldown = 0;
+		}
 
-        healthBar.value = health;
+		health -= damage;
 
-        if (health <= 0)
-        {
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
-            OnDeath();
-        }
+		healthBar.value = health;
 
-        return currentFireCooldown > 0;
-    }
+		if (health <= 0)
+		{
+			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
+			OnDeath();
+		}
 
-
-    protected void Update()
-    {
-        if (isDead) return;
-
-        //Handle tic damage, if any
-        if (isOnFire && !TicDamage()) isOnFire = false;
-        var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
-
-        switch (state)
-        {
-            case State.Moving:
-                OnMove(distance);
-                break;
-            case State.Attacking:
-                OnAttack(distance);
-
-                break;
-            default:
-                Debug.LogError("How are we out of this state machine?");
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    public virtual void OnMove(float distance)
-    {
-        agent.SetDestination(GameManager.Instance.currentTarget.position);
+		return currentFireCooldown > 0;
+	}
 
 
-        if (distance <= agent.stoppingDistance)
-        {
-            attackTimer = attackRate;
-            state = State.Attacking;
-        }
-    }
+	protected void Update()
+	{
+		if (isDead) return;
 
-    public virtual void OnAttack(float distance)
-    {
-        if (distance > agent.stoppingDistance)
-        {
-            animator.SetTrigger("Run");
-            state = State.Moving;
-        }
+		//Handle tic damage, if any
+		if (isOnFire && !TicDamage()) isOnFire = false;
+		var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
 
-        if (attackTimer > 0)
-        {
-            attackTimer -= Time.deltaTime;
-        }
-        else
-        {
-            animator.SetTrigger("Attack");
-            attackTimer = attackRate;
-        }
-    }
+		switch (state)
+		{
+			case State.Moving:
+				OnMove(distance);
+				break;
+			case State.Attacking:
+				OnAttack(distance);
+
+				break;
+			default:
+				Debug.LogError("How are we out of this state machine?");
+				throw new ArgumentOutOfRangeException();
+		}
+	}
+
+	public virtual void OnMove(float distance)
+	{
+		agent.SetDestination(GameManager.Instance.currentTarget.position);
+
+
+		if (distance <= agent.stoppingDistance)
+		{
+			attackTimer = attackRate;
+			state = State.Attacking;
+		}
+	}
+
+	public virtual void OnAttack(float distance)
+	{
+		if (distance > agent.stoppingDistance)
+		{
+			animator.SetTrigger("Run");
+			state = State.Moving;
+		}
 
     protected virtual void OnDeath()
     {
@@ -169,20 +174,30 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
         Destroy(gameObject, 10f);
     }
 
-    public float GetDamage()
-    {
-        return damage;
-    }
+	protected virtual void OnDeath()
+	{
+		isDead = true;
+		agent.enabled = false;
+		healthBar.gameObject.SetActive(false);
+		animator.SetTrigger("Death");
+		GameManager.Instance.RemoveEnemy();
+		Destroy(gameObject, 10f);
+	}
+
+	public float GetDamage()
+	{
+		return damage;
+	}
 
 
-    protected enum State
-    {
-        Moving,
-        Attacking,
-    }
+	protected enum State
+	{
+		Moving,
+		Attacking,
+	}
 
-    public void TakeDamage(int damageTaken)
-    {
-        OnHit(damageTaken);
-    }
+	public void TakeDamage(int damageTaken)
+	{
+		OnHit(damageTaken);
+	}
 }

@@ -7,9 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"picker_window_position_offset.74AD8FDB" = "1089;453;320;550"
-	"picker_search_text.74AD8FDB" = "default "
-	"last_search.74AD8FDB" = "default "
+	"picker_window_position_offset.74AD8FDB" = "1089;410;320;550"
+	"picker_search_text.74AD8FDB" = "default"
+	"last_search.74AD8FDB" = "default"
 	"OpenInspectorPreview.74AD8FDB" = "0"
 	"currentGroup.74AD8FDB" = "all"
 	"picker_window_position_offset.7E63D72B" = "1179;238;320;550"
@@ -63,6 +63,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"de"
 ]
 searchItemFavorites = [
 ]
