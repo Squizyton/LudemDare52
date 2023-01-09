@@ -62,6 +62,7 @@ public class Felonius : BasicEnemy
     public void AteCrop()
     {
         target.DestroyCrop();
+        target.beingChargedAt = false;
         isEating = false;
         animator.speed = 1;
         ChooseTargetPoint();
@@ -77,6 +78,7 @@ public class Felonius : BasicEnemy
         if (GameManager.Instance.grid.GetCellCountThatsGrowingSomething() > 0)
         {
             target = GameManager.Instance.grid.GetRandomCell();
+            target.beingChargedAt = true;
             agent.SetDestination(target.transform.position);
             readyToGo = true;
         }
@@ -88,7 +90,7 @@ public class Felonius : BasicEnemy
             var position = GameManager.Instance.currentTarget.position;
            
             //Get a random point thats a certain distance from the player
-            var moveToTarget = Random.insideUnitSphere * 40;
+            var moveToTarget = Random.insideUnitSphere * 30;
             moveToTarget.y = transform.position.y;
             
             //Check to see if moveToTarget is in the monsterBounds

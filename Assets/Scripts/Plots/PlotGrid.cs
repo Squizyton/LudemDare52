@@ -60,15 +60,20 @@ public class PlotGrid : MonoBehaviour
 
     public int GetCellCountThatsGrowingSomething()
     {
-        //Return the number of cells in the list
-        return cells.Count(cell => cell.GetComponent<PlotCell>().IsGrowingSomething());
+        //Return the number of cells in the list that is growing something and not being charged at
+        return cells.Count(cell => cell.GetComponent<PlotCell>().IsGrowingSomething() && !cell.GetComponent<PlotCell>().beingChargedAt);
     }
 
     public void TurnOffCellUI()
     {
         foreach (var cell in cells)
         {
-            cell.GetComponent<PlotCell>().ImageStatus(false);
+            var info = cell.GetComponent<PlotCell>();
+            info.ImageStatus(false);
+            if (info.IsGrowingSomething())
+            {
+                info.TurnOnGrowingInfo(true);
+            }
         }
     }
     
@@ -76,7 +81,9 @@ public class PlotGrid : MonoBehaviour
     {
         foreach (var cell in cells)
         {
-            cell.GetComponent<PlotCell>().ImageStatus(true);
+            var info = cell.GetComponent<PlotCell>();
+          info.ImageStatus(true);
+          info.TurnOnGrowingInfo(false);
         }
     }
     

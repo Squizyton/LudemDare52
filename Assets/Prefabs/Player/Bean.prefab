@@ -231,6 +231,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
+  peaParticles: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &5257447921394462717
 MonoBehaviour:
@@ -284,7 +286,7 @@ Transform:
   m_Children:
   - {fileID: 5257447922286474436}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 102.29, z: 0}
 --- !u!33 &5257447922195116073
 MeshFilter:
@@ -427,6 +429,7 @@ MonoBehaviour:
   PepperSeed: {fileID: 11400000, guid: aa41af2e038d48f4692ca2b54f934745, type: 2}
   CarrotSeed: {fileID: 11400000, guid: f5953b97cc61d984db2792d76a9791e2, type: 2}
   MelonSeed: {fileID: 11400000, guid: 6b61c6a050a43fd4b854d8a19fc9bad6, type: 2}
+  StarFruitSeed: {fileID: 11400000, guid: 28cb4f14edc9f8d4f86e91fe057fb42f, type: 2}
   currentActiveGun: {fileID: 5257447923016512699}
   guns:
   - {fileID: 5257447923016512697}
@@ -703,6 +706,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 247
+  animator: {fileID: 0}
+  peaParticles: {fileID: 0}
 --- !u!114 &5257447923016512703
 MonoBehaviour:
   m_ObjectHideFlags: 0
