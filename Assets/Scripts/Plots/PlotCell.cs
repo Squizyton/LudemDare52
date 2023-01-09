@@ -57,7 +57,6 @@ namespace Plots
             UIManager.Instance.HarvestText(false);
             mesh.color = Color.white;
             mesh.sprite = defaultSprite;
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             Destroy(plantModel);
             return plantInfo;
         }

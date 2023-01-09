@@ -141,6 +141,7 @@ public class PlayerInventory : MonoBehaviour
         PlantInfo harvested = selectedPlot.HarvestSeeds();
         Debug.Log(harvested.ToString());
         if (!harvested) return;
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
 
         if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())
@@ -159,6 +160,7 @@ public class PlayerInventory : MonoBehaviour
         {
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
         }
