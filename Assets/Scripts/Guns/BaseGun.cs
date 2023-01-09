@@ -45,10 +45,6 @@ namespace Guns
             UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
             UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
             SpecificGunStart();
-
-            //GunShootSFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/Player_Gun_Shoot");
-            
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
         }
 
 
@@ -76,13 +72,15 @@ namespace Guns
                 var index = (i + currentBullet + 1) % bulletList.Length;
                 
                 var bullet = bulletList[index];
-                
+
                 if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) > 0)
                 {
-                    
+
                     currentBullet = index;
-                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet);
-       
+                    Debug.Log("pocisk to _ " + currentBullet);
+
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet+1);
+
                     FeedStatsIntoGun(bullet.GetBulletInfo());
                     Debug.Log(bullet.GetBulletInfo().PlantName);
                     currentMagazine = 0;
@@ -92,6 +90,8 @@ namespace Guns
                     UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
                     break;
                 }
+                else
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", 0);
             }
         }
 
