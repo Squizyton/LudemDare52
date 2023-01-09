@@ -59,11 +59,13 @@ public class PlayerInventory : MonoBehaviour
         seedInventory = new Dictionary<PlantInfo, int>();
         AddSeed(seedInventory, CornSeed, 5);
         AddSeed(seedInventory, PepperSeed, 2);
+        AddSeed(seedInventory, MelonSeed, 1);
+        AddSeed(seedInventory, CarrotSeed, 1);
         
-        AddTestBullets();
+        
+        
         
         UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
-
         controls.Enable();
         
         
@@ -126,13 +128,9 @@ public class PlayerInventory : MonoBehaviour
         guns[currentGun].SetActive(true);
         UIManager.Instance.UpdateAmmoType(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo());
         
-        if(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo().PlantName != "pea")
-            UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),bulletInventory[currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo()],currentActiveGun.GetIsInfinite());
-        else
-        {
+        if(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo().PlantName == "pea")
             UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
-
-        }
+        
     }
 
     private void HarvestAmmo()
@@ -144,7 +142,14 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log(harvested.ToString());
         if (!harvested) return;
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
-        UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested], currentActiveGun.GetIsInfinite());
+
+        if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())
+        {
+            UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested],
+                currentActiveGun.GetIsInfinite());
+                currentActiveGun.UpdateSack(harvested);
+        }
+
         selectedPlot = null;
     }
 

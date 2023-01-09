@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Guns
@@ -11,13 +13,19 @@ namespace Guns
         {
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
-            currentMagazine = newAmmo.maxClipSize;
             isAutomatic = newAmmo.isAutomatic;
             Debug.Log(isAutomatic);
         }
 
         protected override void SpecificGunStart()
         {
+            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
+        }
+
+        private void OnEnable()
+        {
+            ammoInSack = PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo());
+            UIManager.Instance.UpdateAmmoCount(GetCurrentMag(), ammoInSack, GetIsInfinite());
             
         }
     }

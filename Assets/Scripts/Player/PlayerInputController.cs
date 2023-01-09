@@ -1,5 +1,6 @@
 using Camera;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -27,7 +28,7 @@ namespace Player
             playerControls.Player.Shoot.performed += ctx => Shoot();
             playerControls.Player.Shoot.canceled += ctx => StopShoot();
             playerControls.Player.Reload.performed += ctx => OnReload();
-            playerControls.Player.AmmoSwapping.performed += ctx => ChangeAmmo();
+            playerControls.Player.AmmoSwapping.performed += ChangeAmmo;
             playerControls.Enable();
         }
 
@@ -60,7 +61,7 @@ namespace Player
 
         }
 
-        private void ChangeAmmo()
+        private void ChangeAmmo(InputAction.CallbackContext ctx)
         {
             Debug.Log("ATTEMPTING TO CHANGE AMMO");
             var gunController = PlayerInventory.Instance.currentActiveGun;
