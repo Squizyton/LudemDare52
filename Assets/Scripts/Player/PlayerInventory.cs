@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] PlantInfo MelonSeed;
     [SerializeField] PlantInfo StarFruitSeed;
     //Inventory for seeds
-    [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
+    [SerializeField]public Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
     
     private PlayerControls controls;

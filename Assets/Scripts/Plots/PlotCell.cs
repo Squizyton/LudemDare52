@@ -26,7 +26,8 @@ namespace Plots
         
         private Vector3 position;
         private Sprite defaultSprite;
-        
+
+        public bool beingChargedAt;
         public void Plant()
         {
             Debug.Log("Planting");

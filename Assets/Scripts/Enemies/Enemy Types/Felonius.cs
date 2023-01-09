@@ -62,6 +62,7 @@ public class Felonius : BasicEnemy
     public void AteCrop()
     {
         target.DestroyCrop();
+        target.beingChargedAt = false;
         isEating = false;
         animator.speed = 1;
         ChooseTargetPoint();
@@ -77,6 +78,7 @@ public class Felonius : BasicEnemy
         if (GameManager.Instance.grid.GetCellCountThatsGrowingSomething() > 0)
         {
             target = GameManager.Instance.grid.GetRandomCell();
+            target.beingChargedAt = true;
             agent.SetDestination(target.transform.position);
             readyToGo = true;
         }

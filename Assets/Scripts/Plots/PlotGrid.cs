@@ -60,8 +60,8 @@ public class PlotGrid : MonoBehaviour
 
     public int GetCellCountThatsGrowingSomething()
     {
-        //Return the number of cells in the list
-        return cells.Count(cell => cell.GetComponent<PlotCell>().IsGrowingSomething());
+        //Return the number of cells in the list that is growing something and not being charged at
+        return cells.Count(cell => cell.GetComponent<PlotCell>().IsGrowingSomething() && !cell.GetComponent<PlotCell>().beingChargedAt);
     }
 
     public void TurnOffCellUI()
