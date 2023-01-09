@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Guns;
 using Plots;
+using UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -91,7 +92,7 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         currentGun = (currentGun + 1) % guns.Length;
         Debug.Log("Current Gun" + guns[currentGun]);
         //Disable the current gun
-        
+        currentActiveGun.AbortReloadSequence();
         if(currentActiveGun.gameObject.activeSelf)
             currentActiveGun.gameObject.SetActive(false);
     
@@ -103,6 +104,7 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
          
         //Enable the new gun
         guns[currentGun].SetActive(true);
+        UIManager.Instance.UpdateAmmoType(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo());
     }
 
     private void HarvestAmmo()

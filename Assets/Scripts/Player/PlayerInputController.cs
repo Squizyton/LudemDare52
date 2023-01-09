@@ -64,7 +64,7 @@ namespace Player
         {
             Debug.Log("ATTEMPTING TO CHANGE AMMO");
             var gunController = PlayerInventory.Instance.currentActiveGun;
-            if (gunController.IsReloading()) return;
+            //if (gunController.IsReloading()) return;
             gunController.SwapAmmo();
         }
 
@@ -87,6 +87,7 @@ namespace Player
         
             if(gunController.IsReloading()) return;
             BaseBullet bullet = gunController.bulletList[gunController.currentBullet];
+            if (gunController.IsMagFull()) return;
             gunController.ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
         }
     

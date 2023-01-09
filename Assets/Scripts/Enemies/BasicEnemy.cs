@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -35,6 +36,7 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
     public virtual void OnHit(float damage, bool fire = false)
     {
         if (isDead) return;
+        UIManager.Instance.TriggerHitIndicator();
         if (fire)
         {
             isOnFire = true;
