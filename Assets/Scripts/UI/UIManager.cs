@@ -132,7 +132,7 @@ namespace UI
         {
             if (isInfinite)
             {
-                ammoCount.text = "∞ / ∞";
+                ammoCount.text = inMagazine.ToString() + " / ∞";
                 return;
             }
 
