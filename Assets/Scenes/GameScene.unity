@@ -4707,7 +4707,6 @@ Transform:
   - {fileID: 571376248}
   - {fileID: 497339884}
   - {fileID: 1113192045}
-  - {fileID: 1399356904}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4742,7 +4741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 328495188}
   fpsCanvasGroup: {fileID: 2022698130}
-  topDownCanvasGroup: {fileID: 0}
+  topDownCanvasGroup: {fileID: 1499958153}
   tutorialCanvasGroup: {fileID: 0}
   reloadGroup: {fileID: 841164860}
   reloadSlider: {fileID: 841164858}
@@ -6327,6 +6326,7 @@ RectTransform:
   - {fileID: 4445316790298297547}
   - {fileID: 2022698129}
   - {fileID: 869172525}
+  - {fileID: 1399356904}
   m_Father: {fileID: 776262862}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7803,7 +7803,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 733670323}
+    m_TransformParent: {fileID: 1071919525}
     m_Modifications:
     - target: {fileID: 6972493577589094661, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
@@ -7955,6 +7955,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SelectSeeds
       objectReference: {fileID: 0}
+    - target: {fileID: 6972493578914579702, guid: f18ef5f69c801d64b83f6cf7faec9793,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6972493578961856629, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -7985,6 +7990,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SelectSeeds
       objectReference: {fileID: 0}
+    - target: {fileID: 6972493579194649497, guid: f18ef5f69c801d64b83f6cf7faec9793,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 571376249}
     - target: {fileID: 6972493579194649497, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -8078,12 +8088,12 @@ PrefabInstance:
     - target: {fileID: 6972493579216502943, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 49.999878
       objectReference: {fileID: 0}
     - target: {fileID: 6972493579216502943, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: 50.000122
       objectReference: {fileID: 0}
     - target: {fileID: 6972493579216502943, guid: f18ef5f69c801d64b83f6cf7faec9793,
         type: 3}
@@ -8489,6 +8499,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &1499958153 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 6972493579216502936, guid: f18ef5f69c801d64b83f6cf7faec9793,
+    type: 3}
+  m_PrefabInstance: {fileID: 1399356903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1514194480
 PrefabInstance:
   m_ObjectHideFlags: 0
