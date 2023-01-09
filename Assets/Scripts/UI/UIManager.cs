@@ -88,7 +88,10 @@ namespace UI
 
         public void UpdateTimeAlive(float newTimeAlive)
         {
-            timeAlive.text = "Time Alive: " + newTimeAlive.ToString();
+            //Convert to minutes and seconds
+            var minutes = Mathf.FloorToInt(newTimeAlive / 60F);
+            var seconds = Mathf.FloorToInt(newTimeAlive - minutes * 60);
+            timeAlive.text = "Time Alive: " + string.Format("{0:0}:{1:00}", minutes, seconds);
         }
         #endregion
 
