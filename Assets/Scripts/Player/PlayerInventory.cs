@@ -77,8 +77,11 @@ public class PlayerInventory : MonoBehaviour
         health -= damageTaken;
         if (health <= 0)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Death");
             Die();
         }
+        else
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Pain Grunt");
     }
 
     private void Die()
