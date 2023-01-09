@@ -47,10 +47,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -2113308546
-      Data2: 1163288458
-      Data3: 1038684581
-      Data4: -1784903808
+      Data1: 933201636
+      Data2: 1258554801
+      Data3: 281034407
+      Data4: -496378894
     Path: event:/Music/InGameMusic
   Event: 
   PlayEvent: 1
