@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Plant Info", menuName = "New Plant Info")]
 public class PlantInfo : ScriptableObject
@@ -11,6 +12,8 @@ public class PlantInfo : ScriptableObject
     public int seedYield;
     public int bulletYield;
     public GameObject plantModel;
+    public Image seedIcon;
+    public Image bulletIcon;
     [Header("Bullet Info")]
     public float bulletSpeed;
     public float bulletDamage;

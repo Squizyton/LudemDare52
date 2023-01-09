@@ -33,6 +33,11 @@ namespace UI
         [SerializeField] private TextMeshProUGUI remainingEnemies;
         [SerializeField] private TextMeshProUGUI timeAlive;
 
+        [Header("Seeds")]
+        [SerializeField] private TextMeshProUGUI cornSeedCount;
+        [SerializeField] private TextMeshProUGUI carrotSeedCount;
+        [SerializeField] private TextMeshProUGUI melonSeedCount;
+        [SerializeField] private TextMeshProUGUI pepperSeedCount;
 
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
