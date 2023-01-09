@@ -86,7 +86,15 @@ public class LoadSaveFile : MonoBehaviour
     /// <param name="gameManager"></param>
     public void SaveFile(GameManager gameManager)
     {
-        
+        saveFile.bulletsShot += gameManager.bulletsFired;
+        saveFile.totalCropsHarvested += gameManager.cropsHarvested;
+        saveFile.totalCropsPlanted += gameManager.cropsPlanted;
+        saveFile.totalEnemiesKilled += gameManager.currentKills;
+        saveFile.totalTimeAlive += gameManager.timeAlive;
+        saveFile.totalWavesSurvived += gameManager.totalAmountOfWaves;
+
+        SaveFile();
+
     }
     
 

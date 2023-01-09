@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: pepper
   GrowTime: 150
-  seedYield: 1
+  seedYield: 5
   bulletYield: 3
   plantModel: {fileID: 3634822423367165017, guid: 5e562d7f97686304b85e6bf4760e9d16,
     type: 3}
@@ -27,4 +27,4 @@ MonoBehaviour:
   gunFireRate: 1
   gunBulletSpread: 1
   maxClipSize: 3
-  gunReloadTime: 5
+  gunReloadTime: 1.75

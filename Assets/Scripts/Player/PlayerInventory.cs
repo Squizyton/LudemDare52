@@ -8,6 +8,7 @@ using UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -102,7 +103,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void Die()
     {
-        //Lose Screen here
+        GameManager.Instance.ChangeMode(GameManager.CurrentMode.GameOver);
+        SceneManager.LoadSceneAsync("GameOverScreen");
     }
     
     
@@ -137,6 +139,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (!selectedPlot) return;
         
+        GameManager.Instance.cropsHarvested++;
         UIManager.Instance.HarvestText(false);
         PlantInfo harvested = selectedPlot.HarvestSeeds();
         Debug.Log(harvested.ToString());
@@ -157,6 +160,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if(selectedPlot)
         {
+            GameManager.Instance.cropsHarvested++;
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
             AddSeed(seedInventory, harvested, harvested.seedYield);
