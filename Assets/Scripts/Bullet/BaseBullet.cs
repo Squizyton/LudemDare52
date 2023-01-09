@@ -62,7 +62,7 @@ public class BaseBullet : MonoBehaviour
 	}
 	private void OnTriggerEnter(Collider collision)
 	{
-		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);
+		//FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);
 
 		if (collision.transform.TryGetComponent(out IHasHealth enemy))
 		{
