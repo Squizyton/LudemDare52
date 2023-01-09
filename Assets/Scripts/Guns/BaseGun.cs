@@ -38,6 +38,7 @@ namespace Guns
 
 		public LayerMask layerMask;
 		private Animator animator;
+		public GameObject peaParticles;
 
 		private void Start()
 		{
@@ -121,6 +122,7 @@ namespace Guns
 				var rotation = Quaternion.LookRotation(hitPoint - position);
 				//spawn the bullet
 				var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+				Instantiate(peaParticles, position, rotation);
 
 
 				if (IsAutomatic())
