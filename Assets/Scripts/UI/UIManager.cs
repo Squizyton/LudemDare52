@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 namespace UI
 {
@@ -33,10 +34,17 @@ namespace UI
         [SerializeField] private TextMeshProUGUI remainingEnemies;
         [SerializeField] private TextMeshProUGUI timeAlive;
 
+        [Header("Seeds")]
+        [SerializeField] private TextMeshProUGUI cornSeedCount;
+        [SerializeField] private TextMeshProUGUI carrotSeedCount;
+        [SerializeField] private TextMeshProUGUI melonSeedCount;
+        [SerializeField] private TextMeshProUGUI pepperSeedCount;
 
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
 
+        [SerializeField] private Slider healthBar;
+        private float currentHealth;
         [Header("Cow")]
         public GameObject cowText;
 
@@ -45,9 +53,12 @@ namespace UI
         [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
         [SerializeField] private UnityEngine.UI.Button startWaveButton;
+
+        [Header("Other")] [SerializeField] private GameObject harvestText;
         private void Awake()
         {
             Instance = this;
+            currentHealth = healthBar.maxValue;
         }
 
         #region Mode Changing
@@ -90,7 +101,10 @@ namespace UI
 
         public void UpdateTimeAlive(float newTimeAlive)
         {
-            timeAlive.text = "Time Alive: " + newTimeAlive.ToString();
+            //Convert to minutes and seconds
+            var minutes = Mathf.FloorToInt(newTimeAlive / 60F);
+            var seconds = Mathf.FloorToInt(newTimeAlive - minutes * 60);
+            timeAlive.text = "Time Alive: " + string.Format("{0:0}:{1:00}", minutes, seconds);
         }
         #endregion
 
@@ -113,6 +127,20 @@ namespace UI
         public void TriggerHitIndicator()
         {
             hitIndicator.alpha = 1;
+        }
+
+        public void SetHealth(float newHealth)
+        {
+            currentHealth -= newHealth;
+            healthBar.value = currentHealth;
+        }
+
+        private void UpdateHealthBar()
+        {
+            while (healthBar.value != currentHealth)
+            {
+                healthBar.value -= Time.deltaTime * 1.5f;
+            }
         }
 
         public void TriggerDamageIndicator(Vector3 sourceDirection)
@@ -191,8 +219,30 @@ namespace UI
             Debug.Log("playerInventory set to " + seedName);
             Debug.Log(playerInventory.SelectedSeed);
         }
+
+        public void UpdateSeedCount(PlantInfo plantInfo)
+        {
+            PlayerInventory playerInventory = PlayerInventory.Instance;
+            int seedCount = playerInventory.GetSeedCount(plantInfo);
+            Debug.Log(plantInfo.PlantName);
+            Debug.Log(seedCount);
+            switch (plantInfo.PlantName)
+            {
+                case "corn":
+                    cornSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "pepper":
+                    pepperSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "melon":
+                    melonSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "carrot":
+                    carrotSeedCount.text = "x" + seedCount.ToString();
+                    break;
+            }
+        }
         #endregion
-        
         
         #region Tutorial
 
@@ -228,5 +278,10 @@ namespace UI
         }
 
         #endregion
+        
+        public void HarvestText(bool value)
+        {
+           harvestText.SetActive(value);
+        }
     }
 }

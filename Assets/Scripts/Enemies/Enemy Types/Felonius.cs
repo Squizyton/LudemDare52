@@ -36,8 +36,6 @@ public class Felonius : BasicEnemy
         
         var distanceToTarget = Vector3.Distance(transform.position, agent.destination);
         
-        Debug.Log(distanceToTarget);
-        
         if(distanceToTarget <= 0.5f)
         {
             Debug.Log("At target");

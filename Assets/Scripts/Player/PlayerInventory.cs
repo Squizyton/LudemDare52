@@ -55,10 +55,20 @@ public class PlayerInventory : MonoBehaviour
         controls.Player.ConvertToBullets.performed += ctx => HarvestAmmo();
         controls.Player.Harvest.performed += ctx => HarvestSeeds();
         //Set the Peashooter to the first gun
-
-
+        //Add initial seeds
         seedInventory = new Dictionary<PlantInfo, int>();
+        AddSeed(seedInventory, CornSeed, 5);
+        AddSeed(seedInventory, PepperSeed, 2);
+        AddSeed(seedInventory, MelonSeed, 1);
+        AddSeed(seedInventory, CarrotSeed, 1);
+        
+        
+        
+        
+        UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
         controls.Enable();
+        
+        
     }
 
     public int GetAmmo(PlantInfo seed)
@@ -71,10 +81,15 @@ public class PlayerInventory : MonoBehaviour
     }
     public void TakeDamage(Vector3 attackerPos, int damageTaken)
     {
+        
+        Debug.Log(damageTaken);
         Debug.Log("taking Damage");
         Vector3 direction = attackerPos - transform.position;
         UIManager.Instance.TriggerDamageIndicator(direction);
+        
         health -= damageTaken;
+        UIManager.Instance.SetHealth(damageTaken);
+        
         if (health <= 0)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Death");
@@ -82,13 +97,15 @@ public class PlayerInventory : MonoBehaviour
         }
         else
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Pain Grunt");
+        
     }
 
     private void Die()
     {
         //Lose Screen here
     }
-
+    
+    
     private void WeaponSwap()
     {
        
@@ -110,15 +127,29 @@ public class PlayerInventory : MonoBehaviour
         //Enable the new gun
         guns[currentGun].SetActive(true);
         UIManager.Instance.UpdateAmmoType(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo());
+        
+        if(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo().PlantName == "pea")
+            UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
+        
     }
 
     private void HarvestAmmo()
     {
         if (!selectedPlot) return;
         
+        UIManager.Instance.HarvestText(false);
         PlantInfo harvested = selectedPlot.HarvestSeeds();
+        Debug.Log(harvested.ToString());
         if (!harvested) return;
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
+
+        if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())
+        {
+            UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested],
+                currentActiveGun.GetIsInfinite());
+                currentActiveGun.UpdateSack(harvested);
+        }
+
         selectedPlot = null;
     }
 
@@ -139,11 +170,17 @@ public class PlayerInventory : MonoBehaviour
         if (seedToSelect) SelectedSeed = seedToSelect;
     }
 
+    public int GetSeedCount(PlantInfo plantInfo)
+    {
+        if(seedInventory.ContainsKey(plantInfo))
+            return seedInventory[plantInfo];
+        else
+            return 0;
+    }
+
     public void AddSeed(Dictionary<PlantInfo, int> inventory, PlantInfo seed,int amount = 1)
     {
-        
-        
-        
+
         if (inventory.ContainsKey(seed))
         {
             inventory[seed] += amount;
@@ -154,6 +191,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Seed Dictionary Count: " + inventory.Count);
         }
         Debug.Log(inventory[seed]);
+        UIManager.Instance.UpdateSeedCount(seed);
     }
    
    
@@ -172,7 +210,9 @@ public class PlayerInventory : MonoBehaviour
             if (seedInventory[seed] <= 0)
             {
                 seedInventory.Remove(seed);
+                
             }
+            UIManager.Instance.UpdateSeedCount(seed);
             return true;
         }
         return false;
