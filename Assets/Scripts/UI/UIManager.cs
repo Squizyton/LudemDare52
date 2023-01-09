@@ -43,6 +43,8 @@ namespace UI
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
 
+        [SerializeField] private Slider healthBar;
+        private float currentHealth;
         [Header("Cow")]
         public GameObject cowText;
 

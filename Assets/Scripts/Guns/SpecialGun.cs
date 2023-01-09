@@ -15,5 +15,10 @@ namespace Guns
             isAutomatic = newAmmo.isAutomatic;
             Debug.Log(isAutomatic);
         }
+
+        protected override void SpecificGunStart()
+        {
+            
+        }
     }
 }

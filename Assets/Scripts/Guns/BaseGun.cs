@@ -66,8 +66,10 @@ namespace Guns
 
 		public void SwapAmmo()
 		{
-
-			for (int i = 0; i < bulletList.Length - 1; i++)
+			currentBullet = (currentBullet + 1) % bulletList.Length;
+			
+			
+			/*for (int i = 0; i < bulletList.Length - 1; i++)
 			{
 				var bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
 				if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) <= 0) continue;
@@ -75,11 +77,12 @@ namespace Guns
 				FeedStatsIntoGun(bullet.GetBulletInfo());
 				currentMagazine = 0;
 				ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
-				UIManager.Instance.UpdateAmmoType(bullet.GetBulletInfo());
-				UIManager.Instance.UpdateAmmoCount(0, ammoInSack, hasInfiniteAmmo);
 				ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
 				break;
 			}
+			
+			UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
+			UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);*/
 		}
 
 
@@ -93,6 +96,8 @@ namespace Guns
 				CameraShake.Shake(3, 0.1f, 0.25f);
 				currentMagazine--;
 				canFire = false;
+				
+				
 				// Update ammo in inventory
 				var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
 				PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
@@ -116,22 +121,13 @@ namespace Guns
 				if(currentMagazine == 0)
 					ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
 			}
-			else
-			{
-				ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
-			}
 		}
 
 
 		public void ReloadSequence(float timeToReload)
 		{
-
-			if (bulletList[currentBullet].GetBulletInfo().PlantName != "pea")
-			{
-				//animator.SetFloat("speed",timeToReload);
-			}
-
 			animator.SetTrigger("Reload");
+			Debug.Log(ammoInSack);
 			if (!hasInfiniteAmmo && ammoInSack == 0) return;
 			UIManager.Instance.ReloadGroupStatus(true, timeToReload);
 			isReloading = true;
