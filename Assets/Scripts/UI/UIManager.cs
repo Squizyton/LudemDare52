@@ -79,6 +79,8 @@ namespace UI
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
                     break;
+                case GameManager.CurrentMode.GameOver:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
             }

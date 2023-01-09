@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: corn
   GrowTime: 10
-  seedYield: 1
+  seedYield: 4
   bulletYield: 30
   plantModel: {fileID: 2571890862195184635, guid: 452ebd65997eaa7428bb86815ac6d6a5,
     type: 3}

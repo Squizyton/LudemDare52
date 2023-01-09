@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5858894648460405255}
   - component: {fileID: 6312181304503234789}
   - component: {fileID: 627033730378171429}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: CornBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

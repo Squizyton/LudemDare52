@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: melon
   GrowTime: 300
-  seedYield: 2
+  seedYield: 8
   bulletYield: 1
   plantModel: {fileID: 5061482205910781971, guid: 8b4bd5dec81460c4fa0b1a3fade75520,
     type: 3}
