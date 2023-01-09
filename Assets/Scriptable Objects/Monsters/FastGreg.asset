@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7762936068148517878, guid: 709f3e1f1317b64429ffd992c6e8b120, type: 3}
   weight: 30
-  coolDown: 1.5
+  coolDown: 0.6
   creditCost: 7

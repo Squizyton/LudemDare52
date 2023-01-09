@@ -6694,7 +6694,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1486524925
 GameObject:
@@ -7146,7 +7146,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5257447922682492192}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220222104}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d041bcd993a179d4aa16aeea15826239, type: 3}
@@ -10078,6 +10078,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5257447923016512699, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      propertyPath: peaParticles
+      value: 
+      objectReference: {fileID: 5787820069314883136, guid: 96a52e722cdeceb4192bbd02d3286f8d,
+        type: 3}
     - target: {fileID: 5257447923043253218, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       propertyPath: distanceMultiplier
@@ -10110,7 +10116,8 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4d46815bfa4e0444bb6f9f512f0086d0, type: 2}
     m_RemovedComponents:
     - {fileID: 5257447921394462717, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5257447921394462711, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5257447923043253217, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
@@ -10331,6 +10338,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 247
+  peaParticles: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &6726536114180464140
 MonoBehaviour:
