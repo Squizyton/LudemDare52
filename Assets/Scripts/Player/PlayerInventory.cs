@@ -176,6 +176,7 @@ public class PlayerInventory : MonoBehaviour
 FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
         }
     }
 
