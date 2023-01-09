@@ -19,13 +19,12 @@ public class Felonius : BasicEnemy
     [SerializeField]private bool isEating;
 
 
-    public Transform DebugSphere;
+    
     private void Start()
     {
-        agent.speed = speed;
-        healthBar.value = health;
         healthBar.maxValue = health;
-
+        healthBar.value = health;
+        agent.speed = speed;
         ChooseTargetPoint();
     }
 
@@ -46,7 +45,7 @@ public class Felonius : BasicEnemy
             {
                 Debug.Log("eat time");
                 state = State.Attacking;
-                animator.speed = eatTime/10;
+                animator.SetFloat("speed",eatTime/100f);
             }else ChooseTargetPoint();
         }
     }
@@ -68,6 +67,8 @@ public class Felonius : BasicEnemy
         isEating = false;
         animator.speed = 1;
         ChooseTargetPoint();
+        animator.SetTrigger("Run");
+        target = null;
     }
 
     private void ChooseTargetPoint()
@@ -95,7 +96,7 @@ public class Felonius : BasicEnemy
             //Check to see if moveToTarget is in the monsterBounds
             if (GameManager.Instance.monsterBounds.bounds.Contains(new Vector3(moveToTarget.x, 0, moveToTarget.z)))
             {
-                DebugSphere.position = moveToTarget;
+               
                 Debug.Log("In Bounds");
                 //Move to the new target
                 agent.SetDestination(moveToTarget);

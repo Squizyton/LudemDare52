@@ -101,6 +101,7 @@ namespace Plots
             value = 0;
             mesh.color = Color.white;
             plantInfo = null;
+            
         }
         
         private void OnTriggerEnter(Collider col)
