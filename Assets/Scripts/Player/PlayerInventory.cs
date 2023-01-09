@@ -146,7 +146,7 @@ public class PlayerInventory : MonoBehaviour
         selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
-        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
+ FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
         if (harvested.PlantName == "starfruit")
         {
             health += harvested.bulletYield;
@@ -172,8 +172,8 @@ public class PlayerInventory : MonoBehaviour
             GameManager.Instance.cropsHarvested++;
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             selectedPlot.TurnOnGrowingInfo(false);
+FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
         }
