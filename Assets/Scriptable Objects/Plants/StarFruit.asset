@@ -18,8 +18,8 @@ MonoBehaviour:
   bulletYield: 15
   plantModel: {fileID: 519113573296484023, guid: bb4310c8ca2f61d49bf94aba1f6638de,
     type: 3}
-  seedIcon: {fileID: 21300000, guid: 1c2abc47c8c47454e9fc1828aa7b1afd, type: 3}
-  bulletIcon: {fileID: 0}
+  seedIcon: {fileID: 21300000, guid: bccc213555d21b94c8e9811d5df98f38, type: 3}
+  bulletIcon: {fileID: 21300000, guid: bccc213555d21b94c8e9811d5df98f38, type: 3}
   bulletSpeed: 0
   bulletDamage: 0
   bulletLifeTime: 0
