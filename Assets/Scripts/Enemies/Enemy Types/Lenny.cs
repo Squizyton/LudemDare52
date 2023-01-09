@@ -1,3 +1,4 @@
+using FMOD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class Lenny : BasicEnemy
             //Check to see if moveToTarget is in the monsterBounds
             if (GameManager.Instance.monsterBounds.bounds.Contains(new Vector3(moveToTarget.x, 0, moveToTarget.z)))
             {
-                Debug.Log("In Bounds");
+                UnityEngine.Debug.Log("In Bounds");
                 //Move to the new target
                 atTarget = false;
             }
@@ -55,7 +56,7 @@ public class Lenny : BasicEnemy
 
         if (!(distanceToTarget < 0.5f)) return;
 
-        Debug.Log("At Target");
+        UnityEngine.Debug.Log("At Target");
 
         //Change the mode
         state = State.Attacking;
@@ -95,7 +96,9 @@ public class Lenny : BasicEnemy
         Instantiate(_bullet, spawnPoints[spawnindex].position, Quaternion.identity)
             .TryGetComponent(out EnemyHitbox bhitbox);
         bhitbox.enemy = this;
-        
+
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Lenny/Enemy_Lenny_Attack", gameObject);   //FMOD
+
     }
 
     public void SetAttack()
