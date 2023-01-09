@@ -161,15 +161,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletInfo: {fileID: 11400000, guid: 6b61c6a050a43fd4b854d8a19fc9bad6, type: 2}
-  speed: 5
+  speed: 10
   damage: 10
   rb: {fileID: 8221742896767587148}
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 192
   bulletRaycastLength: 1
+  hitEffect: {fileID: 5468793762559589780, guid: 1c074c446c4f12445b3cc031b7cf1181,
+    type: 3}
   radius: 10
   boomForce: -150
   whatIsOnlyEnemy:
     serializedVersion: 2
     m_Bits: 128
+  hitFX: {fileID: 2070831051385669071, guid: 12d78f569d571b344a31327647b04e2a, type: 3}
