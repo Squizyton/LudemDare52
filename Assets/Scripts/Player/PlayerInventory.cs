@@ -31,7 +31,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] PlantInfo PepperSeed;
     [SerializeField] PlantInfo CarrotSeed;
     [SerializeField] PlantInfo MelonSeed;
-
+    [SerializeField] PlantInfo StarFruitSeed;
     //Inventory for seeds
     [SerializeField]Dictionary<PlantInfo, int> seedInventory = new Dictionary<PlantInfo, int>();
     [SerializeField]Dictionary<PlantInfo, int> bulletInventory = new Dictionary<PlantInfo, int>();
@@ -62,10 +62,11 @@ public class PlayerInventory : MonoBehaviour
         AddSeed(seedInventory, PepperSeed, 2);
         AddSeed(seedInventory, MelonSeed, 1);
         AddSeed(seedInventory, CarrotSeed, 1);
-        
-        
-        
-        
+        AddSeed(seedInventory, StarFruitSeed, 1);
+
+
+
+
         UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
         controls.Enable();
         
@@ -144,6 +145,12 @@ public class PlayerInventory : MonoBehaviour
         PlantInfo harvested = selectedPlot.HarvestSeeds();
         Debug.Log(harvested.ToString());
         if (!harvested) return;
+        if (harvested.PlantName == "starfruit")
+        {
+            health += harvested.bulletYield;
+            UIManager.Instance.SetHealth(-1*harvested.bulletYield);
+            return;
+        }
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
 
         if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())

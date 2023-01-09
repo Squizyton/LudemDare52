@@ -3526,7 +3526,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: starfruit
+          m_StringArgument: corn
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: -4357486940137234534, guid: 8d42bb77a100bb849a5a872438951489,
@@ -4402,7 +4402,6 @@ MonoBehaviour:
   carrotSeedCount: {fileID: 2093380137}
   melonSeedCount: {fileID: 2093380136}
   pepperSeedCount: {fileID: 2093380135}
-  starFruitSeedCount: {fileID: 910527362}
   staminaSlider: {fileID: 1106736503}
   healthBar: {fileID: 634011128}
   cowText: {fileID: 82062848}

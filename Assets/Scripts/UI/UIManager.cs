@@ -39,6 +39,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI carrotSeedCount;
         [SerializeField] private TextMeshProUGUI melonSeedCount;
         [SerializeField] private TextMeshProUGUI pepperSeedCount;
+        [SerializeField] private TextMeshProUGUI starFruitSeedCount;
 
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
@@ -241,6 +242,9 @@ namespace UI
                     break;
                 case "carrot":
                     carrotSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "starfruit":
+                    starFruitSeedCount.text = "x" + seedCount.ToString();
                     break;
             }
         }
