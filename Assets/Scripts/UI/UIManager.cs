@@ -39,6 +39,12 @@ namespace UI
         [SerializeField] private TextMeshProUGUI carrotSeedCount;
         [SerializeField] private TextMeshProUGUI melonSeedCount;
         [SerializeField] private TextMeshProUGUI pepperSeedCount;
+        [SerializeField] private TextMeshProUGUI starFruitSeedCount;
+        [Header("Bullets")]
+        [SerializeField] private TextMeshProUGUI cornBulletCount;
+        [SerializeField] private TextMeshProUGUI carrotBulletCount;
+        [SerializeField] private TextMeshProUGUI melonBulletCount;
+        [SerializeField] private TextMeshProUGUI pepperBulletCount;
 
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
@@ -55,10 +61,16 @@ namespace UI
         [SerializeField] private UnityEngine.UI.Button startWaveButton;
 
         [Header("Other")] [SerializeField] private GameObject harvestText;
+        public Transform highlightObject;
         private void Awake()
         {
             Instance = this;
             currentHealth = healthBar.maxValue;
+        }
+
+        private void Start()
+        {
+            SelectSeeds("corn");
         }
 
         #region Mode Changing
@@ -78,6 +90,7 @@ namespace UI
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
+                  
                     break;
                 case GameManager.CurrentMode.GameOver:
                     break;
@@ -188,6 +201,25 @@ namespace UI
             ammoCount.text = inMagazine.ToString() + " / " + inSack.ToString();
         }
 
+        public void UpdateAmmoTotal(PlantInfo plantInfo, int amount)
+        {
+            switch(plantInfo.PlantName)
+            {
+                case "corn":
+                    cornBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "carrot":
+                    carrotBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "pepper":
+                    pepperBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "melon":
+                    melonBulletCount.text = "x" + amount.ToString();
+                    break;
+            }
+        }
+
         public void UpdateAmmoType(PlantInfo plantInfo)
         {
             fpsCornIcon.alpha = 0;
@@ -242,6 +274,9 @@ namespace UI
                 case "carrot":
                     carrotSeedCount.text = "x" + seedCount.ToString();
                     break;
+                case "starfruit":
+                    starFruitSeedCount.text = "x" + seedCount.ToString();
+                    break;
             }
         }
         #endregion
@@ -284,6 +319,12 @@ namespace UI
         public void HarvestText(bool value)
         {
            harvestText.SetActive(value);
+        }
+
+
+        public void MoveSquare(Transform mTransform)
+        {
+            highlightObject.position = mTransform.position;
         }
     }
 }

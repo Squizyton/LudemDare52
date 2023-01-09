@@ -18,12 +18,16 @@ namespace Plots
         [SerializeField] private Image mesh;
         [SerializeField] private PlantInfo plantInfo;
         [SerializeField] private GameObject player;
+        
+        [SerializeField]private Slider timeSlider;
+        [SerializeField] private Image seedIcon;
         private PlayerInventory playerInventory;
         private GameObject plantModel;
         
         private Vector3 position;
         private Sprite defaultSprite;
-        
+
+        public bool beingChargedAt;
         public void Plant()
         {
             Debug.Log("Planting");
@@ -38,11 +42,15 @@ namespace Plots
 
             if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
 
+            
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Plants");
             Debug.Log("play sound + Planted " + playerInventory.SelectedSeed.name);
 
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
+            timeSlider.value = 0;
+            seedIcon.sprite = plantInfo.seedIcon;
+            timeSlider.maxValue = plantInfo.GrowTime;
             GameManager.Instance.cropsPlanted++;
             mesh.color = Color.white;
             mesh.sprite = plantInfo.seedIcon;
@@ -91,6 +99,7 @@ namespace Plots
             if(value != 1 || GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
             // Growth
             timeElapsed += Time.deltaTime;
+            timeSlider.value = timeElapsed;
             if(timeElapsed > plantInfo.GrowTime)
             {
                 
@@ -112,7 +121,8 @@ namespace Plots
             mesh.color = Color.white;
             mesh.sprite = defaultSprite;
             plantInfo = null;
-            
+            TurnOnGrowingInfo(false);
+
         }
         
         private void OnTriggerEnter(Collider col)
@@ -121,7 +131,7 @@ namespace Plots
             
             
             UIManager.Instance.HarvestText(true);
-            plantModel.GetComponent<Outline>().enabled = true;
+            //plantModel.GetComponent<Outline>().enabled = true;
             mesh.color = Color.green;
             isPlayerNear = true;
         }
@@ -166,5 +176,12 @@ namespace Plots
                 Plant();
             }
         }
+
+        public void TurnOnGrowingInfo(bool activeValue)
+        {
+            timeSlider.gameObject.SetActive(activeValue);
+            seedIcon.gameObject.SetActive(activeValue);
+        }
+
     }
 }

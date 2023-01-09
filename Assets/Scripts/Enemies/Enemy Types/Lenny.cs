@@ -12,17 +12,14 @@ public class Lenny : BasicEnemy
     private Vector3 moveToTarget;
 
     private bool attacked;
-    private bool changeRotation;
 
-
-
+    
     public void Start()
     {
         agent.speed = speed;
         healthBar.maxValue = health;
         healthBar.value = health;
         atTarget = true;
-        changeRotation = true;
     }
 
     public override void OnMove(float distance)
