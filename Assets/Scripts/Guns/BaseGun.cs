@@ -135,6 +135,8 @@ namespace Guns
             animator.SetTrigger("Reload");
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Gun_Reload"); //FMOD gun test
+
             reloadTime = timeToReload;
             totalReloadTime = 0;
         }
