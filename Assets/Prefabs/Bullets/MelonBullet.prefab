@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletInfo: {fileID: 11400000, guid: 6b61c6a050a43fd4b854d8a19fc9bad6, type: 2}
   speed: 10
-  damage: 10
+  damage: 4
   rb: {fileID: 8221742896767587148}
   whatIsEnemy:
     serializedVersion: 2
@@ -171,7 +171,7 @@ MonoBehaviour:
   hitEffect: {fileID: 5468793762559589780, guid: 1c074c446c4f12445b3cc031b7cf1181,
     type: 3}
   radius: 10
-  boomForce: -150
+  boomForce: -100
   whatIsOnlyEnemy:
     serializedVersion: 2
     m_Bits: 128

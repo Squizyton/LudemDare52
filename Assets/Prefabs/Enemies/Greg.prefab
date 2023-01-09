@@ -3409,10 +3409,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.73357344
-  m_Height: 3.6338243
+  m_Radius: 1
+  m_Height: 3.762923
   m_Direction: 1
-  m_Center: {x: 0.01833656, y: 1.6623499, z: 4.07481e-11}
+  m_Center: {x: -0.12388157, y: 1.7268993, z: -0.10358131}
 --- !u!195 &48929519
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3455,7 +3455,7 @@ MonoBehaviour:
   state: 0
   healthBar: {fileID: 1141548795}
   animator: {fileID: 4341568859715874749}
-  seedDropChance: 100
+  seedDropChance: 5
   seeds:
   - {fileID: 11400000, guid: f5953b97cc61d984db2792d76a9791e2, type: 2}
   - {fileID: 11400000, guid: ea7de7e0bdfaa514fbdc7c47e41eb5dd, type: 2}

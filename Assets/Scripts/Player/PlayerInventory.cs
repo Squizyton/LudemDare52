@@ -242,7 +242,7 @@ FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_H
         if (bulletInventory.ContainsKey(seed) && bulletInventory[seed] >= amount)
         {
             bulletInventory[seed] -= amount;
-            if (bulletInventory[seed] <= 0)
+            if (bulletInventory[seed] < 0)
             {
                 bulletInventory.Remove(seed);
             }
