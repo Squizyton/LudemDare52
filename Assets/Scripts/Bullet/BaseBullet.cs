@@ -60,9 +60,17 @@ public class BaseBullet : MonoBehaviour
 
 		Destroy(gameObject);
 	}
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider collision)
 	{
-		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
+		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);
+
+		if (collision.transform.TryGetComponent(out IHasHealth enemy))
+		{
+			enemy.TakeDamage((int)damage);
+			Instantiate(hitEffect, transform.position, transform.rotation);
+			Destroy(gameObject);
+		}
+
 		Debug.Log("bullet hits");
 	}
 

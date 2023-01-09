@@ -107,7 +107,8 @@ namespace Guns
                 CameraShake.Shake(3, 0.1f, 0.25f);
                 currentMagazine--;
                 canFire = false;
-
+                
+                Debug.Log(currentMagazine);
 
                 // Update ammo in inventory
                 var currentAmmoType = bulletList[currentBullet].GetBulletInfo();

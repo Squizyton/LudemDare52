@@ -61,10 +61,16 @@ namespace UI
         [SerializeField] private UnityEngine.UI.Button startWaveButton;
 
         [Header("Other")] [SerializeField] private GameObject harvestText;
+        public Transform highlightObject;
         private void Awake()
         {
             Instance = this;
             currentHealth = healthBar.maxValue;
+        }
+
+        private void Start()
+        {
+            SelectSeeds("corn");
         }
 
         #region Mode Changing
@@ -84,6 +90,7 @@ namespace UI
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
+                  
                     break;
                 case GameManager.CurrentMode.GameOver:
                     break;
@@ -312,6 +319,12 @@ namespace UI
         public void HarvestText(bool value)
         {
            harvestText.SetActive(value);
+        }
+
+
+        public void MoveSquare(Transform mTransform)
+        {
+            highlightObject.position = mTransform.position;
         }
     }
 }
