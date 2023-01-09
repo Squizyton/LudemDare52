@@ -55,9 +55,10 @@ public class PlayerInventory : MonoBehaviour
         controls.Player.ConvertToBullets.performed += ctx => HarvestAmmo();
         controls.Player.Harvest.performed += ctx => HarvestSeeds();
         //Set the Peashooter to the first gun
-
-
+        //Add initial seeds
         seedInventory = new Dictionary<PlantInfo, int>();
+        AddSeed(seedInventory, CornSeed, 5);
+        AddSeed(seedInventory, PepperSeed, 2);
         controls.Enable();
     }
 
@@ -117,8 +118,10 @@ public class PlayerInventory : MonoBehaviour
         if (!selectedPlot) return;
         
         PlantInfo harvested = selectedPlot.HarvestSeeds();
+        Debug.Log(harvested.ToString());
         if (!harvested) return;
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
+        UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested], currentActiveGun.GetIsInfinite());
         selectedPlot = null;
     }
 
@@ -139,6 +142,14 @@ public class PlayerInventory : MonoBehaviour
         if (seedToSelect) SelectedSeed = seedToSelect;
     }
 
+    public int GetSeedCount(PlantInfo plantInfo)
+    {
+        if(seedInventory.ContainsKey(plantInfo))
+            return seedInventory[plantInfo];
+        else
+            return 0;
+    }
+
     public void AddSeed(Dictionary<PlantInfo, int> inventory, PlantInfo seed,int amount = 1)
     {
         
@@ -154,6 +165,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Seed Dictionary Count: " + inventory.Count);
         }
         Debug.Log(inventory[seed]);
+        UIManager.Instance.UpdateSeedCount(seed);
     }
    
    
@@ -172,7 +184,9 @@ public class PlayerInventory : MonoBehaviour
             if (seedInventory[seed] <= 0)
             {
                 seedInventory.Remove(seed);
+                
             }
+            UIManager.Instance.UpdateSeedCount(seed);
             return true;
         }
         return false;

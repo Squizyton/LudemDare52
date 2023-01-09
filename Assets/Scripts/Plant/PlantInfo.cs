@@ -12,8 +12,8 @@ public class PlantInfo : ScriptableObject
     public int seedYield;
     public int bulletYield;
     public GameObject plantModel;
-    public Image seedIcon;
-    public Image bulletIcon;
+    public Sprite seedIcon;
+    public Sprite bulletIcon;
     [Header("Bullet Info")]
     public float bulletSpeed;
     public float bulletDamage;

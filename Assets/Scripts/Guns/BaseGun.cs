@@ -219,8 +219,17 @@ namespace Guns
 			canFire = true;
 		}
 
+		public int GetCurrentMag()
+		{
+			return currentMagazine;
+		}
 
-		public bool IsAutomatic()
+        public bool GetIsInfinite()
+        {
+            return hasInfiniteAmmo;
+        }
+
+        public bool IsAutomatic()
 		{
 			return isAutomatic;
 		}

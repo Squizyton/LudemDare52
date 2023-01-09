@@ -21,9 +21,7 @@ namespace Plots
         private GameObject plantModel;
         
         private Vector3 position;
-        
-
-        
+        private Sprite defaultSprite;
         
         public void Plant()
         {
@@ -42,10 +40,11 @@ namespace Plots
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Plants");
             Debug.Log("play sound + Planted " + playerInventory.SelectedSeed.name);
 
-            mesh.color = Color.white;
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
-            
+
+            mesh.color = Color.white;
+            mesh.sprite = plantInfo.seedIcon;
             plantModel = Instantiate(GameManager.Instance.sproutModel, this.transform.position, GameManager.Instance.sproutModel.transform.rotation);
     }
 
@@ -55,6 +54,7 @@ namespace Plots
             value = 0;
             
             mesh.color = Color.white;
+            mesh.sprite = defaultSprite;
             FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             Destroy(plantModel);
             return plantInfo;
@@ -80,7 +80,7 @@ namespace Plots
             {
                 playerInventory = (PlayerInventory)inventory;
             }
-            
+            defaultSprite = mesh.sprite;
             position = transform.position;
         }
 
@@ -109,6 +109,7 @@ namespace Plots
             Destroy(plantModel);
             value = 0;
             mesh.color = Color.white;
+            mesh.sprite = defaultSprite;
             plantInfo = null;
             
         }

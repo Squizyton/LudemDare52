@@ -196,6 +196,29 @@ namespace UI
             Debug.Log("playerInventory set to " + seedName);
             Debug.Log(playerInventory.SelectedSeed);
         }
+
+        public void UpdateSeedCount(PlantInfo plantInfo)
+        {
+            PlayerInventory playerInventory = PlayerInventory.Instance;
+            int seedCount = playerInventory.GetSeedCount(plantInfo);
+            Debug.Log(plantInfo.PlantName);
+            Debug.Log(seedCount);
+            switch (plantInfo.PlantName)
+            {
+                case "corn":
+                    cornSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "pepper":
+                    pepperSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "melon":
+                    melonSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "carrot":
+                    carrotSeedCount.text = "x" + seedCount.ToString();
+                    break;
+            }
+        }
         #endregion
         
         
