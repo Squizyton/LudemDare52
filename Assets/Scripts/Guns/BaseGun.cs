@@ -43,26 +43,11 @@ namespace Guns
 		private void Start()
 		{
 			animator = GetComponent<Animator>();
-			SpecificGunStart();
-		}
-
-		private void OnEnable()
-		{
 			UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
 			UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
-			if (!isAutomatic)
-			{
-				FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", "BaseGun");
-				Debug.Log("BaseGun");
-			}
-			else
-			{
-				FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", "SpecialGun");
-				Debug.Log("SpecialGun");
-			}
+			SpecificGunStart();
 
 		}
-
 		//Called if you want the gun to do a specific thing on start
 		protected virtual void SpecificGunStart()
 		{
