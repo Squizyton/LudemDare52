@@ -34,7 +34,7 @@ namespace Guns
         private float totalReloadTime;
         private Vector3 hitPoint;
 
-        private FMOD.Studio.EventInstance GunShootSFX;
+        //private FMOD.Studio.EventInstance GunShootSFX;
         
 
         public LayerMask layerMask;
@@ -47,7 +47,9 @@ namespace Guns
             UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
             SpecificGunStart();
 
-            GunShootSFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/Player_Gun_Shoot");
+            //GunShootSFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/Player_Gun_Shoot");
+            
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
         }
 
 
@@ -56,6 +58,8 @@ namespace Guns
         {
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
             currentMagazine = 15;
+
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", 0);
         }
 
         //Use this to change the gun stats
@@ -121,7 +125,8 @@ namespace Guns
 
                 //FMOD gun type changer !!not working currentBullet!!
 
-                GunShootSFX.start(); 
+                //GunShootSFX.start(); 
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
 
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
