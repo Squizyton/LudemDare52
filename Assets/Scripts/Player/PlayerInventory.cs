@@ -153,7 +153,7 @@ public class PlayerInventory : MonoBehaviour
             return;
         }
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
-
+        UIManager.Instance.UpdateAmmoTotal(harvested, bulletInventory[harvested]);
         if (harvested == currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo())
         {
             UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested],
@@ -243,6 +243,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 bulletInventory.Remove(seed);
             }
+            UIManager.Instance.UpdateAmmoTotal(seed, bulletInventory[seed]);
             return true;
         }
         return false;

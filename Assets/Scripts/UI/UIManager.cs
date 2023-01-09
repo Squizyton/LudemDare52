@@ -40,6 +40,11 @@ namespace UI
         [SerializeField] private TextMeshProUGUI melonSeedCount;
         [SerializeField] private TextMeshProUGUI pepperSeedCount;
         [SerializeField] private TextMeshProUGUI starFruitSeedCount;
+        [Header("Bullets")]
+        [SerializeField] private TextMeshProUGUI cornBulletCount;
+        [SerializeField] private TextMeshProUGUI carrotBulletCount;
+        [SerializeField] private TextMeshProUGUI melonBulletCount;
+        [SerializeField] private TextMeshProUGUI pepperBulletCount;
 
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
@@ -187,6 +192,25 @@ namespace UI
             }
 
             ammoCount.text = inMagazine.ToString() + " / " + inSack.ToString();
+        }
+
+        public void UpdateAmmoTotal(PlantInfo plantInfo, int amount)
+        {
+            switch(plantInfo.PlantName)
+            {
+                case "corn":
+                    cornBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "carrot":
+                    carrotBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "pepper":
+                    pepperBulletCount.text = "x" + amount.ToString();
+                    break;
+                case "melon":
+                    melonBulletCount.text = "x" + amount.ToString();
+                    break;
+            }
         }
 
         public void UpdateAmmoType(PlantInfo plantInfo)
