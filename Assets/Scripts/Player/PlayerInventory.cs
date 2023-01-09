@@ -142,6 +142,7 @@ public class PlayerInventory : MonoBehaviour
         GameManager.Instance.cropsHarvested++;
         UIManager.Instance.HarvestText(false);
         PlantInfo harvested = selectedPlot.HarvestSeeds();
+        selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
@@ -163,6 +164,7 @@ public class PlayerInventory : MonoBehaviour
             GameManager.Instance.cropsHarvested++;
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
+            selectedPlot.TurnOnGrowingInfo(false);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
         }

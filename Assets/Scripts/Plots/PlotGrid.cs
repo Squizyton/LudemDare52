@@ -68,7 +68,12 @@ public class PlotGrid : MonoBehaviour
     {
         foreach (var cell in cells)
         {
-            cell.GetComponent<PlotCell>().ImageStatus(false);
+            var info = cell.GetComponent<PlotCell>();
+            info.ImageStatus(false);
+            if (info.IsGrowingSomething())
+            {
+                info.TurnOnGrowingInfo(true);
+            }
         }
     }
     
@@ -76,7 +81,9 @@ public class PlotGrid : MonoBehaviour
     {
         foreach (var cell in cells)
         {
-            cell.GetComponent<PlotCell>().ImageStatus(true);
+            var info = cell.GetComponent<PlotCell>();
+          info.ImageStatus(true);
+          info.TurnOnGrowingInfo(false);
         }
     }
     
