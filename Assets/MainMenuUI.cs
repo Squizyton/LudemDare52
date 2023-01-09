@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SaveFile;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,14 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]private TMP_InputField nameInputField;
     [SerializeField]private TMP_Text nameText;
 
+
+    [Header("Stat Numbers")] 
+    [SerializeField] private TMP_Text waveNumber;
+    [SerializeField] private TMP_Text timeNumber;
+    [SerializeField] private TMP_Text cropsHNumber;
+    [SerializeField] private TMP_Text cropsPNumber;
+    [SerializeField] private TMP_Text bulletsNumber;
+    [SerializeField] private TMP_Text enemiesKilledNumber;
     void Awake()
     {
         Instance = this;
@@ -40,9 +49,18 @@ public class MainMenuUI : MonoBehaviour
         EnterNamePanel.SetActive(false);
     }
 
-    public void UpdateName(string fName)
+    public void UpdateEverything(FarmerInfo info)
     {
-        nameText.text = fName;
+        nameText.text = info.farmerName;
+        waveNumber.text = info.totalWavesSurvived.ToString();
+        var minutes = Mathf.FloorToInt(info.totalTimeAlive / 60F);
+        var seconds = Mathf.FloorToInt(info.totalTimeAlive - minutes * 60);
+        timeNumber.text = $"{minutes:0}:{seconds:00}";
+        cropsHNumber.text = info.totalCropsHarvested.ToString();
+        cropsPNumber.text = info.totalCropsPlanted.ToString();
+        bulletsNumber.text = info.bulletsShot.ToString();
+        enemiesKilledNumber.text = info.totalEnemiesKilled.ToString();
+
     }
 
 
@@ -57,4 +75,9 @@ public class MainMenuUI : MonoBehaviour
     
 
     #endregion
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

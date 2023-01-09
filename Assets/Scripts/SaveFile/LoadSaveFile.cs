@@ -42,7 +42,8 @@ public class LoadSaveFile : MonoBehaviour
             var fileStream = new FileStream(path + "/saveFile.greg", FileMode.Open);
 
             saveFile = (FarmerInfo) formatter.Deserialize(fileStream);
-            MainMenuUI.Instance.UpdateName(saveFile.farmerName);
+            MainMenuUI.Instance.UpdateEverything(saveFile);
+            
             fileStream.Close();
         }
     }
