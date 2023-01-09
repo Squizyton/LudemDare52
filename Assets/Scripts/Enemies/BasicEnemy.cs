@@ -62,7 +62,7 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
         float damage = 0f;
         if (currentFireCooldown - Time.deltaTime >= 0)
         {
-            damage = Time.deltaTime * .3f;
+            damage = Time.deltaTime * .75f;
             Debug.Log("ON FIRE:" + damage.ToString());
             currentFireCooldown -= Time.deltaTime;
         }

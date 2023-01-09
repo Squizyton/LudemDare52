@@ -94,6 +94,7 @@ namespace Guns
 
             if (currentMagazine > 0)
             {
+                GameManager.Instance.bulletsFired++;
                 animator.SetTrigger("Shoot");
                 CameraShake.Shake(3, 0.1f, 0.25f);
                 currentMagazine--;

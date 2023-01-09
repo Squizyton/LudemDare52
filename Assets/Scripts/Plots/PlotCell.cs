@@ -43,7 +43,7 @@ namespace Plots
 
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
-
+            GameManager.Instance.cropsPlanted++;
             mesh.color = Color.white;
             mesh.sprite = plantInfo.seedIcon;
             plantModel = Instantiate(GameManager.Instance.sproutModel, this.transform.position, GameManager.Instance.sproutModel.transform.rotation);

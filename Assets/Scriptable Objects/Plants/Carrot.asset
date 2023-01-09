@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: carrot
   GrowTime: 150
-  seedYield: 2
+  seedYield: 4
   bulletYield: 10
   plantModel: {fileID: 787842647920921354, guid: f3c7b23b1ab3ce6479123a0151cb1990,
     type: 3}

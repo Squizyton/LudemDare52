@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
     [SerializeField]private MonsterSpawner creditManager;
-    [SerializeField]private LoadSaveFile loadSaveFile;
+    public LoadSaveFile loadSaveFile;
     [SerializeField] public PlotGrid grid;
     //MOde
     [Header("Current Mode")]
@@ -27,11 +27,14 @@ public class GameManager : MonoBehaviour
 
     //Game Stats
     [Header("Game Stats")] 
-    [SerializeField] private float timeAlive;
-    [SerializeField] public int currentWave;
-    [SerializeField] public int currentScore;
-    [SerializeField] public int currentKills;
-    [SerializeField] public int totalAmountOfWaves;
+    public float timeAlive;
+     public int currentWave;
+     public int currentScore;
+     public int currentKills;
+     public int totalAmountOfWaves;
+     public int cropsHarvested;
+    public int cropsPlanted;
+     public int bulletsFired;
     
     
 
@@ -99,6 +102,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = newMode switch
         {
             CurrentMode.TopDown => CursorLockMode.None,
+            CurrentMode.GameOver => CursorLockMode.None,
             CurrentMode.FPS => CursorLockMode.Locked,
             _ => Cursor.lockState
         };
@@ -110,7 +114,8 @@ public class GameManager : MonoBehaviour
     public enum CurrentMode
     {
         FPS,
-        TopDown
+        TopDown,
+        GameOver
     }
 
 
@@ -165,9 +170,11 @@ public class GameManager : MonoBehaviour
     public void RemoveEnemy()
     {
         enemiesRemaining--;
+        currentKills++;
         UIManager.Instance.UpdateEnemiesRemaining(enemiesRemaining);
         RoundEnded();
     }
+    
 
     public void RoundEnded()
     {
