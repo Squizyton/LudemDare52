@@ -130,7 +130,7 @@ namespace Guns
 
         public void ReloadSequence(float timeToReload)
         {
-            if (ammoInSack == 0) return;
+            if (!hasInfiniteAmmo && ammoInSack == 0) return;
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
             reloadTime = timeToReload;
