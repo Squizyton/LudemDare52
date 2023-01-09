@@ -3703,12 +3703,12 @@ MonoBehaviour:
   EnterNamePanel: {fileID: 925928564}
   nameInputField: {fileID: 1894096491}
   nameText: {fileID: 1700627246}
-  waveNumber: {fileID: 0}
-  timeNumber: {fileID: 0}
-  cropsHNumber: {fileID: 0}
-  cropsPNumber: {fileID: 0}
-  bulletsNumber: {fileID: 0}
-  enemiesKilledNumber: {fileID: 0}
+  waveNumber: {fileID: 1795378783}
+  timeNumber: {fileID: 550124371}
+  cropsHNumber: {fileID: 1767544176}
+  cropsPNumber: {fileID: 1373443182}
+  bulletsNumber: {fileID: 1290736108}
+  enemiesKilledNumber: {fileID: 1183248353}
 --- !u!1 &925928564
 GameObject:
   m_ObjectHideFlags: 0
