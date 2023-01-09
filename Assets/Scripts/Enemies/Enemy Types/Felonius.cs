@@ -42,8 +42,7 @@ public class Felonius : BasicEnemy
             if (target)
             {
                 Debug.Log("eat time");
-                state = State.Attacking;
-                animator.SetFloat("speed",eatTime/100f);
+                state = State.Attacking;;
             }else ChooseTargetPoint();
         }
     }
