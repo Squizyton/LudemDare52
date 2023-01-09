@@ -4256,7 +4256,7 @@ MonoBehaviour:
   cropsHarvested: 0
   cropsPlanted: 0
   bulletsFired: 0
-  currentTarget: {fileID: 0}
+  currentTarget: {fileID: 642887780}
   enemiesRemaining: 0
   cow: {fileID: 4382142749811747721}
   timeTillNextWave: 0

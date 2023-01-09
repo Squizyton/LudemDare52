@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StarFruit
   m_EditorClassIdentifier: 
   PlantName: starfruit
-  GrowTime: 10
+  GrowTime: 300
   seedYield: 2
   bulletYield: 15
   plantModel: {fileID: 519113573296484023, guid: bb4310c8ca2f61d49bf94aba1f6638de,
