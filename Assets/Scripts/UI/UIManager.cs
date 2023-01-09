@@ -84,6 +84,8 @@ namespace UI
         public void UpdateEnemiesRemaining(int numEnemies)
         {
             remainingEnemies.text = "Enemies: " + numEnemies.ToString();
+
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
         }
 
         public void UpdateTimeAlive(float newTimeAlive)
