@@ -103,7 +103,7 @@ public class MonsterSpawner : MonoBehaviour
         while (index < lastIndex)
         {
             //Do a probability check with a likelihood of weight. The greater the number, the greater the more likely its to spawn
-            if (Random.Range(0, weightSum) > weightIndex[index])
+            if (Random.Range(0, weightSum) < weightIndex[index])
             {
                 return tempList[index];
             }
