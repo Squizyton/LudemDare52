@@ -34,6 +34,8 @@ namespace Guns
         private float totalReloadTime;
         private Vector3 hitPoint;
 
+        private FMOD.Studio.EventInstance GunShootSFX;
+        
 
         public LayerMask layerMask;
         [SerializeField] private Animator animator;
@@ -44,6 +46,8 @@ namespace Guns
             UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
             UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
             SpecificGunStart();
+
+            GunShootSFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/Player_Gun_Shoot");
         }
 
 
@@ -107,16 +111,18 @@ namespace Guns
                 UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
                 //shoot a raycast from the middle of the screen
 
-
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
-
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
                 var rotation = Quaternion.LookRotation(hitPoint - position);
                 //spawn the bullet
                 var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
                 Instantiate(peaParticles, position, rotation);
-                
+
+
+                //FMOD gun type changer !!not working currentBullet!!
+
+                GunShootSFX.start(); 
+
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
 
