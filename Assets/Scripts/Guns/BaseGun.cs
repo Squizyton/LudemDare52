@@ -114,6 +114,8 @@ namespace Guns
 				//shoot a raycast from the middle of the screen
 
 
+				FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet);
+				Debug.Log("Shoot GunType " + currentBullet);
 				FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot");   //FMOD gun test
 
 				//rotate the bullet to face the hit point
