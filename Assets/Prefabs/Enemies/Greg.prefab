@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 1350614112}
   - component: {fileID: 1350614114}
   - component: {fileID: 1350614113}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
         type: 3}
