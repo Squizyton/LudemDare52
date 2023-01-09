@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInventory : MonoBehaviour,IHasHealth
+public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance { get; private set; }
 
@@ -69,9 +69,11 @@ public class PlayerInventory : MonoBehaviour,IHasHealth
         }
         return 0;
     }
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(Vector3 attackerPos, int damageTaken)
     {
         Debug.Log("taking Damage");
+        Vector3 direction = attackerPos - transform.position;
+        UIManager.Instance.TriggerDamageIndicator(direction);
         health -= damageTaken;
         if (health <= 0)
         {
