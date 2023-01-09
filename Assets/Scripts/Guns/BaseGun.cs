@@ -44,6 +44,8 @@ namespace Guns
 
         private void OnEnable()
         {
+            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
+            UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
             if (!isAutomatic)
             {
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", "BaseGun");
@@ -78,11 +80,14 @@ namespace Guns
              
             for(int i = 0; i < bulletList.Length - 1; i++)
             {
-               var bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
-               if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) <= 0) continue;
-               currentBullet = (i + currentBullet + 1) % bulletList.Length;
+                var bullet = bulletList[(i + currentBullet + 1) % bulletList.Length];
+                if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) <= 0) continue;
+                currentBullet = (i + currentBullet + 1) % bulletList.Length;
                 FeedStatsIntoGun(bullet.GetBulletInfo());
                 currentMagazine = 0;
+                ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
+                UIManager.Instance.UpdateAmmoType(bullet.GetBulletInfo());
+                UIManager.Instance.UpdateAmmoCount(0,ammoInSack,hasInfiniteAmmo);
                 ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
                 break;
             }
@@ -100,7 +105,7 @@ namespace Guns
                 // Update ammo in inventory
                 var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
                 PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
-
+                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
                 //shoot a raycast from the middle of the screen
 
 
@@ -125,10 +130,19 @@ namespace Guns
 
         public void ReloadSequence(float timeToReload)
         {
+            if (!hasInfiniteAmmo && ammoInSack == 0) return;
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
             reloadTime = timeToReload;
             totalReloadTime = 0;
+        }
+
+        public void AbortReloadSequence()
+        {
+            UIManager.Instance.ReloadGroupStatus(false, 0);
+            isReloading = false;
+            totalReloadTime = 0;
+            reloadTime = 0;
         }
 
 
@@ -187,6 +201,7 @@ namespace Guns
 
                 isReloading = false;
                 UIManager.Instance.ReloadGroupStatus(false, 0);
+                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
             }
 
             #endregion
@@ -221,6 +236,10 @@ namespace Guns
             return canFire;
         }
 
+        public bool IsMagFull()
+        {
+            return currentMagazine == maxAmmoPerClip;
+        }
 
       
     }

@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : MonoBehaviour,IHasHealth
 {
     [Header("Base Stats")] [SerializeField]
     protected float health = 5;
@@ -15,8 +16,9 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] protected float damage;
 
     [Header("Attack Settings")] [SerializeField]
-    private float attackRate;
-    private float attackTimer;
+    protected float attackRate;
+
+    protected float attackTimer;
 
     [Header("AI")] [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected State state;
@@ -30,10 +32,11 @@ public class BasicEnemy : MonoBehaviour
 
     private bool isOnFire;
     private float currentFireCooldown;
-
+    
     public virtual void OnHit(float damage, bool fire = false)
     {
         if (isDead) return;
+        UIManager.Instance.TriggerHitIndicator();
         if (fire)
         {
             isOnFire = true;
@@ -58,7 +61,7 @@ public class BasicEnemy : MonoBehaviour
     public virtual bool TicDamage()
     {
         float damage = 0f;
-        if(currentFireCooldown - Time.deltaTime >= 0)
+        if (currentFireCooldown - Time.deltaTime >= 0)
         {
             damage = Time.deltaTime;
             Debug.Log("ON FIRE:" + damage.ToString());
@@ -69,6 +72,7 @@ public class BasicEnemy : MonoBehaviour
             damage = currentFireCooldown;
             currentFireCooldown = 0;
         }
+
         health -= damage;
 
         healthBar.value = health;
@@ -78,6 +82,7 @@ public class BasicEnemy : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
             OnDeath();
         }
+
         return currentFireCooldown > 0;
     }
 
@@ -93,37 +98,46 @@ public class BasicEnemy : MonoBehaviour
         switch (state)
         {
             case State.Moving:
-                agent.SetDestination(GameManager.Instance.currentTarget.position);
-                
-               
-                if (distance <= agent.stoppingDistance)
-                {
-                    attackTimer = attackRate;
-                    state = State.Attacking;
-                }
+                OnMove(distance);
                 break;
             case State.Attacking:
-                if (distance > agent.stoppingDistance)
-                {
-                    animator.SetTrigger("Run");
-                    state = State.Moving;
-                }
-
-                if (attackTimer > 0)
-                {
-                    attackTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    animator.SetTrigger("Attack");
-                    attackTimer = attackRate;
-                }
-
+                OnAttack(distance);
 
                 break;
             default:
                 Debug.LogError("How are we out of this state machine?");
                 throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public virtual void OnMove(float distance)
+    {
+        agent.SetDestination(GameManager.Instance.currentTarget.position);
+
+
+        if (distance <= agent.stoppingDistance)
+        {
+            attackTimer = attackRate;
+            state = State.Attacking;
+        }
+    }
+
+    public virtual void OnAttack(float distance)
+    {
+        if (distance > agent.stoppingDistance)
+        {
+            animator.SetTrigger("Run");
+            state = State.Moving;
+        }
+
+        if (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        else
+        {
+            animator.SetTrigger("Attack");
+            attackTimer = attackRate;
         }
     }
 
@@ -141,11 +155,16 @@ public class BasicEnemy : MonoBehaviour
     {
         return damage;
     }
-    
+
 
     protected enum State
     {
         Moving,
         Attacking,
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        OnHit(damageTaken);
     }
 }

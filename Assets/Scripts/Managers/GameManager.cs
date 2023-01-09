@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     public Vector3 normalCowPosition;
 
     [Header("Other")] public GameObject sproutModel;
+
+    public Collider monsterBounds;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeMode(CurrentMode.TopDown);
 
-        if (!loadSaveFile.saveFile.didTutorial)
+        if (loadSaveFile != null && !loadSaveFile.saveFile.didTutorial)
         {
             StartTutorial();
         }
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
                 ChangeMode(CurrentMode.FPS);
                 //Increment total time alive
                 timeAlive += Time.deltaTime;
+                UIManager.Instance.UpdateTimeAlive(timeAlive);
                 break;
             case CurrentMode.TopDown:
                 ChangeMode(CurrentMode.TopDown);
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour
         totalAmountOfWaves++;
         
         currentWave = 1;
+        UIManager.Instance.UpdateWaveCount(currentWave);
         creditManager.StartWave();
         creditManager.availableCredits = 25 * totalAmountOfWaves;
 
@@ -158,6 +162,7 @@ public class GameManager : MonoBehaviour
     public void RemoveEnemy()
     {
         enemiesRemaining--;
+        UIManager.Instance.UpdateEnemiesRemaining(enemiesRemaining);
         RoundEnded();
     }
 
@@ -166,6 +171,7 @@ public class GameManager : MonoBehaviour
         if (creditManager.IsSpawning()|| enemiesRemaining > 0) return;
         //Have an action that automatically updates this
         currentWave++;
+        UIManager.Instance.UpdateWaveCount(currentWave);
         
         if (currentWave < 6)
         {
