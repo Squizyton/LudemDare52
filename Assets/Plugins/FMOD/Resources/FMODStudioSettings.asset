@@ -245,7 +245,6 @@ MonoBehaviour:
   - Enviroment
   - Music
   - Player
-  - TEST
   - UI
   BanksToLoad: []
   LiveUpdatePort: 9264
