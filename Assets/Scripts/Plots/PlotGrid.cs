@@ -49,7 +49,21 @@ public class PlotGrid : MonoBehaviour
             }
         }
     }
-    
+
+    public PlotCell GetRandomCell()
+    {
+        //Return a random PlotCell from the list of cells that gowing something
+        var growingCells = cells.Where(cell => cell.GetComponent<PlotCell>().IsGrowingSomething()).ToList();
+        return growingCells[Random.Range(0, growingCells.Count)].GetComponent<PlotCell>();
+      
+    }
+
+    public int GetCellCountThatsGrowingSomething()
+    {
+        //Return the number of cells in the list
+        return cells.Count(cell => cell.GetComponent<PlotCell>().IsGrowingSomething());
+    }
+
     public void TurnOffCellUI()
     {
         foreach (var cell in cells)
