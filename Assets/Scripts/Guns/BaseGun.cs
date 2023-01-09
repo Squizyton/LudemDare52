@@ -19,8 +19,7 @@ namespace Guns
 
         [Header("Base Stats")] [SerializeField]
         protected int maxAmmoPerClip;
-
-        [SerializeField] protected int currentMagazine;
+         [SerializeField] protected int currentMagazine;
         [SerializeField] protected int ammoInSack;
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float fireRate;
@@ -82,7 +81,8 @@ namespace Guns
                 {
                     
                     currentBullet = index;
-                    
+                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet);
+       
                     FeedStatsIntoGun(bullet.GetBulletInfo());
                     Debug.Log(bullet.GetBulletInfo().PlantName);
                     currentMagazine = 0;
