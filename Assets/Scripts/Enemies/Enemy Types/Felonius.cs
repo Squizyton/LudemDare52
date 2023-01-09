@@ -88,7 +88,7 @@ public class Felonius : BasicEnemy
             var position = GameManager.Instance.currentTarget.position;
            
             //Get a random point thats a certain distance from the player
-            var moveToTarget = Random.insideUnitSphere * 40;
+            var moveToTarget = Random.insideUnitSphere * 30;
             moveToTarget.y = transform.position.y;
             
             //Check to see if moveToTarget is in the monsterBounds

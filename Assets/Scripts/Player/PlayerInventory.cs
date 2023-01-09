@@ -142,6 +142,7 @@ public class PlayerInventory : MonoBehaviour
         GameManager.Instance.cropsHarvested++;
         UIManager.Instance.HarvestText(false);
         PlantInfo harvested = selectedPlot.HarvestSeeds();
+        selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
         FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
@@ -164,9 +165,11 @@ public class PlayerInventory : MonoBehaviour
             GameManager.Instance.cropsHarvested++;
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
-            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
+            selectedPlot.TurnOnGrowingInfo(false);
+
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
         }
     }
 

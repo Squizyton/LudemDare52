@@ -145,6 +145,10 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
         isDead = true;
         agent.enabled = false;
         healthBar.gameObject.SetActive(false);
+        TryGetComponent(out Collider collider);
+        collider.enabled = false;
+        TryGetComponent(out Rigidbody rb);
+        rb.isKinematic = true;
         animator.SetTrigger("Death");
         GameManager.Instance.RemoveEnemy();
         Destroy(gameObject, 10f);
