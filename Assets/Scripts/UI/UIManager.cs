@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 namespace UI
 {
@@ -32,8 +33,8 @@ namespace UI
         [SerializeField] private TextMeshProUGUI waveCount;
         [SerializeField] private TextMeshProUGUI remainingEnemies;
         [SerializeField] private TextMeshProUGUI timeAlive;
-
-
+        [SerializeField] private Slider healthBar;
+        private float currentHealth;
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
 
@@ -50,6 +51,7 @@ namespace UI
         private void Awake()
         {
             Instance = this;
+            currentHealth = healthBar.maxValue;
         }
 
         #region Mode Changing
@@ -118,6 +120,20 @@ namespace UI
         public void TriggerHitIndicator()
         {
             hitIndicator.alpha = 1;
+        }
+
+        public void SetHealth(float newHealth)
+        {
+            currentHealth -= newHealth;
+            healthBar.value = currentHealth;
+        }
+
+        private void UpdateHealthBar()
+        {
+            while (healthBar.value != currentHealth)
+            {
+                healthBar.value -= Time.deltaTime * 1.5f;
+            }
         }
 
         public void TriggerDamageIndicator(Vector3 sourceDirection)

@@ -7,7 +7,7 @@ namespace Guns
     {
         [SerializeField] private PlayerInventory player;
 
-        override protected void FeedStatsIntoGun(PlantInfo newAmmo)
+        protected override void FeedStatsIntoGun(PlantInfo newAmmo)
         {
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;

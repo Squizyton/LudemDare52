@@ -140,6 +140,12 @@ namespace Guns
 
 		public void ReloadSequence(float timeToReload)
 		{
+
+			if (bulletList[currentBullet].GetBulletInfo().PlantName != "pea")
+			{
+				//animator.SetFloat("speed",timeToReload);
+			}
+
 			animator.SetTrigger("Reload");
 			if (!hasInfiniteAmmo && ammoInSack == 0) return;
 			UIManager.Instance.ReloadGroupStatus(true, timeToReload);

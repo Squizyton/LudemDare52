@@ -71,10 +71,15 @@ public class PlayerInventory : MonoBehaviour
     }
     public void TakeDamage(Vector3 attackerPos, int damageTaken)
     {
+        
+        Debug.Log(damageTaken);
         Debug.Log("taking Damage");
         Vector3 direction = attackerPos - transform.position;
         UIManager.Instance.TriggerDamageIndicator(direction);
+        
         health -= damageTaken;
+        UIManager.Instance.SetHealth(damageTaken);
+        
         if (health <= 0)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Death");
@@ -82,6 +87,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Pain Grunt");
+        
     }
 
     private void Die()
