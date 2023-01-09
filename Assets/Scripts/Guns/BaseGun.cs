@@ -125,6 +125,9 @@ namespace Guns
 
 				if (IsAutomatic())
 					StartCoroutine(CoolDown());
+				
+				if(currentMagazine == 0)
+					ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
 			}
 			else
 			{

@@ -45,6 +45,8 @@ namespace UI
         [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
         [SerializeField] private UnityEngine.UI.Button startWaveButton;
+
+        [Header("Other")] [SerializeField] private GameObject harvestText;
         private void Awake()
         {
             Instance = this;
@@ -194,7 +196,6 @@ namespace UI
         }
         #endregion
         
-        
         #region Tutorial
 
         public void StartTutorial()
@@ -229,5 +230,10 @@ namespace UI
         }
 
         #endregion
+        
+        public void HarvestText(bool value)
+        {
+           harvestText.SetActive(value);
+        }
     }
 }

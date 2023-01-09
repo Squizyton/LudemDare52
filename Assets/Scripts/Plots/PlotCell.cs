@@ -1,4 +1,5 @@
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -108,6 +109,9 @@ namespace Plots
         {
             if (col.name != "Bean" || value != 2) return;
             
+            
+            UIManager.Instance.HarvestText(true);
+            plantModel.GetComponent<Outline>().enabled = true;
             mesh.color = Color.green;
             isPlayerNear = true;
         }
@@ -115,7 +119,9 @@ namespace Plots
         private void OnTriggerExit(Collider col)
         {
             if (col.name != "Bean" || value != 2) return;
-            
+
+            UIManager.Instance.HarvestText(false);
+            plantModel.GetComponent<Outline>().enabled = false;
             mesh.color = Color.white;
             isPlayerNear = false;
         }
