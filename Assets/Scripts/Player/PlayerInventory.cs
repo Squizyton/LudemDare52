@@ -116,7 +116,6 @@ public class PlayerInventory : MonoBehaviour
         
         currentGun = (currentGun + 1) % guns.Length;
         Debug.Log("Current Gun" + guns[currentGun]);    
-        Debug.Log("typ pistolu to _ " + currentGun);
         //Disable the current gun
         currentActiveGun.AbortReloadSequence();
         if(currentActiveGun.gameObject.activeSelf)

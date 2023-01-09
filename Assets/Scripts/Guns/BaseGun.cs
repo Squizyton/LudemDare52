@@ -29,6 +29,7 @@ namespace Guns
         [SerializeField] protected bool isAutomatic;
         [SerializeField] private bool hasInfiniteAmmo;
 
+        private int SpecialGunBullet;
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
@@ -54,7 +55,6 @@ namespace Guns
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
             currentMagazine = 15;
 
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", 0);
         }
 
         //Use this to change the gun stats
@@ -77,9 +77,10 @@ namespace Guns
                 {
 
                     currentBullet = index;
-                    Debug.Log("pocisk to _ " + currentBullet);
 
-                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet+1);
+                    //FMOD Changing bullet sound
+                    SpecialGunBullet = currentBullet + 1;
+                    ChangeFMODGunType(SpecialGunBullet);
 
                     FeedStatsIntoGun(bullet.GetBulletInfo());
                     Debug.Log(bullet.GetBulletInfo().PlantName);
@@ -90,11 +91,24 @@ namespace Guns
                     UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
                     break;
                 }
-                else
-                    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", 0);
             }
         }
 
+        private void ChangeFMODGunType(int GunType)
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
+            Debug.Log("pocisk to _ " + GunType);
+        }
+
+        private void FMODShootSound()
+        {
+            if (hasInfiniteAmmo)
+            {
+                ChangeFMODGunType(0);
+            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
+
+        }
 
         public virtual void Shoot()
         {
@@ -123,11 +137,8 @@ namespace Guns
                 var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
                 Instantiate(peaParticles, position, rotation);
 
-
-                //FMOD gun type changer !!not working currentBullet!!
-
-                //GunShootSFX.start(); 
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
+                //FMOD
+                FMODShootSound();
 
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
@@ -148,7 +159,9 @@ namespace Guns
             animator.SetTrigger("Reload");
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Gun_Reload"); //FMOD gun test
+
+            //FMOD
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Gun_Reload");
 
             reloadTime = timeToReload;
             totalReloadTime = 0;
@@ -278,5 +291,6 @@ namespace Guns
         {
             return currentMagazine == maxAmmoPerClip;
         }
+
     }
 }
