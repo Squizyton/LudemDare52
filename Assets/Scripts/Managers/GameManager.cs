@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         totalAmountOfWaves++;
         
         currentWave = 1;
-        UIManager.Instance.UpdateWaveCount(currentWave);
+        UIManager.Instance.UpdateWaveCount(totalAmountOfWaves);
         creditManager.StartWave();
         creditManager.availableCredits = 25 * totalAmountOfWaves;
 
@@ -171,11 +171,12 @@ public class GameManager : MonoBehaviour
         if (creditManager.IsSpawning()|| enemiesRemaining > 0) return;
         //Have an action that automatically updates this
         currentWave++;
-        UIManager.Instance.UpdateWaveCount(currentWave);
+       
         
         if (currentWave < 6)
         {
             totalAmountOfWaves++;
+            UIManager.Instance.UpdateWaveCount(totalAmountOfWaves);
             creditManager.availableCredits = 25 * totalAmountOfWaves;
             StartCoroutine(StartWaveCountdown());
         }else ChangeMode(CurrentMode.TopDown);
