@@ -5,7 +5,7 @@ using UnityEngine;
 public class Lenny : BasicEnemy
 {
     [SerializeField] private GameObject _bullet;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform[] spawnPoints;
 
     private bool atTarget;
     private Vector3 moveToTarget;
@@ -90,9 +90,9 @@ public class Lenny : BasicEnemy
     }
 
 
-    public void SpawnProjectile()
+    public void SpawnProjectile(int spawnindex)
     {
-        Instantiate(_bullet, spawnPoint.position, Quaternion.identity)
+        Instantiate(_bullet, spawnPoints[spawnindex].position, Quaternion.identity)
             .TryGetComponent(out EnemyHitbox bhitbox);
         bhitbox.enemy = this;
         
