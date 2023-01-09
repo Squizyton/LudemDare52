@@ -3473,12 +3473,12 @@ MonoBehaviour:
   EnterNamePanel: {fileID: 925928564}
   nameInputField: {fileID: 1894096491}
   nameText: {fileID: 1700627246}
-  waveNumber: {fileID: 1795378783}
-  timeNumber: {fileID: 550124371}
-  cropsHNumber: {fileID: 1767544176}
-  cropsPNumber: {fileID: 1373443182}
-  bulletsNumber: {fileID: 1290736108}
-  enemiesKilledNumber: {fileID: 1183248353}
+  waveNumber: {fileID: 0}
+  timeNumber: {fileID: 0}
+  cropsHNumber: {fileID: 0}
+  cropsPNumber: {fileID: 0}
+  bulletsNumber: {fileID: 0}
+  enemiesKilledNumber: {fileID: 0}
 --- !u!1 &925928564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3800,6 +3800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169797667}
   - component: {fileID: 1169797668}
+  - component: {fileID: 1169797669}
   m_Layer: 0
   m_Name: TopDownCamera
   m_TagString: Untagged
@@ -3861,6 +3862,20 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1861238054}
+--- !u!114 &1169797669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169797666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2135daed6e3deb4fbbd3f47a8110b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yOffset: -23.5
+  xOffset: -86.871
 --- !u!1001 &1170639084
 PrefabInstance:
   m_ObjectHideFlags: 0
