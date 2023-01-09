@@ -33,8 +33,13 @@ namespace UI
         [SerializeField] private TextMeshProUGUI waveCount;
         [SerializeField] private TextMeshProUGUI remainingEnemies;
         [SerializeField] private TextMeshProUGUI timeAlive;
-        [SerializeField] private Slider healthBar;
-        private float currentHealth;
+
+        [Header("Seeds")]
+        [SerializeField] private TextMeshProUGUI cornSeedCount;
+        [SerializeField] private TextMeshProUGUI carrotSeedCount;
+        [SerializeField] private TextMeshProUGUI melonSeedCount;
+        [SerializeField] private TextMeshProUGUI pepperSeedCount;
+
         [Header("Player Related Things")][SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
 
@@ -211,6 +216,29 @@ namespace UI
             playerInventory.SetSeed(seedName);
             Debug.Log("playerInventory set to " + seedName);
             Debug.Log(playerInventory.SelectedSeed);
+        }
+
+        public void UpdateSeedCount(PlantInfo plantInfo)
+        {
+            PlayerInventory playerInventory = PlayerInventory.Instance;
+            int seedCount = playerInventory.GetSeedCount(plantInfo);
+            Debug.Log(plantInfo.PlantName);
+            Debug.Log(seedCount);
+            switch (plantInfo.PlantName)
+            {
+                case "corn":
+                    cornSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "pepper":
+                    pepperSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "melon":
+                    melonSeedCount.text = "x" + seedCount.ToString();
+                    break;
+                case "carrot":
+                    carrotSeedCount.text = "x" + seedCount.ToString();
+                    break;
+            }
         }
         #endregion
         
