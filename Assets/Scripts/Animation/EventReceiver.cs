@@ -18,12 +18,12 @@ public class EventReceiver : MonoBehaviour
 
     public void DevourSound()
     {
-        FmodPostFootstepsEvent();
+        PlaySound("event:/SFX/Enemies/Enemy_DevourSound");
     }
     
     public void BodyfallSound()
     {
-        FmodPostFootstepsEvent();
+        PlaySound("event:/SFX/Enemies/Enemy_BodyfallSound");
     }
     
 }

@@ -12,11 +12,17 @@ public class PepperBullet : BaseBullet
 		Instantiate(hitFX, transform.position, transform.rotation);
 		hit.TryGetComponent(out BasicEnemy enemy);
 
-		if (enemy)
-		{
-			enemy.OnHit(damage, true);
-		}
-
-		Destroy(gameObject);
-	}
+   override protected void OnHit(Transform hit)
+   {
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Guns/Pepper_Flame", gameObject);   //FMOD impact test
+        
+        hit.TryGetComponent(out BasicEnemy enemy);
+        
+        if(enemy)
+        {
+         enemy.OnHit(damage, true);   
+        }
+        
+        Destroy(gameObject);
+    }
 }
