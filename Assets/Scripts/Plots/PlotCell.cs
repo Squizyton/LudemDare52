@@ -28,12 +28,20 @@ namespace Plots
         public void Plant()
         {
             Debug.Log("Planting");
-            if (!playerInventory.SelectedSeed) return;
+            if (!playerInventory.SelectedSeed)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Error");
+
+                Debug.Log("play error");
+                return;
+            }
             Debug.Log("Checking for seed");
 
             if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
-            
-            Debug.Log("Planted " + playerInventory.SelectedSeed.name);
+
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Plants");
+            Debug.Log("play sound + Planted " + playerInventory.SelectedSeed.name);
+
             mesh.color = Color.white;
             plantInfo = playerInventory.SelectedSeed;
             value = 1;
@@ -47,6 +55,7 @@ namespace Plots
             value = 0;
             
             mesh.color = Color.white;
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             Destroy(plantModel);
             return plantInfo;
         }

@@ -44,7 +44,6 @@ public class BasicEnemy : MonoBehaviour,IHasHealth
         }
 
         health -= damage;
-
         healthBar.value = health;
 
         if (health <= 0)

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace UI
 {
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
+        [SerializeField] private GameObject player;
 
         [Header("Mode UI")]
         [SerializeField] private CanvasGroup fpsCanvasGroup;
@@ -17,13 +19,14 @@ namespace UI
 
         [Header("Weapon Related Things")][SerializeField]
         private CanvasGroup reloadGroup;
-        [SerializeField] private Slider reloadSlider;
+        [SerializeField] private UnityEngine.UI.Slider reloadSlider;
         [SerializeField] private TextMeshProUGUI ammoCount;
         [SerializeField] private CanvasGroup fpsCornIcon;
         [SerializeField] private CanvasGroup fpsCarrotIcon;
         [SerializeField] private CanvasGroup fpsMelonIcon;
         [SerializeField] private CanvasGroup fpsPepperIcon;
         [SerializeField] private CanvasGroup hitIndicator;
+        [SerializeField] private GameObject damageIndicator;
 
         [Header("Stats")]
         [SerializeField] private TextMeshProUGUI waveCount;
@@ -32,7 +35,7 @@ namespace UI
 
 
         [Header("Player Related Things")][SerializeField]
-        private Slider staminaSlider;
+        private UnityEngine.UI.Slider staminaSlider;
 
         [Header("Cow")]
         public GameObject cowText;
@@ -41,7 +44,7 @@ namespace UI
         [Header("Tutorial")]
         [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
-        [SerializeField] private Button startWaveButton;
+        [SerializeField] private UnityEngine.UI.Button startWaveButton;
         private void Awake()
         {
             Instance = this;
@@ -81,6 +84,8 @@ namespace UI
         public void UpdateEnemiesRemaining(int numEnemies)
         {
             remainingEnemies.text = "Enemies: " + numEnemies.ToString();
+
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
         }
 
         public void UpdateTimeAlive(float newTimeAlive)
@@ -108,6 +113,20 @@ namespace UI
         public void TriggerHitIndicator()
         {
             hitIndicator.alpha = 1;
+        }
+
+        public void TriggerDamageIndicator(Vector3 sourceDirection)
+        {
+            sourceDirection.y = 0;
+            sourceDirection = sourceDirection.normalized;
+            float angle = Vector3.SignedAngle(sourceDirection, player.transform.forward, Vector3.Cross(sourceDirection, player.transform.forward));
+            damageIndicator.TryGetComponent<RectTransform>(out RectTransform dmgIndTransform);
+            if (dmgIndTransform)
+                dmgIndTransform.rotation = Quaternion.Euler(0, 0, angle);
+            else
+                Debug.Log("Error: TriggerDamageIndicator");
+            damageIndicator.TryGetComponent<CanvasGroup>(out CanvasGroup grpInd);
+            grpInd.alpha = 1;
         }
         #endregion
         
