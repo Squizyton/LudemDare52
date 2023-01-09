@@ -20,6 +20,7 @@ namespace Guns
         protected override void SpecificGunStart()
         {
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", currentBullet);
         }
 
         private void OnEnable()

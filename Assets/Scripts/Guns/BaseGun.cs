@@ -34,6 +34,8 @@ namespace Guns
         private float totalReloadTime;
         private Vector3 hitPoint;
 
+        //private FMOD.Studio.EventInstance GunShootSFX;
+        
 
         public LayerMask layerMask;
         [SerializeField] private Animator animator;
@@ -44,6 +46,10 @@ namespace Guns
             UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
             UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
             SpecificGunStart();
+
+            //GunShootSFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/Player_Gun_Shoot");
+            
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
         }
 
 
@@ -52,6 +58,8 @@ namespace Guns
         {
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
             currentMagazine = 15;
+
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", 0);
         }
 
         //Use this to change the gun stats
@@ -107,16 +115,19 @@ namespace Guns
                 UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
                 //shoot a raycast from the middle of the screen
 
-
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
-
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
                 var rotation = Quaternion.LookRotation(hitPoint - position);
                 //spawn the bullet
                 var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
                 Instantiate(peaParticles, position, rotation);
-                
+
+
+                //FMOD gun type changer !!not working currentBullet!!
+
+                //GunShootSFX.start(); 
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
+
                 if (IsAutomatic())
                     StartCoroutine(CoolDown());
 
@@ -136,6 +147,8 @@ namespace Guns
             animator.SetTrigger("Reload");
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Gun_Reload"); //FMOD gun test
+
             reloadTime = timeToReload;
             totalReloadTime = 0;
         }
