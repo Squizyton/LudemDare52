@@ -14,4 +14,16 @@ public class EventReceiver : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
     }
+
+
+    public void DevourSound()
+    {
+        FmodPostFootstepsEvent();
+    }
+    
+    public void BodyfallSound()
+    {
+        FmodPostFootstepsEvent();
+    }
+    
 }

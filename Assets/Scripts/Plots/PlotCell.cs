@@ -55,8 +55,8 @@ namespace Plots
             value = 0;
             
             mesh.color = Color.white;
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             Destroy(plantModel);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Harvest");
             return plantInfo;
         }
         
