@@ -35,7 +35,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
-        Destroy(GameManager.Instance.gameObject);
+        
         SceneManager.LoadSceneAsync("MainMenu");
     }
     
