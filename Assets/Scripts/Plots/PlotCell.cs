@@ -59,6 +59,11 @@ namespace Plots
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Harvest");
             return plantInfo;
         }
+        
+        public bool IsGrowingSomething()
+        {
+            return value == 1;
+        }
 
         public void ImageStatus(bool value)
         {
@@ -99,6 +104,15 @@ namespace Plots
             }
         }
 
+        public void DestroyCrop()
+        {
+            Destroy(plantModel);
+            value = 0;
+            mesh.color = Color.white;
+            plantInfo = null;
+            
+        }
+        
         private void OnTriggerEnter(Collider col)
         {
             if (col.name != "Bean" || value != 2) return;
