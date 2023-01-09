@@ -6,9 +6,9 @@ public class CowHealth : MonoBehaviour, IHasHealth
 {
     public int health;
     
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageTaken)
     {
-        health -= damage;
+        health -= damageTaken;
         if (health <= 0)
         {
            //TODO: Game Over!

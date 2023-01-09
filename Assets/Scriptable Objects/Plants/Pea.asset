@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58cc38da8b34ee449bec9250e3f0781, type: 3}
   m_Name: Pea
   m_EditorClassIdentifier: 
-  PlantName: 
+  PlantName: pea
   GrowTime: 0
   seedYield: 0
   bulletYield: 0

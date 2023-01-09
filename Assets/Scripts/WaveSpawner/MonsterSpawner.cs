@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -48,6 +49,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             //if we can afford it, spawn it
             GameManager.Instance.enemiesRemaining++;
+            UIManager.Instance.UpdateEnemiesRemaining(GameManager.Instance.enemiesRemaining);
 
             //Declare a spawn Point
             var index = Random.Range(0, spawnPoints.Count);

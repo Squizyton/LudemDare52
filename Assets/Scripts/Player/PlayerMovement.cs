@@ -157,7 +157,6 @@ private Coroutine staminaCoroutine;
 		
 		while ((int)staminaAmount != (int)staminaMax)
 		{
-			Debug.Log("Recharging");
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
 			yield return new WaitForSeconds(.02f);
