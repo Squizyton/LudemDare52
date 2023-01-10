@@ -3310,6 +3310,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: PlayEvent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: EventReference.Path
+      value: event:/SFX/Enviroment/AmbMonsterSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -1977235871
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1318291390
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: -2112292436
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: 1754362159
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5584958474165716298, guid: a8a9f65c85411c84396ee3aafc62f910, type: 3}
     m_RemovedGameObjects: []
@@ -3619,6 +3649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Portal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: PlayEvent
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5584958474165716298, guid: a8a9f65c85411c84396ee3aafc62f910, type: 3}
@@ -5413,6 +5448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
+        type: 3}
+      propertyPath: PlayEvent
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5584958474165716298, guid: a8a9f65c85411c84396ee3aafc62f910, type: 3}

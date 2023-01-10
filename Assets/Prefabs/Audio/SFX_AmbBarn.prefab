@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2725097133589904301
 MonoBehaviour:
@@ -53,7 +53,7 @@ MonoBehaviour:
       Data4: 1669511985
     Path: event:/SFX/Enviroment/AmbBarn
   Event: 
-  PlayEvent: 0
+  PlayEvent: 1
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
