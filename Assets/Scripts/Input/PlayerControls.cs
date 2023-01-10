@@ -28,9 +28,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""id"": ""c601b166-3d7c-4568-ac74-cac1d4813c3e"",
             ""actions"": [
                 {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""4b57980f-8ff4-4c21-aa20-064d166cd268"",
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""5c636477-1ab4-48a6-99a0-5a538c529fca"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Value"",
+                    ""id"": ""2511e800-b170-46d1-a76a-7733ab3db726"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -46,15 +55,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""5c636477-1ab4-48a6-99a0-5a538c529fca"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""fc121d7f-36d7-4111-b727-78e3b7611905"",
@@ -62,6 +62,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b57980f-8ff4-4c21-aa20-064d166cd268"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""54610a63-9b6c-496f-ac9a-6bfd70ee8daf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""WeaponSwapping"",
@@ -73,18 +91,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sprint"",
-                    ""type"": ""Value"",
-                    ""id"": ""2511e800-b170-46d1-a76a-7733ab3db726"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Harvest"",
+                    ""name"": ""AmmoSwapping"",
                     ""type"": ""Button"",
-                    ""id"": ""4d97147f-acab-4534-bda0-574359d5da5b"",
+                    ""id"": ""c4443608-e33d-4169-a185-ee71cbbbf17a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -100,18 +109,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Reload"",
+                    ""name"": ""Harvest"",
                     ""type"": ""Button"",
-                    ""id"": ""54610a63-9b6c-496f-ac9a-6bfd70ee8daf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""AmmoSwapping"",
-                    ""type"": ""Button"",
-                    ""id"": ""c4443608-e33d-4169-a185-ee71cbbbf17a"",
+                    ""id"": ""4d97147f-acab-4534-bda0-574359d5da5b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -128,50 +128,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""bcd5c86b-4ddc-418b-9f4e-9056c038b2fc"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7a7c345c-011c-44f0-b392-fd7a8fdd4806"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d1fd4259-48eb-431c-bc60-6c6fd2a0413d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b35f2e18-d392-4480-9ef7-09954befbcdd"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""9ec5ec00-66fb-4469-a0f9-15658aa75753"",
@@ -262,132 +218,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9d11783f-f8ad-474f-8f0e-858a2a9e251b"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""WeaponSwapping"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fe8ef767-34a4-4088-9661-e6ebcf8e41fa"",
-                    ""path"": ""<Mouse>/Scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""WeaponSwapping"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""440fe532-8fab-47bf-9e9c-9c80483e6ec0"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c445dd89-9e09-466a-a1b4-701959a1eb6e"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b99a901e-15c4-4c27-907f-f6d6611e6172"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""Harvest"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1b2e8703-13be-4135-85f9-3d2987a12745"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Harvest"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a629a776-c0f5-4d37-8dca-f6bb8a25f2d5"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""ConvertToBullets"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d429b34d-d72d-4811-b760-be4b78ee3f5e"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""ConvertToBullets"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6b418c4e-3977-4dd6-81b1-88917ec5ff7f"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ac5f2894-c2a9-47ee-9a4c-e8fab144b070"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""1e517b85-f1c2-4163-985d-85e22e071ef8"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Desktop"",
-                    ""action"": ""AmmoSwapping"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""abe58f47-7c11-4a72-bbd5-ed47bd132837"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
                     ""action"": ""AmmoSwapping"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -411,6 +246,182 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28dc60f7-eb92-434a-880c-1360a4ad026f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""AmmoSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a70c5f8-0955-4d30-9988-4df237b9f619"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe8ef767-34a4-4088-9661-e6ebcf8e41fa"",
+                    ""path"": ""<Mouse>/Scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""WeaponSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d11783f-f8ad-474f-8f0e-858a2a9e251b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""WeaponSwapping"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""440fe532-8fab-47bf-9e9c-9c80483e6ec0"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abe58f47-7c11-4a72-bbd5-ed47bd132837"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1fd4259-48eb-431c-bc60-6c6fd2a0413d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b35f2e18-d392-4480-9ef7-09954befbcdd"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcd5c86b-4ddc-418b-9f4e-9056c038b2fc"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a7c345c-011c-44f0-b392-fd7a8fdd4806"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b418c4e-3977-4dd6-81b1-88917ec5ff7f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b2e8703-13be-4135-85f9-3d2987a12745"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b99a901e-15c4-4c27-907f-f6d6611e6172"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Harvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52adcbcf-f5ed-4030-9c6f-703a6d6d05de"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Harvest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d429b34d-d72d-4811-b760-be4b78ee3f5e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ConvertToBullets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a629a776-c0f5-4d37-8dca-f6bb8a25f2d5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""ConvertToBullets"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -464,16 +475,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_WeaponSwapping = m_Player.FindAction("WeaponSwapping", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_Harvest = m_Player.FindAction("Harvest", throwIfNotFound: true);
-        m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
+        m_Player_WeaponSwapping = m_Player.FindAction("WeaponSwapping", throwIfNotFound: true);
         m_Player_AmmoSwapping = m_Player.FindAction("AmmoSwapping", throwIfNotFound: true);
+        m_Player_ConvertToBullets = m_Player.FindAction("ConvertToBullets", throwIfNotFound: true);
+        m_Player_Harvest = m_Player.FindAction("Harvest", throwIfNotFound: true);
         m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
     }
 
@@ -534,31 +545,31 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_WeaponSwapping;
     private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_Harvest;
-    private readonly InputAction m_Player_ConvertToBullets;
+    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Reload;
+    private readonly InputAction m_Player_WeaponSwapping;
     private readonly InputAction m_Player_AmmoSwapping;
+    private readonly InputAction m_Player_ConvertToBullets;
+    private readonly InputAction m_Player_Harvest;
     private readonly InputAction m_Player_Confirm;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @WeaponSwapping => m_Wrapper.m_Player_WeaponSwapping;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
-        public InputAction @Harvest => m_Wrapper.m_Player_Harvest;
-        public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
+        public InputAction @WeaponSwapping => m_Wrapper.m_Player_WeaponSwapping;
         public InputAction @AmmoSwapping => m_Wrapper.m_Player_AmmoSwapping;
+        public InputAction @ConvertToBullets => m_Wrapper.m_Player_ConvertToBullets;
+        public InputAction @Harvest => m_Wrapper.m_Player_Harvest;
         public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -569,36 +580,36 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @WeaponSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
-                @WeaponSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
-                @WeaponSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
                 @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
-                @Harvest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
-                @Harvest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
-                @Harvest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
-                @ConvertToBullets.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
-                @ConvertToBullets.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
-                @ConvertToBullets.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @WeaponSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
+                @WeaponSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
+                @WeaponSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponSwapping;
                 @AmmoSwapping.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
                 @AmmoSwapping.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
                 @AmmoSwapping.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAmmoSwapping;
+                @ConvertToBullets.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @ConvertToBullets.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @ConvertToBullets.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConvertToBullets;
+                @Harvest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
+                @Harvest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
+                @Harvest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHarvest;
                 @Confirm.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
                 @Confirm.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
@@ -606,36 +617,36 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
-                @WeaponSwapping.started += instance.OnWeaponSwapping;
-                @WeaponSwapping.performed += instance.OnWeaponSwapping;
-                @WeaponSwapping.canceled += instance.OnWeaponSwapping;
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
-                @Harvest.started += instance.OnHarvest;
-                @Harvest.performed += instance.OnHarvest;
-                @Harvest.canceled += instance.OnHarvest;
-                @ConvertToBullets.started += instance.OnConvertToBullets;
-                @ConvertToBullets.performed += instance.OnConvertToBullets;
-                @ConvertToBullets.canceled += instance.OnConvertToBullets;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @WeaponSwapping.started += instance.OnWeaponSwapping;
+                @WeaponSwapping.performed += instance.OnWeaponSwapping;
+                @WeaponSwapping.canceled += instance.OnWeaponSwapping;
                 @AmmoSwapping.started += instance.OnAmmoSwapping;
                 @AmmoSwapping.performed += instance.OnAmmoSwapping;
                 @AmmoSwapping.canceled += instance.OnAmmoSwapping;
+                @ConvertToBullets.started += instance.OnConvertToBullets;
+                @ConvertToBullets.performed += instance.OnConvertToBullets;
+                @ConvertToBullets.canceled += instance.OnConvertToBullets;
+                @Harvest.started += instance.OnHarvest;
+                @Harvest.performed += instance.OnHarvest;
+                @Harvest.canceled += instance.OnHarvest;
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
@@ -663,16 +674,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnShoot(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
-        void OnWeaponSwapping(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
-        void OnHarvest(InputAction.CallbackContext context);
-        void OnConvertToBullets(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnWeaponSwapping(InputAction.CallbackContext context);
         void OnAmmoSwapping(InputAction.CallbackContext context);
+        void OnConvertToBullets(InputAction.CallbackContext context);
+        void OnHarvest(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
     }
 }

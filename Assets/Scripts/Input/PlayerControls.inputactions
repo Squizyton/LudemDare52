@@ -6,9 +6,18 @@
             "id": "c601b166-3d7c-4568-ac74-cac1d4813c3e",
             "actions": [
                 {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "4b57980f-8ff4-4c21-aa20-064d166cd268",
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "5c636477-1ab4-48a6-99a0-5a538c529fca",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Value",
+                    "id": "2511e800-b170-46d1-a76a-7733ab3db726",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -24,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "5c636477-1ab4-48a6-99a0-5a538c529fca",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Look",
                     "type": "Value",
                     "id": "fc121d7f-36d7-4111-b727-78e3b7611905",
@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "4b57980f-8ff4-4c21-aa20-064d166cd268",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "54610a63-9b6c-496f-ac9a-6bfd70ee8daf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "WeaponSwapping",
@@ -51,18 +69,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "Value",
-                    "id": "2511e800-b170-46d1-a76a-7733ab3db726",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Harvest",
+                    "name": "AmmoSwapping",
                     "type": "Button",
-                    "id": "4d97147f-acab-4534-bda0-574359d5da5b",
+                    "id": "c4443608-e33d-4169-a185-ee71cbbbf17a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -78,18 +87,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Reload",
+                    "name": "Harvest",
                     "type": "Button",
-                    "id": "54610a63-9b6c-496f-ac9a-6bfd70ee8daf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "AmmoSwapping",
-                    "type": "Button",
-                    "id": "c4443608-e33d-4169-a185-ee71cbbbf17a",
+                    "id": "4d97147f-acab-4534-bda0-574359d5da5b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -106,50 +106,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "bcd5c86b-4ddc-418b-9f4e-9056c038b2fc",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7a7c345c-011c-44f0-b392-fd7a8fdd4806",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d1fd4259-48eb-431c-bc60-6c6fd2a0413d",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b35f2e18-d392-4480-9ef7-09954befbcdd",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "9ec5ec00-66fb-4469-a0f9-15658aa75753",
@@ -240,132 +196,11 @@
                 },
                 {
                     "name": "",
-                    "id": "9d11783f-f8ad-474f-8f0e-858a2a9e251b",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "WeaponSwapping",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fe8ef767-34a4-4088-9661-e6ebcf8e41fa",
-                    "path": "<Mouse>/Scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "WeaponSwapping",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "440fe532-8fab-47bf-9e9c-9c80483e6ec0",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c445dd89-9e09-466a-a1b4-701959a1eb6e",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b99a901e-15c4-4c27-907f-f6d6611e6172",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "Harvest",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b2e8703-13be-4135-85f9-3d2987a12745",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Harvest",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a629a776-c0f5-4d37-8dca-f6bb8a25f2d5",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "ConvertToBullets",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d429b34d-d72d-4811-b760-be4b78ee3f5e",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "ConvertToBullets",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6b418c4e-3977-4dd6-81b1-88917ec5ff7f",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Desktop",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ac5f2894-c2a9-47ee-9a4c-e8fab144b070",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1e517b85-f1c2-4163-985d-85e22e071ef8",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Desktop",
-                    "action": "AmmoSwapping",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "abe58f47-7c11-4a72-bbd5-ed47bd132837",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
                     "action": "AmmoSwapping",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -389,6 +224,182 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28dc60f7-eb92-434a-880c-1360a4ad026f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AmmoSwapping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a70c5f8-0955-4d30-9988-4df237b9f619",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe8ef767-34a4-4088-9661-e6ebcf8e41fa",
+                    "path": "<Mouse>/Scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "WeaponSwapping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d11783f-f8ad-474f-8f0e-858a2a9e251b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "WeaponSwapping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "440fe532-8fab-47bf-9e9c-9c80483e6ec0",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abe58f47-7c11-4a72-bbd5-ed47bd132837",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1fd4259-48eb-431c-bc60-6c6fd2a0413d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b35f2e18-d392-4480-9ef7-09954befbcdd",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcd5c86b-4ddc-418b-9f4e-9056c038b2fc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a7c345c-011c-44f0-b392-fd7a8fdd4806",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b418c4e-3977-4dd6-81b1-88917ec5ff7f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b2e8703-13be-4135-85f9-3d2987a12745",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b99a901e-15c4-4c27-907f-f6d6611e6172",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Harvest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52adcbcf-f5ed-4030-9c6f-703a6d6d05de",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Harvest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d429b34d-d72d-4811-b760-be4b78ee3f5e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "ConvertToBullets",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a629a776-c0f5-4d37-8dca-f6bb8a25f2d5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "ConvertToBullets",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
