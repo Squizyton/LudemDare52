@@ -123,8 +123,8 @@ public class PlayerInventory : MonoBehaviour
     
         
         //set the new gun to the current gun
-         guns[currentGun].TryGetComponent(out BaseGun gun);
-         currentActiveGun = gun;
+        guns[currentGun].TryGetComponent(out BaseGun gun);
+        currentActiveGun = gun;
          
          
         //Enable the new gun
@@ -173,7 +173,7 @@ public class PlayerInventory : MonoBehaviour
             PlantInfo harvested = selectedPlot.HarvestSeeds();
             if (!harvested) return;
             selectedPlot.TurnOnGrowingInfo(false);
-FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
+            FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
             AddSeed(seedInventory, harvested, harvested.seedYield);
             selectedPlot = null;
             FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Actions/Player_Harvest", gameObject);
