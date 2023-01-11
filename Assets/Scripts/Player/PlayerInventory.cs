@@ -95,7 +95,7 @@ public class PlayerInventory : MonoBehaviour
         UIManager.Instance.TriggerDamageIndicator(direction);
         
         health -= damageTaken;
-        UIManager.Instance.SetHealth(health);
+        UIManager.Instance.UpdateHealth();
         
         if (health <= 0)
         {
@@ -155,7 +155,7 @@ public class PlayerInventory : MonoBehaviour
         if (harvested.PlantName == "starfruit")
         {
             health += harvested.bulletYield;
-            UIManager.Instance.SetHealth(health);
+            UIManager.Instance.UpdateHealth();
             return;
         }
         AddSeed(bulletInventory, harvested, harvested.bulletYield);

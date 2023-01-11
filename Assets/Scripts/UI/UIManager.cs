@@ -147,6 +147,11 @@ namespace UI
             healthBar.value = newHealth;
         }
 
+        public void UpdateHealth()
+        {
+            healthBar.value = PlayerInventory.Instance.GetHealth();
+        }
+
         private void UpdateHealthBar()
         {
             while (healthBar.value != PlayerInventory.Instance.GetHealth())
