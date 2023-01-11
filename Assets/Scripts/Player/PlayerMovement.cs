@@ -38,12 +38,17 @@ public class PlayerMovement : MonoBehaviour
 	public bool canJump;
 	private bool sprinting;
 	private float currentSpeed;
-private Coroutine staminaCoroutine;
-	
-	
-	private void Start()
+	private Coroutine staminaCoroutine;
+	private WaitForSeconds staminaCooldown;
+	private WaitForSeconds staminaRegenTic;
+
+
+    private void Start()
 	{
-		controls = new PlayerControls();
+		staminaCooldown = new WaitForSeconds(1f);
+		staminaRegenTic = new WaitForSeconds(0.02f);
+
+        controls = new PlayerControls();
 		controls.Player.Movement.performed += GetMovement;
 		controls.Player.Movement.canceled += GetMovement;
 		controls.Player.Sprint.performed += GetSprint;
@@ -70,9 +75,15 @@ private Coroutine staminaCoroutine;
 		sprinting = context.ReadValueAsButton();
 
 		if(sprinting && staminaCoroutine != null)
-			StopCoroutine(staminaCoroutine);
+		{
+            StopCoroutine(staminaCoroutine);
+			staminaCoroutine = null;
+            exhausted = false;
+			staminaRecharging = false;
+        }
 
-		if (sprinting) return;
+
+		if (sprinting || staminaCoroutine != null) return;
 	
 		staminaCoroutine = StartCoroutine(RechargeStamina());
 	}
@@ -128,7 +139,7 @@ private Coroutine staminaCoroutine;
 				exhausted = true;
 				sprinting = false;
 				staminaRecharging = true;
-				StartCoroutine(RechargeStamina());
+				staminaCoroutine = StartCoroutine(RechargeStamina());
 				break;
 		}
 
@@ -153,13 +164,13 @@ private Coroutine staminaCoroutine;
 
 	private IEnumerator RechargeStamina()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return staminaCooldown;
 		
 		while ((int)staminaAmount != (int)staminaMax)
 		{
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
-			yield return new WaitForSeconds(.02f);
+			yield return staminaRegenTic;
 		}
 		
 		if(exhausted)

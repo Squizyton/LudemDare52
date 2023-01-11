@@ -50,7 +50,6 @@ namespace UI
         private UnityEngine.UI.Slider staminaSlider;
 
         [SerializeField] private Slider healthBar;
-        private float currentHealth;
         [Header("Cow")]
         public GameObject cowText;
 
@@ -65,7 +64,6 @@ namespace UI
         private void Awake()
         {
             Instance = this;
-            currentHealth = healthBar.maxValue;
         }
 
         private void Start()
@@ -146,13 +144,17 @@ namespace UI
 
         public void SetHealth(float newHealth)
         {
-            currentHealth -= newHealth;
-            healthBar.value = currentHealth;
+            healthBar.value = newHealth;
+        }
+
+        public void UpdateHealth()
+        {
+            healthBar.value = PlayerInventory.Instance.GetHealth();
         }
 
         private void UpdateHealthBar()
         {
-            while (healthBar.value != currentHealth)
+            while (healthBar.value != PlayerInventory.Instance.GetHealth())
             {
                 healthBar.value -= Time.deltaTime * 1.5f;
             }
