@@ -81,6 +81,11 @@ public class PlayerInventory : MonoBehaviour
         }
         return 0;
     }
+
+    public float GetHealth()
+    { 
+        return health;
+    }
     public void TakeDamage(Vector3 attackerPos, int damageTaken)
     {
         
@@ -90,7 +95,7 @@ public class PlayerInventory : MonoBehaviour
         UIManager.Instance.TriggerDamageIndicator(direction);
         
         health -= damageTaken;
-        UIManager.Instance.SetHealth(damageTaken);
+        UIManager.Instance.SetHealth(health);
         
         if (health <= 0)
         {
@@ -150,7 +155,7 @@ public class PlayerInventory : MonoBehaviour
         if (harvested.PlantName == "starfruit")
         {
             health += harvested.bulletYield;
-            UIManager.Instance.SetHealth(-1*harvested.bulletYield);
+            UIManager.Instance.SetHealth(health);
             return;
         }
         AddSeed(bulletInventory, harvested, harvested.bulletYield);
