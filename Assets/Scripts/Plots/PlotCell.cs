@@ -48,6 +48,7 @@ namespace Plots
 
 			plantInfo = playerInventory.SelectedSeed;
 			value = 1;
+			timeElapsed = 0;
 			timeSlider.value = 0;
 			seedIcon.sprite = plantInfo.seedIcon;
 			timeSlider.maxValue = plantInfo.GrowTime;
