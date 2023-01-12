@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 	private bool exhausted;
 	
     private bool isWalking;
+	private bool isMovement;
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
 
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 	public Vector2 movePos;
 	[HideInInspector]
 	public bool canJump;
+	private bool hadJumped;
 	private bool sprinting;
 	private float currentSpeed;
 	private Coroutine staminaCoroutine;
@@ -52,7 +54,9 @@ public class PlayerMovement : MonoBehaviour
         controls = new PlayerControls();
 		controls.Player.Movement.performed += GetMovement;
 		controls.Player.Movement.canceled += GetMovement;
-		controls.Player.Sprint.performed += GetSprint;
+        controls.Player.Movement.performed += ctx => isMovement = true;
+        controls.Player.Movement.canceled += ctx => isMovement = false;
+        controls.Player.Sprint.performed += GetSprint;
 		controls.Player.Sprint.canceled += GetSprint;
 		controls.Enable();
 		staminaAmount = staminaMax;
@@ -61,18 +65,12 @@ public class PlayerMovement : MonoBehaviour
 
 	private void GetMovement(InputAction.CallbackContext context)
 	{
-		FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Walking");
-		PlayerMoveSFX();
-
-
         movePos = context.ReadValue<Vector2>();
 	}
 	private void GetSprint(InputAction.CallbackContext context)
 	{
 		if (exhausted) return;
 		
-		FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
-		PlayerMoveSFX();
 		sprinting = context.ReadValueAsButton();
 
 		if(sprinting && staminaCoroutine != null)
@@ -88,15 +86,6 @@ public class PlayerMovement : MonoBehaviour
 		staminaCoroutine = StartCoroutine(RechargeStamina());
 	}
 
-
-	private void Jump()
-	{
-		if (!canJump) return;
-
-		rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-		PlayerJumpSFX();
-		canJump = false;
-	}
 
 	private void Update()
 	{
@@ -114,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 			
 			if (!Physics.Raycast(transform.position, Vector3.down, RaycastDistance, groundLayer)) return;
 
-			if (!canJump)
+			if (!canJump && hadJumped)
 			{
 				PlayerLandSFX();
 			}
@@ -133,8 +122,10 @@ public class PlayerMovement : MonoBehaviour
 		{
             staminaAmount -= staminaDrain * Time.deltaTime;
             UIManager.Instance.UpdateStaminaSlider(staminaAmount);
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
         }
+        else
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Walking");
 
         if (staminaAmount <= 0 && staminaCoroutine == null)
         {
@@ -146,21 +137,34 @@ public class PlayerMovement : MonoBehaviour
 
         //Get the velocity of the player
         var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
-		//Set the velocity of the player based on the velocity * transform.foward
-		rb.velocity = transform.TransformDirection(playerVelocity);
+		Debug.Log("playerVelocity to _ " + playerVelocity);
+        //Set the velocity of the player based on the velocity * transform.foward
+        rb.velocity = transform.TransformDirection(playerVelocity);
 
-		//system thinks player is moving while there is no input
-		if (rb.velocity.x != 0 || rb.velocity.z != 0)
-		{
-			//PlayerMoveSFX();
+		if (isMovement)
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
+
+            if (!isWalking && canJump)			
+				PlayerMoveSFX();
         }
         else
-            PlayerStopMoveSFX(); 
+			if(isWalking ||!canJump)
+				PlayerStopMoveSFX();
+    }
 
-	}
+    private void Jump()
+    {
+        if (!canJump) return;
+
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        PlayerJumpSFX();
+        hadJumped = true;
+        canJump = false;
+    }
 
 
-	private IEnumerator RechargeStamina()
+    private IEnumerator RechargeStamina()
 	{
 		yield return staminaCooldown;
 		
@@ -182,25 +186,20 @@ public class PlayerMovement : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(transform.position, Vector3.down * RaycastDistance);
 	}
-    private void PlayerMoveSFX()
+
+	#region Sound
+	private void PlayerMoveSFX()
     {
-        //play
-        if (!isWalking)
-        {
-            FMODPlayerWalk.start();
-            isWalking = true;
-        }
+        FMODPlayerWalk.start();
+		isWalking = true;
         return;
     }
 
     private void PlayerStopMoveSFX()
     {
         //stop
-        if (isWalking)
-        {
-            FMODPlayerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            isWalking = false;
-        }
+        FMODPlayerWalk.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        isWalking = false;
         return;
     }
 
@@ -217,4 +216,5 @@ public class PlayerMovement : MonoBehaviour
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
 		return;
 	}
+    #endregion
 }

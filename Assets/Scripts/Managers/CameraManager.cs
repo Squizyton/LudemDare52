@@ -27,9 +27,7 @@ public class CameraManager : MonoBehaviour
             
             if (!IsRTS)
             {
-                //FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToRTSMode");
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_GameModeTransistion");
-                //FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GameMode", "RTS");
                 Music.setParameterByName("GameMode", 1);
                 IsRTS = true;
             }
@@ -42,9 +40,7 @@ public class CameraManager : MonoBehaviour
         {
             if (IsRTS)
             {
-                //FMODUnity.RuntimeManager.PlayOneShot("event:/GameStats/GoToFightMode");
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_GameModeTransistion");
-                //FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GameMode", "Fight");
                 Music.setParameterByName("GameMode", 0);
                 IsRTS = false;
             }
