@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float staminaAmount;
 	[SerializeField] private float staminaDrain = 10f;
 	[SerializeField] private float staminaMax = 100f;
-	private bool staminaRecharging;
 	private bool exhausted;
 	
     private bool isWalking;
@@ -47,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		staminaCooldown = new WaitForSeconds(1f);
 		staminaRegenTic = new WaitForSeconds(0.02f);
+		staminaAmount = 100;
+		UIManager.Instance.UpdateStaminaSlider(staminaAmount);
 
         controls = new PlayerControls();
 		controls.Player.Movement.performed += GetMovement;
@@ -79,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
             StopCoroutine(staminaCoroutine);
 			staminaCoroutine = null;
             exhausted = false;
-			staminaRecharging = false;
         }
 
 
@@ -127,24 +127,22 @@ public class PlayerMovement : MonoBehaviour
 
 		if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
 
-		currentSpeed = sprinting ? sprintSpeed : runSpeed;
+        currentSpeed = sprinting ? sprintSpeed : runSpeed;
 
-		switch (sprinting)
+		if (sprinting)
 		{
-			case true when staminaAmount > 0:
-				staminaAmount -= staminaDrain * Time.deltaTime;
-				UIManager.Instance.UpdateStaminaSlider(staminaAmount);
-				break;
-			case true when staminaAmount <= 0:
-				exhausted = true;
-				sprinting = false;
-				staminaRecharging = true;
-				staminaCoroutine = StartCoroutine(RechargeStamina());
-				break;
-		}
+            staminaAmount -= staminaDrain * Time.deltaTime;
+            UIManager.Instance.UpdateStaminaSlider(staminaAmount);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
+        }
 
-
-		FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
+        if (staminaAmount <= 0 && staminaCoroutine == null)
+        {
+            staminaAmount = 0;
+            exhausted = true;
+            sprinting = false;
+            staminaCoroutine = StartCoroutine(RechargeStamina());
+        }
 
         //Get the velocity of the player
         var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
@@ -175,8 +173,8 @@ public class PlayerMovement : MonoBehaviour
 		
 		if(exhausted)
 			exhausted = false;
-		
-		staminaRecharging = false;
+
+		staminaCoroutine = null;
 	}
 
 	private void OnDrawGizmos()
