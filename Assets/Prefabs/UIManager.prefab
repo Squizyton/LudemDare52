@@ -378,7 +378,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 9103294560933967226}
   m_HandleRect: {fileID: 0}
@@ -2155,7 +2155,7 @@ Transform:
   m_Children:
   - {fileID: 9103294560792903778}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9103294560501392650
 MonoBehaviour:
@@ -2169,6 +2169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4f5991b8c2ab74fa6f75efc8d2913d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   fpsCanvasGroup: {fileID: 9103294559666134357}
   topDownCanvasGroup: {fileID: 9103294559419800843}
   tutorialCanvasGroup: {fileID: 0}
@@ -2180,13 +2181,26 @@ MonoBehaviour:
   fpsMelonIcon: {fileID: 9103294560096160333}
   fpsPepperIcon: {fileID: 9103294560570607886}
   hitIndicator: {fileID: 9103294560665143268}
+  damageIndicator: {fileID: 0}
   waveCount: {fileID: 9103294560712924328}
   remainingEnemies: {fileID: 9103294560544308174}
   timeAlive: {fileID: 9103294559029917134}
+  cornSeedCount: {fileID: 0}
+  carrotSeedCount: {fileID: 0}
+  melonSeedCount: {fileID: 0}
+  pepperSeedCount: {fileID: 0}
+  starFruitSeedCount: {fileID: 0}
+  cornBulletCount: {fileID: 0}
+  carrotBulletCount: {fileID: 0}
+  melonBulletCount: {fileID: 0}
+  pepperBulletCount: {fileID: 0}
   staminaSlider: {fileID: 9103294559015519408}
+  healthBar: {fileID: 0}
   cowText: {fileID: 9103294560138600391}
   tutorialList: []
   startWaveButton: {fileID: 0}
+  harvestText: {fileID: 0}
+  highlightObject: {fileID: 0}
 --- !u!1 &9103294560528205239
 GameObject:
   m_ObjectHideFlags: 0

@@ -4045,7 +4045,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 4339292089093365203}
   m_HandleRect: {fileID: 0}
@@ -4243,7 +4243,7 @@ GameObject:
   - component: {fileID: 4339292089630547059}
   - component: {fileID: 4339292089630547056}
   m_Layer: 0
-  m_Name: UIManager 1
+  m_Name: UIManager_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4263,7 +4263,7 @@ Transform:
   m_Children:
   - {fileID: 4339292089355843864}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4339292089630547056
 MonoBehaviour:
@@ -4316,6 +4316,7 @@ MonoBehaviour:
   - {fileID: 4339292089869684419}
   startWaveButton: {fileID: 6699956419099308289}
   harvestText: {fileID: 4339292090155925857}
+  highlightObject: {fileID: 0}
 --- !u!1 &4339292089670369080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4955,7 +4956,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 4339292089198038016}
   m_HandleRect: {fileID: 0}
