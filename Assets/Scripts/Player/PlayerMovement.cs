@@ -137,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
 
         //Get the velocity of the player
         var playerVelocity = new Vector3(movePos.x * currentSpeed, rb.velocity.y, movePos.y * currentSpeed);
-		Debug.Log("playerVelocity to _ " + playerVelocity);
         //Set the velocity of the player based on the velocity * transform.foward
         rb.velocity = transform.TransformDirection(playerVelocity);
 
