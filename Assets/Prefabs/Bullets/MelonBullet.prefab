@@ -171,7 +171,7 @@ MonoBehaviour:
   hitEffect: {fileID: 5468793762559589780, guid: 1c074c446c4f12445b3cc031b7cf1181,
     type: 3}
   radius: 10
-  boomForce: -100
+  boomForce: -45
   whatIsOnlyEnemy:
     serializedVersion: 2
     m_Bits: 128

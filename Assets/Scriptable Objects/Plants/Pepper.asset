@@ -15,7 +15,7 @@ MonoBehaviour:
   PlantName: pepper
   GrowTime: 150
   seedYield: 5
-  bulletYield: 3
+  bulletYield: 6
   plantModel: {fileID: 3634822423367165017, guid: 5e562d7f97686304b85e6bf4760e9d16,
     type: 3}
   seedIcon: {fileID: 21300000, guid: 517348e4a9b040b44a51e4929c90173f, type: 3}
