@@ -64,6 +64,8 @@ namespace UI
         private void Awake()
         {
             Instance = this;
+            UpdateStaminaSlider(100);
+            SetHealth(100);
         }
 
         private void Start()
