@@ -12239,6 +12239,11 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1677071708}
+    - target: {fileID: 5257447922286474434, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5257447922286474435, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       propertyPath: m_Lens.NearClipPlane
