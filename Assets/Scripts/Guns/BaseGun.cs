@@ -94,21 +94,6 @@ namespace Guns
             }
         }
 
-        private void ChangeFMODGunType(int GunType)
-        {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
-            Debug.Log("pocisk to _ " + GunType);
-        }
-
-        private void FMODShootSound()
-        {
-            if (hasInfiniteAmmo)
-            {
-                ChangeFMODGunType(0);
-            }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/Player_Gun_Shoot"); //FMOD gun test
-
-        }
 
         public virtual void Shoot()
         {
@@ -147,7 +132,22 @@ namespace Guns
                     ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             }
         }
+        #region Sound
+        private void ChangeFMODGunType(int GunType)
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
+            Debug.Log("pocisk to _ " + GunType);
+        }
 
+        private void FMODShootSound()
+        {
+            if (hasInfiniteAmmo)
+            {
+                ChangeFMODGunType(0);
+            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
+        }
+        #endregion
 
         public void ReloadSequence(float timeToReload)
         {
@@ -161,7 +161,7 @@ namespace Guns
             isReloading = true;
 
             //FMOD
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Actions/Player_Gun_Reload");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Reload");
 
             reloadTime = timeToReload;
             totalReloadTime = 0;

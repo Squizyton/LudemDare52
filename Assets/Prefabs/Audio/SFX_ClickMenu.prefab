@@ -51,7 +51,7 @@ MonoBehaviour:
       Data2: 1319655558
       Data3: -2082381394
       Data4: 2085350371
-    Path: event:/SFX/UI/UI_Click
+    Path: event:/SFX/UI/UI_Menu_Click
   Event: 
   PlayEvent: 0
   StopEvent: 0

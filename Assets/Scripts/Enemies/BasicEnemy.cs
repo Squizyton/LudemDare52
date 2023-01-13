@@ -56,13 +56,13 @@ public class BasicEnemy : MonoBehaviour, IHasHealth
 
 		if (health <= 0)
 		{
-			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
+			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
 			OnDeath();
 		}
 		else
 		{
 			animator.SetTrigger("Hit");
-			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Hit", gameObject);
+			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Hit", gameObject);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class BasicEnemy : MonoBehaviour, IHasHealth
 
 		if (health <= 0)
 		{
-			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_Death", gameObject);
+			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
 			OnDeath();
 		}
 

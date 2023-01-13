@@ -94,7 +94,7 @@ public class Lenny : BasicEnemy
             .TryGetComponent(out EnemyHitbox bhitbox);
         bhitbox.enemy = this;
 
-        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemies/Enemy_Lenny/Enemy_Lenny_Attack", gameObject);   //FMOD
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Lenny/Enemy_Lenny_Attack", gameObject);   //FMOD
 
     }
 

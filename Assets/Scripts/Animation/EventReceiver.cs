@@ -7,7 +7,7 @@ public class EventReceiver : MonoBehaviour
     public void FmodPostFootstepsEvent()
     {
         //CheckSurfaceMaterial();
-        PlaySound("event:/SFX/Enemies/Enemy_Greg/Enemy_Greg_FS");
+        PlaySound("event:/SFX/Enemy/Greg/Enemy_Greg_FS");
     }
 
     public void PlaySound(string sound)
@@ -18,12 +18,12 @@ public class EventReceiver : MonoBehaviour
 
     public void DevourSound()
     {
-        PlaySound("event:/SFX/Enemies/Enemy_DevourSound");
+        PlaySound("event:/SFX/Enemy/Felonious/Enemy_Felonious_Devour");
     }
     
     public void BodyfallSound()
     {
-        PlaySound("event:/SFX/Enemies/Enemy_BodyfallSound");
+        PlaySound("event:/SFX/Enemy/Enemy_BodyfallSound");
     }
     
 }
