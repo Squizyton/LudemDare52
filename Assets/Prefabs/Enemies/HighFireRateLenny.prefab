@@ -501,7 +501,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -521,17 +521,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.19705
+      value: 5.2661915
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000047683716
+      value: 0.000002861023
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.370829
+      value: 8.716407
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -2550,7 +2550,7 @@ Animator:
   m_GameObject: {fileID: 4681047322380720138}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2fcb3251008c8794b807240bd228b091, type: 2}
+  m_Controller: {fileID: 9100000, guid: 858c3acacc43c19449177df9e2de4f0a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2644,10 +2644,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3934a5a113c771408a88189de84efd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   speed: 3
-  damage: 5
-  attackRate: 1
+  damage: 2
+  attackRate: 0.5
   agent: {fileID: 861244515}
   state: 0
   healthBar: {fileID: 2189675407025765656}
@@ -2661,7 +2661,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28cb4f14edc9f8d4f86e91fe057fb42f, type: 2}
   seedDropPrefab: {fileID: 3381231281083104587, guid: 517cc85a261a8a043930d23d9ffaac3f,
     type: 3}
-  _bullet: {fileID: 7281502783074241910, guid: 01d2331d706dae14f8232085b76876a2, type: 3}
+  _bullet: {fileID: 7281502783074241910, guid: 468c38594891e5f42bcb5b921cc31140, type: 3}
   spawnPoints:
   - {fileID: 8248347698836742065}
   - {fileID: 2003779751}

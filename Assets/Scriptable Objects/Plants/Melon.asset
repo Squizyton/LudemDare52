@@ -27,4 +27,4 @@ MonoBehaviour:
   gunFireRate: 1
   gunBulletSpread: 0
   maxClipSize: 1
-  gunReloadTime: 5
+  gunReloadTime: 3

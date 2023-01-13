@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HighFireRateLenny
   m_EditorClassIdentifier: 
   prefab: {fileID: 4681047322380720138, guid: f3469412c8efb4245962a0a0fd5e1ead, type: 3}
-  weight: 15
+  weight: 12
   coolDown: 2
-  creditCost: 30
+  creditCost: 50
