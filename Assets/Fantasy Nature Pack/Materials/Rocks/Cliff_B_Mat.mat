@@ -165,12 +165,12 @@ Material:
     - _Cutoff: 0.5
     - _Debug: 0
     - _DetailNormalMapScale: 0
-    - _Detailstrength: 0.28
+    - _Detailstrength: 1
     - _Distance: 3
     - _DstBlend: 0
     - _Float0: 4.78
     - _Float4: 2
-    - _Globaltiling: 0.13
+    - _Globaltiling: 0.176
     - _GlossMapScale: 0.727
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -188,7 +188,7 @@ Material:
     - _QueueOffset: 0
     - _RockTilingNear: 0.1
     - _RocktilingFar: 0.03
-    - _Roughness: 0.276
+    - _Roughness: 0
     - _SmoothnessTextureChannel: 1
     - _SnowCover: 1
     - _SnowTiling: 7
@@ -205,10 +205,10 @@ Material:
     m_Colors:
     - _Color: {r: 0.4852941, g: 0.4852941, b: 0.4852941, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlobalColor: {r: 0.5882353, g: 0.5294118, b: 0.40784317, a: 1}
+    - _GlobalColor: {r: 0.6981132, g: 0.6734158, b: 0.62237453, a: 1}
     - _GrassColor: {r: 0.5909737, g: 1, b: 0.1985294, a: 1}
     - _Grasscolor: {r: 1, g: 1, b: 1, a: 1}
-    - _ObjectColor: {r: 0.86764705, g: 0.86764705, b: 0.86764705, a: 1}
+    - _ObjectColor: {r: 1, g: 1, b: 1, a: 1}
     - _RockColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3759137170989043102

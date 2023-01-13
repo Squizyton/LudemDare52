@@ -127,12 +127,13 @@ public class PlayerMovement : MonoBehaviour
         else
             FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Walking");
 
-        if (staminaAmount <= 0 && staminaCoroutine == null)
+        if (staminaAmount <= 0)
         {
             staminaAmount = 0;
             exhausted = true;
             sprinting = false;
-            staminaCoroutine = StartCoroutine(RechargeStamina());
+			if (staminaCoroutine == null)
+				staminaCoroutine = StartCoroutine(RechargeStamina());
         }
 
         //Get the velocity of the player
@@ -167,13 +168,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		yield return staminaCooldown;
 		
-		while ((int)staminaAmount != (int)staminaMax)
+		while (staminaAmount <= staminaMax)
 		{
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
 			yield return staminaRegenTic;
 		}
-		
+		staminaAmount = staminaMax;
+
 		if(exhausted)
 			exhausted = false;
 
