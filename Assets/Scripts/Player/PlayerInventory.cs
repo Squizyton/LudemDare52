@@ -151,7 +151,7 @@ public class PlayerInventory : MonoBehaviour
         selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
- FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/UI/UI_Player_Harvest", gameObject);
+    FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/UI/UI_Player_Harvest", gameObject);
         if (harvested.PlantName == "starfruit")
         {
             health += harvested.bulletYield;

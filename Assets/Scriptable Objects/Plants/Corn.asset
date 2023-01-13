@@ -26,5 +26,5 @@ MonoBehaviour:
   isAutomatic: 1
   gunFireRate: 0.05
   gunBulletSpread: 0
-  maxClipSize: 0
+  maxClipSize: 30
   gunReloadTime: 1.5

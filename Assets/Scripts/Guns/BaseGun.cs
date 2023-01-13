@@ -73,24 +73,20 @@ namespace Guns
                 
                 var bullet = bulletList[index];
 
-                if (PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo()) > 0)
-                {
+                currentBullet = index;
 
-                    currentBullet = index;
-
-                    //FMOD Changing bullet sound
-                    SpecialGunBullet = currentBullet + 1;
-                    ChangeFMODGunType(SpecialGunBullet);
-
-                    FeedStatsIntoGun(bullet.GetBulletInfo());
-                    Debug.Log(bullet.GetBulletInfo().PlantName);
-                    currentMagazine = 0;
-                    ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
-                    ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
-                    UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
-                    UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
-                    break;
-                }
+                //FMOD Changing bullet sound
+                SpecialGunBullet = currentBullet + 1;
+                ChangeFMODGunType(SpecialGunBullet);
+                AbortReloadSequence();
+                currentMagazine = 0;
+                FeedStatsIntoGun(bullet.GetBulletInfo());
+                Debug.Log(bullet.GetBulletInfo().PlantName);
+                ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
+                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
+                UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
+                UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
+                break;
             }
         }
 
@@ -151,14 +147,15 @@ namespace Guns
 
         public void ReloadSequence(float timeToReload)
         {
-            
-            
             Debug.Log("Reload");
             Debug.Log(ammoInSack);
             if (!hasInfiniteAmmo && ammoInSack <= 0) return;
             animator.SetTrigger("Reload");
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
             isReloading = true;
+            ammoInSack += currentMagazine;
+            currentMagazine = 0;
+            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
 
             //FMOD
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Reload");
