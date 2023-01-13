@@ -27,11 +27,12 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_Text bulletsNumber;
     [SerializeField] private TMP_Text enemiesKilledNumber;
 
-    public GameObject nameFirstSelectedButton, menuFirstSelectedButton, statsFirstSelectedButton;
+    public GameObject menuFirstSelectedButton, statsFirstSelectedButton;
 
     void Awake()
     {
         Instance = this;
+        SetMenuSelectedButton();
     }
 
     #region Enter Name
@@ -115,10 +116,6 @@ public class MainMenuUI : MonoBehaviour
     public void SetMenuSelectedButton()
     {
         SetSelectedButton(menuFirstSelectedButton);
-    }
-    public void SetNameSelectedButton()
-    {
-        SetSelectedButton(nameFirstSelectedButton);
     }
 
 }
