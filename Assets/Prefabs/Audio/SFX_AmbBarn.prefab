@@ -51,7 +51,7 @@ MonoBehaviour:
       Data2: 1110332231
       Data3: -41845374
       Data4: 1669511985
-    Path: event:/SFX/Enviroment/AmbBarn
+    Path: event:/SFX/Enviroment/AMB_Barn
   Event: 
   PlayEvent: 1
   StopEvent: 0

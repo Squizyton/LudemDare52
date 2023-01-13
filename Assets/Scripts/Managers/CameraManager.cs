@@ -17,7 +17,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
 
-        Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/InGameMusic");
+        Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_InGame");
         Music.start();
     }
     public void ChangeMode(GameManager.CurrentMode newMode)
@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
             
             if (!IsRTS)
             {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_GameModeTransistion");
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                 Music.setParameterByName("GameMode", 1);
                 IsRTS = true;
             }
@@ -40,7 +40,7 @@ public class CameraManager : MonoBehaviour
         {
             if (IsRTS)
             {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_GameModeTransistion");
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                 Music.setParameterByName("GameMode", 0);
                 IsRTS = false;
             }

@@ -33,7 +33,7 @@ namespace Plots
 			Debug.Log("Planting");
 			if (!playerInventory.SelectedSeed)
 			{
-				FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Error");
+				FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_RTS_Error");
 
 				Debug.Log("play error");
 				return;
@@ -43,7 +43,7 @@ namespace Plots
 			if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
 
 
-			FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Plant_Plants");
+			FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_RTS_Plant");
 			Debug.Log("play sound + Planted " + playerInventory.SelectedSeed.name);
 
 			plantInfo = playerInventory.SelectedSeed;

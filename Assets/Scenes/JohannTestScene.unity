@@ -3318,7 +3318,7 @@ PrefabInstance:
     - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
         type: 3}
       propertyPath: EventReference.Path
-      value: event:/SFX/Enviroment/AmbMonsterSpawner
+      value: event:/SFX/Enviroment/AMB_Portal_Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 6089482304632121320, guid: a8a9f65c85411c84396ee3aafc62f910,
         type: 3}

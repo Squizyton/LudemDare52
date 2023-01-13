@@ -12,7 +12,7 @@ public class MelonBullet : BaseBullet
 
 	override protected void OnHit(Transform hit)
 	{
-		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Guns/Melon_Explode", gameObject);
+		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Explo", gameObject); //FMOD impact
 
 		int maxColliders = 10;
 		var hitColliders = new Collider[maxColliders];

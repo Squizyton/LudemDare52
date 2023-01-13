@@ -50,8 +50,6 @@ public class BaseBullet : MonoBehaviour
 
 	protected virtual void OnHit(Transform hit)
 	{
-		//FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);   //FMOD impact test
-
 		hit.TryGetComponent(out IHasHealth enemy);
 
 		enemy?.TakeDamage((int)damage);
@@ -62,8 +60,6 @@ public class BaseBullet : MonoBehaviour
 	}
 	private void OnTriggerEnter(Collider collision)
 	{
-		//FMODUnity.RuntimeManager.PlayOneShotAttached("event:/Tests/gun hit", gameObject);
-
 		if (collision.transform.TryGetComponent(out IHasHealth enemy))
 		{
 			enemy.TakeDamage((int)damage);

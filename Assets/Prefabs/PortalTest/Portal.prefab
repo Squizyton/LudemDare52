@@ -9900,7 +9900,7 @@ MonoBehaviour:
       Data2: 1318291390
       Data3: -2112292436
       Data4: 1754362159
-    Path: event:/SFX/Enviroment/AmbMonsterSpawner
+    Path: event:/SFX/Enviroment/AMB_Portal_Spawner
   Event: 
   PlayEvent: 1
   StopEvent: 2

@@ -256,7 +256,7 @@ MonoBehaviour:
       Data2: 1220879737
       Data3: 1315083446
       Data4: -874365797
-    Path: event:/SFX/NPC/NPC_Cows
+    Path: event:/SFX/Enviroment/AMB_Cow
   Event: 
   PlayEvent: 0
   StopEvent: 0

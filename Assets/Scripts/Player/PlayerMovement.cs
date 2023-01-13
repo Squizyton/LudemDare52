@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 		controls.Player.Sprint.canceled += GetSprint;
 		controls.Enable();
 		staminaAmount = staminaMax;
-        FMODPlayerWalk = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Movement/Player_FootSteps");
+        FMODPlayerWalk = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Movement/Player_Footsteps");
     }
 
 	private void GetMovement(InputAction.CallbackContext context)
