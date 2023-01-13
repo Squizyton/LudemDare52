@@ -3503,7 +3503,6 @@ MonoBehaviour:
   cropsPNumber: {fileID: 1373443182}
   bulletsNumber: {fileID: 1290736108}
   enemiesKilledNumber: {fileID: 1183248353}
-  nameFirstSelectedButton: {fileID: 480358100}
   menuFirstSelectedButton: {fileID: 1269195250}
   statsFirstSelectedButton: {fileID: 1877858349}
 --- !u!1 &925928564
@@ -3561,6 +3560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1611080666}
+  onDisabledButton: {fileID: 1269195250}
 --- !u!1001 &1064959869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8171,7 +8171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1269195250}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1993344874
@@ -8225,7 +8225,7 @@ MonoBehaviour:
     type: 3}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!1 &2099719172

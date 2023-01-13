@@ -24,6 +24,6 @@ public class InputSelectedButton : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         //set a new selected object
-        EventSystem.current.SetSelectedGameObject(exitButton);
+        EventSystem.current.SetSelectedGameObject(onDisabledButton);
     }
 }

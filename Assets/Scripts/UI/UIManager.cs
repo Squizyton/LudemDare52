@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
@@ -61,6 +62,9 @@ namespace UI
 
         [Header("Other")] [SerializeField] private GameObject harvestText;
         public Transform highlightObject;
+
+        public GameObject RTSSelectionButton;
+        private bool isRTS;
         private void Awake()
         {
             Instance = this;
@@ -84,18 +88,35 @@ namespace UI
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
                     topDownCanvasGroup.interactable = false;
+                    if (isRTS) isRTS = false;
                     break;
                 case GameManager.CurrentMode.TopDown:
                     GameManager.Instance.grid.TurnOnCellUI();
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
-                  
-                    break;
+                    if (!isRTS)
+                    {
+                        isRTS = true;
+                        setSelectionOnButton();
+                    }
+
+                        break;
                 case GameManager.CurrentMode.GameOver:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
+            }
+        }
+        private void setSelectionOnButton()
+        {
+            if(topDownCanvasGroup.interactable == true)
+            {
+                //clear selected object
+                EventSystem.current.SetSelectedGameObject(null);
+
+                //set a new selected object
+                EventSystem.current.SetSelectedGameObject(RTSSelectionButton);
             }
         }
 
