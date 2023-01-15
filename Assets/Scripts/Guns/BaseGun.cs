@@ -109,7 +109,6 @@ namespace Guns
                 var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
                 PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
                 UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-                //shoot a raycast from the middle of the screen
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;

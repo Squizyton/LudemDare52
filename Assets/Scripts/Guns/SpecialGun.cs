@@ -24,7 +24,9 @@ namespace Guns
 
         private void OnEnable()
         {
-            ammoInSack = PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo());
+            ammoInSack = PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()) - GetCurrentMag();
+            if (ammoInSack < 0)
+                ammoInSack = 0;
             UIManager.Instance.UpdateAmmoCount(GetCurrentMag(), ammoInSack, GetIsInfinite());
             
         }
