@@ -120,7 +120,7 @@ public class PlayerInventory : MonoBehaviour
         if(GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
         
         currentGun = (currentGun + 1) % guns.Length;
-        Debug.Log("Current Gun" + guns[currentGun]);    
+        Debug.Log("Current Gun" + guns[currentGun]);
         //Disable the current gun
         currentActiveGun.AbortReloadSequence();
         if(currentActiveGun.gameObject.activeSelf)
@@ -151,7 +151,7 @@ public class PlayerInventory : MonoBehaviour
         selectedPlot.TurnOnGrowingInfo(false);
         Debug.Log(harvested.ToString());
         if (!harvested) return;
-    FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/UI/UI_Player_Harvest", gameObject);
+        FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/UI/UI_Player_Harvest", gameObject);
         if (harvested.PlantName == "starfruit")
         {
             health += harvested.bulletYield;
@@ -164,7 +164,7 @@ public class PlayerInventory : MonoBehaviour
         {
             UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(), bulletInventory[harvested],
                 currentActiveGun.GetIsInfinite());
-                currentActiveGun.UpdateSack(harvested);
+            currentActiveGun.UpdateSack(harvested);
         }
 
         selectedPlot = null;
