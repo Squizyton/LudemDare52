@@ -4,6 +4,7 @@ using SaveFile;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -25,29 +26,48 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_Text cropsPNumber;
     [SerializeField] private TMP_Text bulletsNumber;
     [SerializeField] private TMP_Text enemiesKilledNumber;
+
+    public GameObject menuFirstSelectedButton, statsFirstSelectedButton, enterNameFirstSelectedButton; 
+
     void Awake()
     {
         Instance = this;
+        SetMenuSelectedButton();
     }
 
     #region Enter Name
     public void EnterNameUI()
     {
         EnterNamePanel.SetActive(true);
+        SetSelectedButton(enterNameFirstSelectedButton);
     }
 
     public void EnteredName()
     {
         if (nameInputField.text.Length <= 0) return;
-        
-        
+
+
         loadSaveFile.saveFile.farmerName = nameInputField.text;
-        
+
         loadSaveFile.SaveFile();
-        
+
         nameText.text = loadSaveFile.saveFile.farmerName;
         EnterNamePanel.SetActive(false);
     }
+
+    public void CanceledName()
+    {
+        nameInputField.text = "Unnamed Farmer";
+
+
+        loadSaveFile.saveFile.farmerName = nameInputField.text;
+
+        loadSaveFile.SaveFile();
+
+        nameText.text = loadSaveFile.saveFile.farmerName;
+        EnterNamePanel.SetActive(false);
+    }
+
 
     public void UpdateEverything(FarmerInfo info)
     {
@@ -80,4 +100,23 @@ public class MainMenuUI : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void SetSelectedButton(GameObject button)
+    {
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set a new selected object
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void SetStatsSelectedButton()
+    {
+        SetSelectedButton(statsFirstSelectedButton);
+    }
+    public void SetMenuSelectedButton()
+    {
+        SetSelectedButton(menuFirstSelectedButton);
+    }
+
 }

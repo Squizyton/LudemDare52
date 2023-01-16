@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
@@ -15,6 +16,7 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] private TMP_Text cropsPNumber;
     [SerializeField] private TMP_Text bulletsNumber;
     [SerializeField] private TMP_Text enemiesKilledNumber;
+
 
     private void Start()
     {
@@ -38,5 +40,4 @@ public class GameOverScreen : MonoBehaviour
         
         SceneManager.LoadSceneAsync("MainMenu");
     }
-    
 }
