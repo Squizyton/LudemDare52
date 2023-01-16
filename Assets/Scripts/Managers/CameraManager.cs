@@ -11,12 +11,14 @@ public class CameraManager : MonoBehaviour
 
     private bool IsRTS;
     private FMOD.Studio.EventInstance Music;
+    FMOD.Studio.EventInstance muteSFXsnapshot;
 
     //Change priority of the cameras based on the mode
 
     private void Start()
     {
 
+        muteSFXsnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/MuteFightSFX");
         Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_InGame");
         Music.start();
     }
@@ -29,6 +31,7 @@ public class CameraManager : MonoBehaviour
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                 Music.setParameterByName("GameMode", 1);
+                muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 IsRTS = true;
             }
            
@@ -42,6 +45,7 @@ public class CameraManager : MonoBehaviour
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                 Music.setParameterByName("GameMode", 0);
+                muteSFXsnapshot.start();
                 IsRTS = false;
             }
          

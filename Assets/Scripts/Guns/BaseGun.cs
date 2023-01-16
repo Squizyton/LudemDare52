@@ -33,9 +33,7 @@ namespace Guns
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
-
-        //private FMOD.Studio.EventInstance GunShootSFX;
-        
+                
 
         public LayerMask layerMask;
         [SerializeField] private Animator animator;
@@ -78,6 +76,7 @@ namespace Guns
                 //FMOD Changing bullet sound
                 SpecialGunBullet = currentBullet + 1;
                 ChangeFMODGunType(SpecialGunBullet);
+
                 AbortReloadSequence();
                 currentMagazine = 0;
                 FeedStatsIntoGun(bullet.GetBulletInfo());
