@@ -6151,7 +6151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ff6e1d8e2edd848abee3c9f2a1ded2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1002436684}
 --- !u!114 &1002436686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11365,7 +11364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ff6e1d8e2edd848abee3c9f2a1ded2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 3874081897485858854}
 --- !u!4 &3131321524303402305
 Transform:
   m_ObjectHideFlags: 0
@@ -13012,8 +13010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca56368ef24c28448bceee0107a87113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 0.05
-  smoothAmount: 10
 --- !u!95 &6726536114180464141
 Animator:
   serializedVersion: 5

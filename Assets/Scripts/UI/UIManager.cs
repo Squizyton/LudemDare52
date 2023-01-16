@@ -66,6 +66,7 @@ namespace UI
 
         public GameObject RTSSelectionButton;
         private bool isRTS;
+
         private void Awake()
         {
             Instance = this;
