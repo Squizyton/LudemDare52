@@ -55,6 +55,7 @@ namespace UI
         public GameObject cowText;
 
 
+
         [Header("Tutorial")]
         [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
@@ -336,7 +337,7 @@ namespace UI
             tutorialList[tutorialIndex].SetActive(false);
             tutorialIndex = 0;
             startWaveButton.enabled = true;
-            GameManager.Instance.EndTutorial();
+            GameManager.Instance.EndTutorial(); 
         }
 
         #endregion

@@ -27,7 +27,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private TMP_Text bulletsNumber;
     [SerializeField] private TMP_Text enemiesKilledNumber;
 
-    public GameObject menuFirstSelectedButton, statsFirstSelectedButton;
+    public GameObject menuFirstSelectedButton, statsFirstSelectedButton, enterNameFirstSelectedButton; 
 
     void Awake()
     {
@@ -39,6 +39,7 @@ public class MainMenuUI : MonoBehaviour
     public void EnterNameUI()
     {
         EnterNamePanel.SetActive(true);
+        SetSelectedButton(enterNameFirstSelectedButton);
     }
 
     public void EnteredName()
