@@ -233,15 +233,19 @@ namespace UI
             {
                 case "corn":
                     cornBulletCount.text = "x" + amount.ToString();
+                    Debug.Log("CORN BULLETS UPDATED TO " + amount.ToString());
                     break;
                 case "carrot":
                     carrotBulletCount.text = "x" + amount.ToString();
+                    Debug.Log("CARROT BULLETS UPDATED TO " + amount.ToString());
                     break;
                 case "pepper":
                     pepperBulletCount.text = "x" + amount.ToString();
+                    Debug.Log("PEPPER BULLETS UPDATED TO " + amount.ToString());
                     break;
                 case "melon":
                     melonBulletCount.text = "x" + amount.ToString();
+                    Debug.Log("MELON BULLETS UPDATED TO " + amount.ToString());
                     break;
             }
         }

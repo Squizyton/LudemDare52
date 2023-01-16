@@ -4897,7 +4897,7 @@ MonoBehaviour:
   pepperSeedCount: {fileID: 1399356907}
   starFruitSeedCount: {fileID: 807484179}
   cornBulletCount: {fileID: 796739112}
-  carrotBulletCount: {fileID: 1902435971}
+  carrotBulletCount: {fileID: 1271080068}
   melonBulletCount: {fileID: 1279929641}
   pepperBulletCount: {fileID: 1834960178}
   staminaSlider: {fileID: 1106736503}
