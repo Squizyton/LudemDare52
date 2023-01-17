@@ -58,6 +58,8 @@ namespace UI
         [Header("Other")] [SerializeField] private GameObject harvestText;
         public Transform highlightObject;
 
+        FMOD.Studio.Bus InGameBus;
+
         public GameObject RTSSelectionButton;
         private bool isRTS;
 
@@ -71,6 +73,7 @@ namespace UI
         private void Start()
         {
             SelectSeeds("corn");
+            InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
         }
 
         #region Mode Changing
@@ -99,6 +102,8 @@ namespace UI
 
                     break;
                 case GameManager.CurrentMode.GameOver:
+                    InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    Debug.Log("Muting all sound");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);

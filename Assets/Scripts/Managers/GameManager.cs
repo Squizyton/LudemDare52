@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public Transform player;
 
-    FMOD.Studio.Bus InGameBus;
-
     //Managers
     [Header("Managers")] 
     [SerializeField]private UIManager uiManager;
@@ -74,7 +72,6 @@ public class GameManager : MonoBehaviour
         {
             StartTutorial();
         }
-        InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
     }
 
     // Update is called once per framez
@@ -201,10 +198,6 @@ public class GameManager : MonoBehaviour
         creditManager.StartWave();
     }
 
-    void OnDestroy()
-    {
-        InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    }
 
 
 
