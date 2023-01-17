@@ -7,7 +7,6 @@ namespace Bullet
     {
         public float speed = 20f;
 
-        [SerializeField] private FMODUnity.EventReference BulletFlybyEvent;
         private FMOD.Studio.EventInstance BulletFlybySFX;
 
         private void Start()
@@ -18,7 +17,7 @@ namespace Bullet
             //rotate to face the target
             transform.rotation = targetRotation;
 
-            BulletFlybySFX = FMODUnity.RuntimeManager.CreateInstance(BulletFlybyEvent);
+            BulletFlybySFX = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Enemy/Enemy_Bullet_Flyby");
             FMODUnity.RuntimeManager.AttachInstanceToGameObject(BulletFlybySFX, GetComponent<Transform>(), GetComponent<Rigidbody>());
             BulletFlybySFX.start();
 
