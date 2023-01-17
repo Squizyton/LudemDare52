@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EventReceiver : MonoBehaviour
 {
+    [SerializeField] private bool ifShouldNotPlaySound;
     public void FmodPostFootstepsEvent()
     {
         //CheckSurfaceMaterial();
@@ -12,7 +13,7 @@ public class EventReceiver : MonoBehaviour
 
     public void PlaySound(string sound)
     {
-        FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+        if(!ifShouldNotPlaySound)        FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
     }
 
 

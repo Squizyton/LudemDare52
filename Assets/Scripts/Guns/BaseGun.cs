@@ -33,9 +33,7 @@ namespace Guns
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
-
-        //private FMOD.Studio.EventInstance GunShootSFX;
-        
+                
 
         public LayerMask layerMask;
         [SerializeField] private Animator animator;
@@ -78,6 +76,7 @@ namespace Guns
                 //FMOD Changing bullet sound
                 SpecialGunBullet = currentBullet + 1;
                 ChangeFMODGunType(SpecialGunBullet);
+
                 AbortReloadSequence();
                 currentMagazine = 0;
                 FeedStatsIntoGun(bullet.GetBulletInfo());
@@ -109,7 +108,6 @@ namespace Guns
                 var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
                 PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
                 UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-                //shoot a raycast from the middle of the screen
 
                 //rotate the bullet to face the hit point
                 var position = spawnPoint.position;
