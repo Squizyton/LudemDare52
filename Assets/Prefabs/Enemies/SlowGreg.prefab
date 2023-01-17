@@ -3469,7 +3469,7 @@ MonoBehaviour:
   health: 20
   speed: 1.5
   damage: 15
-  attackRate: 3
+  attackRate: 2.5
   agent: {fileID: 48929519}
   state: 0
   healthBar: {fileID: 1141548795}
