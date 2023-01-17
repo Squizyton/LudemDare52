@@ -12,14 +12,9 @@ public class LoadSaveFile : MonoBehaviour
 {
     public FarmerInfo saveFile;
     
-    
-    
-
     private void Start()
     {
         DontDestroyOnLoad(this);
-
-
         LoadTheSaveFile();
     }
 
