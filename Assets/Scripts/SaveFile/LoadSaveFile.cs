@@ -29,7 +29,6 @@ public class LoadSaveFile : MonoBehaviour
         }
         else
         {
-
             var formatter = new BinaryFormatter();
             var fileStream = new FileStream(path + "/saveFile.greg", FileMode.Open);
 

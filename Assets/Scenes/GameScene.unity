@@ -3283,7 +3283,7 @@ MonoBehaviour:
   player: {fileID: 328495188}
   fpsCanvasGroup: {fileID: 2022698130}
   topDownCanvasGroup: {fileID: 1499958153}
-  tutorialCanvasGroup: {fileID: 0}
+  tutorialCanvasGroup: {fileID: 869172526}
   reloadGroup: {fileID: 841164860}
   reloadSlider: {fileID: 841164858}
   ammoCount: {fileID: 4445316792268103562}
@@ -3320,6 +3320,11 @@ MonoBehaviour:
   startWaveButton: {fileID: 717375282}
   harvestText: {fileID: 1329301980}
   highlightObject: {fileID: 645556278}
+  isSoundVolumeModified: 0
+  masterVolume: 100
+  ambientVolume: 100
+  sfxVolume: 100
+  musicVolume: 100
   RTSSelectionButton: {fileID: 2065031551}
 --- !u!4 &776262862
 Transform:
