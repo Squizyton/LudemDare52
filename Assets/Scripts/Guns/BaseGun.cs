@@ -65,6 +65,7 @@ namespace Guns
 
         public void SwapAmmo()
         {
+
             for (var i = 0; i < bulletList.Length - 1; i++)
             {
                 var index = (i + currentBullet + 1) % bulletList.Length;
