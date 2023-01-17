@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using Plots;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -38,10 +39,8 @@ public class Felonius : BasicEnemy
         
         if(distanceToTarget <= 0.5f)
         {
-            Debug.Log("At target");
             if (target)
             {
-                Debug.Log("eat time");
                 state = State.Attacking;;
             }else ChooseTargetPoint();
         }
@@ -72,8 +71,6 @@ public class Felonius : BasicEnemy
     private void ChooseTargetPoint()
     {
         readyToGo = false;
-        Debug.Log("Target point called");
-        
         if (GameManager.Instance.grid.GetCellCountThatsGrowingSomething() > 0)
         {
             target = GameManager.Instance.grid.GetRandomCell();

@@ -1,6 +1,7 @@
 using FMOD;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class Lenny : BasicEnemy
@@ -38,7 +39,7 @@ public class Lenny : BasicEnemy
             //Check to see if moveToTarget is in the monsterBounds
             if (GameManager.Instance.monsterBounds.bounds.Contains(new Vector3(moveToTarget.x, 0, moveToTarget.z)))
             {
-                UnityEngine.Debug.Log("In Bounds");
+               
                 //Move to the new target
                 atTarget = false;
             }
@@ -52,9 +53,6 @@ public class Lenny : BasicEnemy
         var distanceToTarget = Vector3.Distance(transform.position, moveToTarget);
 
         if (!(distanceToTarget < 0.5f)) return;
-
-        UnityEngine.Debug.Log("At Target");
-
         //Change the mode
         state = State.Attacking;
     }

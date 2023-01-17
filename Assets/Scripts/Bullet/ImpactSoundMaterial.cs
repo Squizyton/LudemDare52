@@ -20,7 +20,7 @@ public class ImpactSoundMaterial : MonoBehaviour
         if(gameObject.layer == 1)
         {
             CheckSurfaceMaterial();
-            Debug.Log("this is " + gameObject);
+      
         }
         
     }
@@ -28,7 +28,7 @@ public class ImpactSoundMaterial : MonoBehaviour
     {
         BulletImpact.setParameterByNameWithLabel("ImpactMaterial", m_Material.ToString());
         BulletImpact.start();
-        Debug.Log("I'm playing impact for " + m_Material.ToString());
+  
     }
 
 
@@ -43,7 +43,7 @@ public class ImpactSoundMaterial : MonoBehaviour
         {
             RaycastReturn = hit.collider.gameObject.name;
             FoundObject = GameObject.Find(RaycastReturn);
-                Debug.Log($"Hitted {FoundObject} ");
+            
             if (FoundObject.TryGetComponent(out ImpactSoundMaterial soundMaterial))
             {
                 soundMaterial.ImpactSound(gameObject);

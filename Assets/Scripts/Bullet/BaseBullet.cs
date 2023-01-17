@@ -66,8 +66,6 @@ public class BaseBullet : MonoBehaviour
 			Instantiate(hitEffect, transform.position, transform.rotation);
 			Destroy(gameObject);
 		}
-
-		Debug.Log("bullet hits");
 	}
 
 	private void OnDrawGizmos()

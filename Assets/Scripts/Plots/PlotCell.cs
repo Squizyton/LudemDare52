@@ -30,21 +30,21 @@ namespace Plots
 		public bool beingChargedAt;
 		public void Plant()
 		{
-			Debug.Log("Planting");
+		
 			if (!playerInventory.SelectedSeed)
 			{
 				FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_RTS_Error");
 
-				Debug.Log("play error");
+			
 				return;
 			}
-			Debug.Log("Checking for seed");
+
 
 			if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
 
 
 			FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_RTS_Plant");
-			Debug.Log("play sound + Planted " + playerInventory.SelectedSeed.name);
+			
 
 			plantInfo = playerInventory.SelectedSeed;
 			value = 1;

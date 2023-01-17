@@ -21,7 +21,6 @@ namespace Bullet
             BulletFlybySFX = FMODUnity.RuntimeManager.CreateInstance(BulletFlybyEvent);
             FMODUnity.RuntimeManager.AttachInstanceToGameObject(BulletFlybySFX, GetComponent<Transform>(), GetComponent<Rigidbody>());
             BulletFlybySFX.start();
-            Debug.Log ( "Playing Flyby");
 
             Destroy(gameObject, 10f);
         }
@@ -35,7 +34,6 @@ namespace Bullet
         private void OnDestroy()
         {
             BulletFlybySFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            Debug.Log("Stoping Flyby");
         }
     }
 }

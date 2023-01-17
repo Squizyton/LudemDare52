@@ -80,7 +80,6 @@ namespace Guns
                 AbortReloadSequence();
                 currentMagazine = 0;
                 FeedStatsIntoGun(bullet.GetBulletInfo());
-                Debug.Log(bullet.GetBulletInfo().PlantName);
                 ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
                 ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
                 UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
@@ -101,9 +100,6 @@ namespace Guns
                 CameraShake.Shake(3, 0.1f, 0.25f);
                 currentMagazine--;
                 canFire = false;
-                
-                Debug.Log(currentMagazine);
-
                 // Update ammo in inventory
                 var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
                 PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
@@ -130,7 +126,6 @@ namespace Guns
         private void ChangeFMODGunType(int GunType)
         {
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
-            Debug.Log("pocisk to _ " + GunType);
         }
 
         private void FMODShootSound()
@@ -145,8 +140,6 @@ namespace Guns
 
         public void ReloadSequence(float timeToReload)
         {
-            Debug.Log("Reload");
-            Debug.Log(ammoInSack);
             if (!hasInfiniteAmmo && ammoInSack <= 0) return;
             animator.SetTrigger("Reload");
             UIManager.Instance.ReloadGroupStatus(true, timeToReload);
@@ -205,16 +198,13 @@ namespace Guns
             {
                 if (!hasInfiniteAmmo)
                 {
-                    Debug.Log("reloading");
                     //get the difference between the current ammo and the max ammo
                     var difference = maxAmmoPerClip - currentMagazine;
-                    Debug.Log("Difference: " + difference);
 
                     PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
 
                     //Set ammoInSack to inventory amount
                     ammoInSack = PlayerInventory.Instance.GetAmmo(currentAmmoType) - currentMagazine;
-                    Debug.Log("Ammo IN Sack: " + ammoInSack);
 
                     //If the player has enough ammo to reload
                     if (ammoInSack >= maxAmmoPerClip)

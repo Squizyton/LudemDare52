@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class EnemyHitbox : MonoBehaviour
@@ -9,8 +10,6 @@ public class EnemyHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ATTAAAAAACK!!!");
-        Debug.Log(other.name);
         if (other.name == "Bean")
             PlayerInventory.Instance.TakeDamage(enemy.transform.position, (int)enemy.GetDamage());
 

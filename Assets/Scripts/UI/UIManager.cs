@@ -14,13 +14,13 @@ namespace UI
         public static UIManager Instance;
         [SerializeField] private GameObject player;
 
-        [Header("Mode UI")]
-        [SerializeField] private CanvasGroup fpsCanvasGroup;
+        [Header("Mode UI")] [SerializeField] private CanvasGroup fpsCanvasGroup;
         [SerializeField] private CanvasGroup topDownCanvasGroup;
         [SerializeField] private CanvasGroup tutorialCanvasGroup;
 
-        [Header("Weapon Related Things")][SerializeField]
+        [Header("Weapon Related Things")] [SerializeField]
         private CanvasGroup reloadGroup;
+
         [SerializeField] private UnityEngine.UI.Slider reloadSlider;
         [SerializeField] private TextMeshProUGUI ammoCount;
         [SerializeField] private CanvasGroup fpsCornIcon;
@@ -30,34 +30,28 @@ namespace UI
         [SerializeField] private CanvasGroup hitIndicator;
         [SerializeField] private GameObject damageIndicator;
 
-        [Header("Stats")]
-        [SerializeField] private TextMeshProUGUI waveCount;
+        [Header("Stats")] [SerializeField] private TextMeshProUGUI waveCount;
         [SerializeField] private TextMeshProUGUI remainingEnemies;
         [SerializeField] private TextMeshProUGUI timeAlive;
 
-        [Header("Seeds")]
-        [SerializeField] private TextMeshProUGUI cornSeedCount;
+        [Header("Seeds")] [SerializeField] private TextMeshProUGUI cornSeedCount;
         [SerializeField] private TextMeshProUGUI carrotSeedCount;
         [SerializeField] private TextMeshProUGUI melonSeedCount;
         [SerializeField] private TextMeshProUGUI pepperSeedCount;
         [SerializeField] private TextMeshProUGUI starFruitSeedCount;
-        [Header("Bullets")]
-        [SerializeField] private TextMeshProUGUI cornBulletCount;
+        [Header("Bullets")] [SerializeField] private TextMeshProUGUI cornBulletCount;
         [SerializeField] private TextMeshProUGUI carrotBulletCount;
         [SerializeField] private TextMeshProUGUI melonBulletCount;
         [SerializeField] private TextMeshProUGUI pepperBulletCount;
 
-        [Header("Player Related Things")][SerializeField]
+        [Header("Player Related Things")] [SerializeField]
         private UnityEngine.UI.Slider staminaSlider;
 
         [SerializeField] private Slider healthBar;
-        [Header("Cow")]
-        public GameObject cowText;
+        [Header("Cow")] public GameObject cowText;
 
 
-
-        [Header("Tutorial")]
-        [SerializeField] private List<GameObject> tutorialList;
+        [Header("Tutorial")] [SerializeField] private List<GameObject> tutorialList;
         private int tutorialIndex = 0;
         [SerializeField] private UnityEngine.UI.Button startWaveButton;
 
@@ -103,16 +97,17 @@ namespace UI
                         setSelectionOnButton();
                     }
 
-                        break;
+                    break;
                 case GameManager.CurrentMode.GameOver:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
             }
         }
+
         private void setSelectionOnButton()
         {
-            if(topDownCanvasGroup.interactable == true)
+            if (topDownCanvasGroup.interactable == true)
             {
                 //clear selected object
                 EventSystem.current.SetSelectedGameObject(null);
@@ -125,6 +120,7 @@ namespace UI
         #endregion
 
         #region Stats
+
         public void UpdateWaveCount(int wave)
         {
             waveCount.text = "Wave: " + wave.ToString();
@@ -144,6 +140,7 @@ namespace UI
             var seconds = Mathf.FloorToInt(newTimeAlive - minutes * 60);
             timeAlive.text = "Time Alive: " + string.Format("{0:0}:{1:00}", minutes, seconds);
         }
+
         #endregion
 
         #region Cow
@@ -153,10 +150,10 @@ namespace UI
             cowText.SetActive(value);
         }
 
-
         #endregion
 
         #region Player Related
+
         public void UpdateStaminaSlider(float stamina)
         {
             staminaSlider.value = stamina;
@@ -189,7 +186,8 @@ namespace UI
         {
             sourceDirection.y = 0;
             sourceDirection = sourceDirection.normalized;
-            float angle = Vector3.SignedAngle(sourceDirection, player.transform.forward, Vector3.Cross(sourceDirection, player.transform.forward));
+            float angle = Vector3.SignedAngle(sourceDirection, player.transform.forward,
+                Vector3.Cross(sourceDirection, player.transform.forward));
             damageIndicator.TryGetComponent<RectTransform>(out RectTransform dmgIndTransform);
             if (dmgIndTransform)
                 dmgIndTransform.rotation = Quaternion.Euler(0, 0, angle);
@@ -198,8 +196,9 @@ namespace UI
             damageIndicator.TryGetComponent<CanvasGroup>(out CanvasGroup grpInd);
             grpInd.alpha = 1;
         }
+
         #endregion
-        
+
         #region Reload
 
         public void ReloadGroupStatus(bool value, float reloadTime)
@@ -217,6 +216,7 @@ namespace UI
         #endregion
 
         #region Ammo
+
         public void UpdateAmmoCount(int inMagazine, int inSack, bool isInfinite)
         {
             if (isInfinite)
@@ -230,23 +230,23 @@ namespace UI
 
         public void UpdateAmmoTotal(PlantInfo plantInfo, int amount)
         {
-            switch(plantInfo.PlantName)
+            switch (plantInfo.PlantName)
             {
                 case "corn":
                     cornBulletCount.text = "x" + amount.ToString();
-                    Debug.Log("CORN BULLETS UPDATED TO " + amount.ToString());
+
                     break;
                 case "carrot":
                     carrotBulletCount.text = "x" + amount.ToString();
-                    Debug.Log("CARROT BULLETS UPDATED TO " + amount.ToString());
+
                     break;
                 case "pepper":
                     pepperBulletCount.text = "x" + amount.ToString();
-                    Debug.Log("PEPPER BULLETS UPDATED TO " + amount.ToString());
+
                     break;
                 case "melon":
                     melonBulletCount.text = "x" + amount.ToString();
-                    Debug.Log("MELON BULLETS UPDATED TO " + amount.ToString());
+
                     break;
             }
         }
@@ -274,23 +274,22 @@ namespace UI
                     break;
             }
         }
+
         #endregion
 
         #region SeedMenu
+
         public void SelectSeeds(string seedName)
         {
-            PlayerInventory playerInventory = PlayerInventory.Instance;
+            var playerInventory = PlayerInventory.Instance;
             playerInventory.SetSeed(seedName);
-            Debug.Log("playerInventory set to " + seedName);
-            Debug.Log(playerInventory.SelectedSeed);
         }
 
         public void UpdateSeedCount(PlantInfo plantInfo)
         {
-            PlayerInventory playerInventory = PlayerInventory.Instance;
-            int seedCount = playerInventory.GetSeedCount(plantInfo);
-            Debug.Log(plantInfo.PlantName);
-            Debug.Log(seedCount);
+            var playerInventory = PlayerInventory.Instance;
+            var seedCount = playerInventory.GetSeedCount(plantInfo);
+
             switch (plantInfo.PlantName)
             {
                 case "corn":
@@ -310,8 +309,9 @@ namespace UI
                     break;
             }
         }
+
         #endregion
-        
+
         #region Tutorial
 
         public void StartTutorial()
@@ -319,7 +319,7 @@ namespace UI
             tutorialList[tutorialIndex].SetActive(true);
             startWaveButton.enabled = false;
         }
-        
+
         public void NextTutorial()
         {
             if (tutorialIndex < tutorialList.Count - 1)
@@ -334,22 +334,21 @@ namespace UI
             {
                 EndTutorial();
             }
-
         }
-        
+
         public void EndTutorial()
         {
             tutorialList[tutorialIndex].SetActive(false);
             tutorialIndex = 0;
             startWaveButton.enabled = true;
-            GameManager.Instance.EndTutorial(); 
+            GameManager.Instance.EndTutorial();
         }
 
         #endregion
-        
+
         public void HarvestText(bool value)
         {
-           harvestText.SetActive(value);
+            harvestText.SetActive(value);
         }
 
 
