@@ -334,6 +334,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2993039a-132d-47d7-9f30-54a7a0b2c7ab",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "96dee8c5-1305-4d2f-992d-7edc4b101b3d",
                     "path": "<VirtualMouse>/leftButton",
                     "interactions": "",
