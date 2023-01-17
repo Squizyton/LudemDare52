@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class RotateTowardsPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform player;
+
+
+    private void Start()
     {
-        
+        player = GameManager.Instance.currentTarget;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+ 
+     transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(player.position - transform.position), Time.deltaTime * 2f);   
     }
 }
