@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WeaponSway : MonoBehaviour
 {
-
     public float amount;
     public float smoothAmount;
     private Vector3 initialPosition;

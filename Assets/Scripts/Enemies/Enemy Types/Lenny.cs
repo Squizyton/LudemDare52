@@ -38,9 +38,7 @@ public class Lenny : BasicEnemy
 
             //Check to see if moveToTarget is in the monsterBounds
             if (GameManager.Instance.monsterBounds.bounds.Contains(new Vector3(moveToTarget.x, 0, moveToTarget.z)))
-            {
-               
-                //Move to the new target
+            {                //Move to the new target
                 atTarget = false;
             }
         }

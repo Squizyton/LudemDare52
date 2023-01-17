@@ -58,8 +58,17 @@ namespace UI
         [Header("Other")] [SerializeField] private GameObject harvestText;
         public Transform highlightObject;
 
-        public GameObject RTSSelectionButton;
+        [Header("Sound")]        [SerializeField] private bool isSoundVolumeModified;
+        [SerializeField] private float masterVolume;
+        [SerializeField] private float ambientVolume;
+        [SerializeField] private float sfxVolume;
+        [SerializeField] private float musicVolume;
+        //[SerializeField] private float dialogVolume;
+
+        [Header("Button selection")]        public GameObject RTSSelectionButton;
         private bool isRTS;
+
+        FMOD.Studio.Bus InGameBus;
 
         private void Awake()
         {
@@ -71,8 +80,13 @@ namespace UI
         private void Start()
         {
             SelectSeeds("corn");
+            InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
         }
-
+        private void FixedUpdate()
+        {
+            if (isSoundVolumeModified)
+                UpdateSoundVolumes();
+        }
         #region Mode Changing
 
         public void ChangeModeUI(GameManager.CurrentMode newMode)
@@ -99,6 +113,7 @@ namespace UI
 
                     break;
                 case GameManager.CurrentMode.GameOver:
+                    InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
@@ -355,6 +370,15 @@ namespace UI
         public void MoveSquare(Transform mTransform)
         {
             highlightObject.position = mTransform.position;
+        }
+
+        public void UpdateSoundVolumes()
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Master_Volume", masterVolume);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Ambient_Volume", ambientVolume);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SFX_Volume", sfxVolume);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Volume", musicVolume);
+            //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Dialogue_Volume", dialogVolume);
         }
     }
 }

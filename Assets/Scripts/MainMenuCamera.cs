@@ -10,7 +10,6 @@ public class MainMenuCamera : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-
 	void Update()
 	{
 		Vector2 mouseOffset = new Vector2(Screen.width / 2 - Input.mousePosition.x, Screen.height / 2 - Input.mousePosition.y);

@@ -9,7 +9,6 @@ public class InputSelectedButton : MonoBehaviour
 
     // Update is called once per frame
     private void Start()
-
     {
         //clear selected object
         EventSystem.current.SetSelectedGameObject(null);
@@ -18,7 +17,6 @@ public class InputSelectedButton : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
     private void onDisabled()
-
     {
         //clear selected object
         EventSystem.current.SetSelectedGameObject(null);
