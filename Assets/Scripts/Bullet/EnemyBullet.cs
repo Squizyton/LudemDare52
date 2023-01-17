@@ -6,7 +6,6 @@ namespace Bullet
     public class EnemyBullet : MonoBehaviour
     {
         public float speed = 20f;
-
         private FMOD.Studio.EventInstance BulletFlybySFX;
 
         private void Start()

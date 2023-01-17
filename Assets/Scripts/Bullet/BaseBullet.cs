@@ -47,7 +47,6 @@ public class BaseBullet : MonoBehaviour
 		//move the bullet foward
 
 	}
-
 	protected virtual void OnHit(Transform hit)
 	{
 		hit.TryGetComponent(out IHasHealth enemy);

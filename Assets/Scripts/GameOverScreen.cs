@@ -37,7 +37,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
-        
         SceneManager.LoadSceneAsync("MainMenu");
     }
 }

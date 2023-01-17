@@ -104,7 +104,6 @@ public class SineSway : MonoBehaviour
 			var transform1 = transform;
 			transform1.localPosition = localPosition;
 			transform1.localRotation = new Quaternion(newRotationX, newRotationY, newRotationZ, newRotationW);
-
 		}
 	}
 }
