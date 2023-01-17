@@ -1382,6 +1382,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 48929519, guid: 709f3e1f1317b64429ffd992c6e8b120, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2027571543, guid: 709f3e1f1317b64429ffd992c6e8b120, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2874,7 +2878,7 @@ GameObject:
   - component: {fileID: 571376248}
   - component: {fileID: 571376249}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: ----GameManager----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2895,8 +2899,8 @@ Transform:
   - {fileID: 30436136}
   - {fileID: 221360121}
   - {fileID: 1801431829}
-  m_Father: {fileID: 733670323}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &571376249
 MonoBehaviour:
@@ -3412,7 +3416,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 776262862}
-  - {fileID: 571376248}
   - {fileID: 497339884}
   - {fileID: 1113192045}
   m_Father: {fileID: 0}

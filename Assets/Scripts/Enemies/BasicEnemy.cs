@@ -40,6 +40,7 @@ namespace Enemies
 		[Header("Seeds")] public float seedDropChance;
 		public List<PlantInfo> seeds;
 		public SeedPickup seedDropPrefab;
+		private static readonly int Death = Animator.StringToHash("Death");
 
 		public virtual void OnHit(float damage, bool fire = false)
 		{
@@ -168,6 +169,8 @@ namespace Enemies
 				seedDrop.image.sprite = seedDrop.plantInfo.seedIcon;
 			}
 
+			animator.SetTrigger(Death);
+			
 			Destroy(gameObject, 10f);
 		}
 
