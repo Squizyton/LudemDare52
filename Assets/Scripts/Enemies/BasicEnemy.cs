@@ -1,192 +1,194 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using Random = System.Random;
 
-[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
-public class BasicEnemy : MonoBehaviour, IHasHealth
+namespace Enemies
 {
-	[Header("Base Stats")]
-	[SerializeField]
-	protected float health = 5;
-
-	[SerializeField] protected float speed;
-	[SerializeField] protected float damage;
-
-	[Header("Attack Settings")]
-	[SerializeField]
-	protected float attackRate;
-
-	protected float attackTimer;
-
-	[Header("AI")][SerializeField] protected NavMeshAgent agent;
-	[SerializeField] protected State state;
-
-	[Header("UI")][SerializeField] protected Slider healthBar;
-
-	[Header("Animator")][SerializeField] protected Animator animator;
-
-
-	private bool isDead;
-
-	private bool isOnFire;
-	private float currentFireCooldown;
-
-
-	[Header("Seeds")] public float seedDropChance;
-	public List<PlantInfo> seeds;
-	public SeedPickup seedDropPrefab;
-
-	public virtual void OnHit(float damage, bool fire = false)
+	[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), RequireComponent(typeof(NavMeshAgent))]
+	public class BasicEnemy : MonoBehaviour, IHasHealth
 	{
-		if (isDead) return;
-		UIManager.Instance.TriggerHitIndicator();
-		if (fire)
+		[Header("Base Stats")]
+		[SerializeField]
+		protected float health = 5;
+
+		[SerializeField] protected float speed;
+		[SerializeField] protected float damage;
+
+		[Header("Attack Settings")]
+		[SerializeField]
+		protected float attackRate;
+
+		protected float attackTimer;
+
+		[Header("AI")][SerializeField] protected NavMeshAgent agent;
+		[SerializeField] protected State state;
+
+		[Header("UI")][SerializeField] protected Slider healthBar;
+
+		[Header("Animator")][SerializeField] protected Animator animator;
+
+
+		private bool isDead;
+
+		private bool isOnFire;
+		private float currentFireCooldown;
+
+
+		[Header("Seeds")] public float seedDropChance;
+		public List<PlantInfo> seeds;
+		public SeedPickup seedDropPrefab;
+		private static readonly int Death = Animator.StringToHash("Death");
+
+		public virtual void OnHit(float damage, bool fire = false)
 		{
-			isOnFire = true;
-			currentFireCooldown = 10;
+			if (isDead) return;
+			UIManager.Instance.TriggerHitIndicator();
+			if (fire)
+			{
+				isOnFire = true;
+				currentFireCooldown = 10;
+			}
+
+			health -= damage;
+			healthBar.value = health;
+
+			if (health <= 0)
+			{
+				FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
+				OnDeath();
+			}
+			else
+			{
+				animator.SetTrigger("Hit");
+				FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Hit", gameObject);
+			}
 		}
 
-		health -= damage;
-		healthBar.value = health;
-
-		if (health <= 0)
+		protected virtual bool TicDamage()
 		{
+			var damage = 0f;
+			if (currentFireCooldown - Time.deltaTime >= 0)
+			{
+				damage = Time.deltaTime * .75f;
+			
+				currentFireCooldown -= Time.deltaTime;
+			}
+			else
+			{
+				damage = currentFireCooldown;
+				currentFireCooldown = 0;
+			}
+
+			//animator.SetTrigger("Hit");
+			health -= damage;
+
+			healthBar.value = health;
+
+			if (!(health <= 0)) return currentFireCooldown > 0;
+		
 			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
 			OnDeath();
+
+			return currentFireCooldown > 0;
 		}
-		else
+
+
+		protected void Update()
 		{
-			animator.SetTrigger("Hit");
-			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Hit", gameObject);
-		}
-	}
+			if (isDead) return;
 
-	public virtual bool TicDamage()
-	{
-		float damage = 0f;
-		if (currentFireCooldown - Time.deltaTime >= 0)
+			//Handle tic damage, if any
+			if (isOnFire && !TicDamage()) isOnFire = false;
+			var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
+
+			switch (state)
+			{
+				case State.Moving:
+					OnMove(distance);
+					break;
+				case State.Attacking:
+					OnAttack(distance);
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public virtual void OnMove(float distance)
 		{
-			damage = Time.deltaTime * .75f;
-			Debug.Log("ON FIRE:" + damage.ToString());
-			currentFireCooldown -= Time.deltaTime;
+			agent.SetDestination(GameManager.Instance.currentTarget.position);
+
+
+			if (distance <= agent.stoppingDistance)
+			{
+				attackTimer = attackRate;
+				state = State.Attacking;
+			}
 		}
-		else
+
+		public virtual void OnAttack(float distance)
 		{
-			damage = currentFireCooldown;
-			currentFireCooldown = 0;
+			if (distance > agent.stoppingDistance)
+			{
+				animator.SetTrigger("Run");
+				state = State.Moving;
+			}
+
+			if (attackTimer > 0)
+			{
+				attackTimer -= Time.deltaTime;
+			}
+			else
+			{
+				animator.SetTrigger("Attack");
+				attackTimer = attackRate;
+			}
 		}
 
-		//animator.SetTrigger("Hit");
-		health -= damage;
-
-		healthBar.value = health;
-
-		if (health <= 0)
+		protected virtual void OnDeath()
 		{
-			FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
-			OnDeath();
+			isDead = true;
+			agent.enabled = false;
+			healthBar.gameObject.SetActive(false);
+		
+			TryGetComponent(out Collider component);
+			component.enabled = false;
+			TryGetComponent(out Rigidbody rb);
+			rb.isKinematic = true;
+			GameManager.Instance.RemoveEnemy();
+
+			var weight = UnityEngine.Random.Range(0, 100);
+			if (weight <= seedDropChance)
+			{
+				var seedDrop = Instantiate(seedDropPrefab, transform.position, transform.rotation);
+				seedDrop.plantInfo = seeds[UnityEngine.Random.Range(0, seeds.Count)];
+				seedDrop.image.sprite = seedDrop.plantInfo.seedIcon;
+			}
+
+			animator.SetTrigger(Death);
+			
+			Destroy(gameObject, 10f);
 		}
 
-		return currentFireCooldown > 0;
-	}
-
-
-	protected void Update()
-	{
-		if (isDead) return;
-
-		//Handle tic damage, if any
-		if (isOnFire && !TicDamage()) isOnFire = false;
-		var distance = Vector3.Distance(transform.position, GameManager.Instance.currentTarget.position);
-
-		switch (state)
+		public float GetDamage()
 		{
-			case State.Moving:
-				OnMove(distance);
-				break;
-			case State.Attacking:
-				OnAttack(distance);
-
-				break;
-			default:
-				Debug.LogError("How are we out of this state machine?");
-				throw new ArgumentOutOfRangeException();
+			return damage;
 		}
-	}
-
-	public virtual void OnMove(float distance)
-	{
-		agent.SetDestination(GameManager.Instance.currentTarget.position);
 
 
-		if (distance <= agent.stoppingDistance)
+		protected enum State
 		{
-			attackTimer = attackRate;
-			state = State.Attacking;
+			Moving,
+			Attacking,
 		}
-	}
 
-	public virtual void OnAttack(float distance)
-	{
-		if (distance > agent.stoppingDistance)
+		public void TakeDamage(int damageTaken)
 		{
-			animator.SetTrigger("Run");
-			state = State.Moving;
+			OnHit(damageTaken);
 		}
-
-		if (attackTimer > 0)
-		{
-			attackTimer -= Time.deltaTime;
-		}
-		else
-		{
-			animator.SetTrigger("Attack");
-			attackTimer = attackRate;
-		}
-	}
-
-	protected virtual void OnDeath()
-	{
-		isDead = true;
-		agent.enabled = false;
-		healthBar.gameObject.SetActive(false);
-		TryGetComponent(out Collider collider);
-		collider.enabled = false;
-		TryGetComponent(out Rigidbody rb);
-		rb.isKinematic = true;
-		animator.SetTrigger("Death");
-		GameManager.Instance.RemoveEnemy();
-
-		var weight = UnityEngine.Random.Range(0, 100);
-		if (weight <= seedDropChance)
-		{
-			var seedDrop = Instantiate(seedDropPrefab, transform.position, transform.rotation);
-			seedDrop.plantInfo = seeds[UnityEngine.Random.Range(0, seeds.Count)];
-			seedDrop.image.sprite = seedDrop.plantInfo.seedIcon;
-		}
-
-		Destroy(gameObject, 10f);
-	}
-
-	public float GetDamage()
-	{
-		return damage;
-	}
-
-
-	protected enum State
-	{
-		Moving,
-		Attacking,
-	}
-
-	public void TakeDamage(int damageTaken)
-	{
-		OnHit(damageTaken);
 	}
 }

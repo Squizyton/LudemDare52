@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 236891247564917217}
   - component: {fileID: 5540537187735075613}
   - component: {fileID: 6059250261693668832}
+  - component: {fileID: 7452220885896858031}
   m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
@@ -330,6 +331,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7452220885896858031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111109422582559905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c57ddf82c7212458b9649783a87738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &6119463591071025346
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +515,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
@@ -2158,6 +2172,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 36d607a70b92b674aa7ce4b46c0792a6, type: 2}
+    - target: {fileID: 6547899606526611466, guid: 30e9850d98a53db4792a664e9301af21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 36d607a70b92b674aa7ce4b46c0792a6, type: 2}
     - target: {fileID: 6549559254190997776, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2677,6 +2696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e564fd3fbf519499952046002ccf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ifShouldNotPlaySound: 0
 --- !u!4 &5076598810761254312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 739911763991900403, guid: 30e9850d98a53db4792a664e9301af21,

@@ -14,7 +14,6 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
-            Debug.Log(isAutomatic);
         }
 
         protected override void SpecificGunStart()

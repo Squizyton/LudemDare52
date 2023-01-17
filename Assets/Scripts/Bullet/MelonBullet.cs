@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
 
 public class MelonBullet : BaseBullet
@@ -24,7 +25,7 @@ public class MelonBullet : BaseBullet
 			hitColliders[i].TryGetComponent(out Rigidbody monsterRb);
 			if (monster)
 			{
-				Debug.Log(-1 * boomForce * (monster.transform.position - this.transform.position).normalized);
+			
 				monsterRb.AddForce(-1 * boomForce * (monster.transform.position - this.transform.position).normalized, ForceMode.Impulse);
 				monster.OnHit(damage);
 

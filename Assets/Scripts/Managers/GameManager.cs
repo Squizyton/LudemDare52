@@ -125,7 +125,9 @@ public class GameManager : MonoBehaviour
         
         currentWave = 1;
         UIManager.Instance.UpdateWaveCount(totalAmountOfWaves);
-        creditManager.StartWave();
+        if(creditManager.isActiveAndEnabled)
+            creditManager.StartWave();
+        
         creditManager.availableCredits = 25 * totalAmountOfWaves;
 
         cow.position = normalCowPosition;

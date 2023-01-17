@@ -89,8 +89,7 @@ public class PlayerInventory : MonoBehaviour
     public void TakeDamage(Vector3 attackerPos, int damageTaken)
     {
         
-        Debug.Log(damageTaken);
-        Debug.Log("taking Damage");
+ 
         Vector3 direction = attackerPos - transform.position;
         UIManager.Instance.TriggerDamageIndicator(direction);
         
@@ -120,7 +119,7 @@ public class PlayerInventory : MonoBehaviour
         if(GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
         
         currentGun = (currentGun + 1) % guns.Length;
-        Debug.Log("Current Gun" + guns[currentGun]);
+      
         //Disable the current gun
         currentActiveGun.AbortReloadSequence();
         if(currentActiveGun.gameObject.activeSelf)
@@ -149,7 +148,7 @@ public class PlayerInventory : MonoBehaviour
         UIManager.Instance.HarvestText(false);
         PlantInfo harvested = selectedPlot.HarvestSeeds();
         selectedPlot.TurnOnGrowingInfo(false);
-        Debug.Log(harvested.ToString());
+        
         if (!harvested) return;
         FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/UI/UI_Player_Harvest", gameObject);
         if (harvested.PlantName == "starfruit")
@@ -209,9 +208,9 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             inventory.Add(seed, amount);
-            Debug.Log("Seed Dictionary Count: " + inventory.Count);
+       
         }
-        Debug.Log(inventory[seed]);
+
         UIManager.Instance.UpdateSeedCount(seed);
     }
    
@@ -221,10 +220,6 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     public bool RemoveSeed(PlantInfo seed, int amount = 1)
     {
-        Debug.Log(seedInventory.Count);
-        Debug.Log("Contains Key: " + seedInventory.ContainsKey(seed));
-        
-        
         if (seedInventory.ContainsKey(seed) && seedInventory[seed] >= amount)
         {
             seedInventory[seed] -= amount;
@@ -287,16 +282,16 @@ public class PlayerInventory : MonoBehaviour
     [ContextMenu("Check Dictionary")]
     public void CheckDictionarySize()
     {
-        Debug.Log("Dictionary Size: " +seedInventory.Count);
+       
     }
     [ContextMenu("Check Peppercount")]
     public void CheckPepperCount()
     {
-        Debug.Log("Pepper count: " + seedInventory[PepperSeed]);
+     
     }
     [ContextMenu("Check Corncount")]
     public void CheckCornCount()
     {
-        Debug.Log("Corn count: " + seedInventory[CornSeed]);
+       
     }
 }

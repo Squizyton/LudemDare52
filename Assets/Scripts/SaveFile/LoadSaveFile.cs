@@ -12,26 +12,18 @@ public class LoadSaveFile : MonoBehaviour
 {
     public FarmerInfo saveFile;
     
-    
-    
-
     private void Start()
     {
         DontDestroyOnLoad(this);
-
-
         LoadTheSaveFile();
     }
 
     public void LoadTheSaveFile()
     {
         var path = Application.persistentDataPath+"/FarmerInfo";
-        Debug.Log("Looking At:" + path);
-
 
         if (!Directory.Exists(path))
         {
-            Debug.Log("No save file found");
             //Assume there is no save file
             CreateNewSaveFile();
         }
@@ -57,7 +49,6 @@ public class LoadSaveFile : MonoBehaviour
         Directory.CreateDirectory(path);
         
         var formatter = new BinaryFormatter();
-        Debug.Log(path);
         var fileStream = new FileStream(path+"/saveFile.greg", FileMode.Create);
         
         formatter.Serialize(fileStream, saveFile);
