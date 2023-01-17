@@ -9372,17 +9372,22 @@ PrefabInstance:
     - target: {fileID: 8379128587049123976, guid: ac2f25128bc148c49880cf36b8163daa,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6302103
+      value: 0.29601607
       objectReference: {fileID: 0}
     - target: {fileID: 8379128587049123976, guid: ac2f25128bc148c49880cf36b8163daa,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6302103
+      value: 0.29601607
       objectReference: {fileID: 0}
     - target: {fileID: 8379128587049123976, guid: ac2f25128bc148c49880cf36b8163daa,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.12604205
+      value: 0.05920321
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379128587049123976, guid: ac2f25128bc148c49880cf36b8163daa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.3001
       objectReference: {fileID: 0}
     - target: {fileID: 8379128587049123981, guid: ac2f25128bc148c49880cf36b8163daa,
         type: 3}
@@ -9400,6 +9405,11 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 3874081897485858854}
+    - target: {fileID: 8379128587049123983, guid: ac2f25128bc148c49880cf36b8163daa,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8379128588105045074, guid: ac2f25128bc148c49880cf36b8163daa,
         type: 3}
       propertyPath: m_Pivot.x
