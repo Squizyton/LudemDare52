@@ -65,10 +65,12 @@ namespace UI
         [SerializeField] private float musicVolume;
         //[SerializeField] private float dialogVolume;
 
+
         [Header("Button selection")]        public GameObject RTSSelectionButton;
         private bool isRTS;
 
         FMOD.Studio.Bus InGameBus;
+        FMOD.Studio.EventInstance muteSFXsnapshot;
 
         private void Awake()
         {
@@ -81,6 +83,7 @@ namespace UI
         {
             SelectSeeds("corn");
             InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
+            muteSFXsnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/MuteFightSFX");
         }
         private void FixedUpdate()
         {
@@ -98,6 +101,7 @@ namespace UI
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
                     topDownCanvasGroup.interactable = false;
+                    muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     if (isRTS) isRTS = false;
                     break;
                 case GameManager.CurrentMode.TopDown:
@@ -105,6 +109,7 @@ namespace UI
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
+                    muteSFXsnapshot.start();
                     if (!isRTS)
                     {
                         isRTS = true;
@@ -113,6 +118,7 @@ namespace UI
 
                     break;
                 case GameManager.CurrentMode.GameOver:
+                    muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     break;
                 default:
