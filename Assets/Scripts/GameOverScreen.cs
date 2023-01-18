@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ public class GameOverScreen : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.Instance == null) return;
+
         waveNumber.text = GameManager.Instance.totalAmountOfWaves.ToString();
         timeNumber.text = GameManager.Instance.timeAlive.ToString();
         cropsHNumber.text = GameManager.Instance.cropsHarvested.ToString();

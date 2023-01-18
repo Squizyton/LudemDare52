@@ -218,4 +218,9 @@ public class PlayerMovement : MonoBehaviour
 		return;
 	}
     #endregion
+    private void OnDestroy()
+    {
+        controls.Player.Sprint.performed -= GetSprint;
+        controls.Player.Sprint.canceled -= GetSprint;
+    }
 }

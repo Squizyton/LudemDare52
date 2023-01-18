@@ -52,9 +52,9 @@ public class PlayerInventory : MonoBehaviour
     public void Start()
     {
         controls = new PlayerControls();
-        controls.Player.WeaponSwapping.performed += ctx => WeaponSwap();
-        controls.Player.ConvertToBullets.performed += ctx => HarvestAmmo();
-        controls.Player.Harvest.performed += ctx => HarvestSeeds();
+        controls.Player.WeaponSwapping.performed += WeaponSwap;
+        controls.Player.ConvertToBullets.performed += HarvestAmmo;
+        controls.Player.Harvest.performed += HarvestSeeds;
         //Set the Peashooter to the first gun
         //Add initial seeds
         seedInventory = new Dictionary<PlantInfo, int>();
@@ -72,6 +72,7 @@ public class PlayerInventory : MonoBehaviour
         
         
     }
+
 
     public int GetAmmo(PlantInfo seed)
     {
@@ -113,7 +114,7 @@ public class PlayerInventory : MonoBehaviour
     }
     
     
-    private void WeaponSwap()
+    private void WeaponSwap(InputAction.CallbackContext context)
     {
        
         if(GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
@@ -140,7 +141,7 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-    private void HarvestAmmo()
+    private void HarvestAmmo(InputAction.CallbackContext context)
     {
         if (!selectedPlot) return;
         
@@ -169,7 +170,7 @@ public class PlayerInventory : MonoBehaviour
         selectedPlot = null;
     }
 
-    private void HarvestSeeds()
+    private void HarvestSeeds(InputAction.CallbackContext context)
     {
         if(selectedPlot)
         {
@@ -292,6 +293,12 @@ public class PlayerInventory : MonoBehaviour
     [ContextMenu("Check Corncount")]
     public void CheckCornCount()
     {
-       
+
+    }
+    private void OnDestroy()
+    {
+        controls.Player.WeaponSwapping.performed -= WeaponSwap;
+        controls.Player.ConvertToBullets.performed -= HarvestAmmo;
+        controls.Player.Harvest.performed -= HarvestSeeds;
     }
 }
