@@ -59,11 +59,11 @@ namespace UI
         public Transform highlightObject;
 
         [Header("Sound")]        [SerializeField] private bool isSoundVolumeModified;
-        [SerializeField] private float masterVolume;
-        [SerializeField] private float ambientVolume;
-        [SerializeField] private float sfxVolume;
-        [SerializeField] private float musicVolume;
-        //[SerializeField] private float dialogVolume;
+        [SerializeField][Range(0, 100f)] private float masterVolume;
+        [SerializeField][Range(0, 100f)] private float ambientVolume;
+        [SerializeField][Range(0, 100f)] private float sfxVolume;
+        [SerializeField][Range(0, 100f)] private float musicVolume;
+        //[SerializeField] [Range(0, 100f)] private float dialogVolume;
 
 
         [Header("Button selection")]        public GameObject RTSSelectionButton;
