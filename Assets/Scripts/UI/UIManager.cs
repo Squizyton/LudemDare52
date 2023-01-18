@@ -58,19 +58,9 @@ namespace UI
         [Header("Other")] [SerializeField] private GameObject harvestText;
         public Transform highlightObject;
 
-        [Header("Sound")]        [SerializeField] private bool isSoundVolumeModified;
-        [SerializeField][Range(0, 100f)] private float masterVolume;
-        [SerializeField][Range(0, 100f)] private float ambientVolume;
-        [SerializeField][Range(0, 100f)] private float sfxVolume;
-        [SerializeField][Range(0, 100f)] private float musicVolume;
-        //[SerializeField] [Range(0, 100f)] private float dialogVolume;
-
-
         [Header("Button selection")]        public GameObject RTSSelectionButton;
         private bool isRTS;
 
-        FMOD.Studio.Bus InGameBus;
-        FMOD.Studio.EventInstance muteSFXsnapshot;
 
         private void Awake()
         {
@@ -82,13 +72,6 @@ namespace UI
         private void Start()
         {
             SelectSeeds("corn");
-            InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
-            muteSFXsnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/MuteFightSFX");
-        }
-        private void FixedUpdate()
-        {
-            if (isSoundVolumeModified)
-                UpdateSoundVolumes();
         }
         #region Mode Changing
 
@@ -101,26 +84,24 @@ namespace UI
                     fpsCanvasGroup.alpha = 1;
                     topDownCanvasGroup.alpha = 0;
                     topDownCanvasGroup.interactable = false;
-                    muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     if (isRTS) isRTS = false;
                     break;
+
                 case GameManager.CurrentMode.TopDown:
                     GameManager.Instance.grid.TurnOnCellUI();
                     topDownCanvasGroup.alpha = 1;
                     topDownCanvasGroup.interactable = true;
                     fpsCanvasGroup.alpha = 0;
-                    muteSFXsnapshot.start();
                     if (!isRTS)
                     {
                         isRTS = true;
                         setSelectionOnButton();
                     }
+                    break;
 
-                    break;
                 case GameManager.CurrentMode.GameOver:
-                    muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                    InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
             }
@@ -376,15 +357,6 @@ namespace UI
         public void MoveSquare(Transform mTransform)
         {
             highlightObject.position = mTransform.position;
-        }
-
-        public void UpdateSoundVolumes()
-        {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Master_Volume", masterVolume);
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Ambient_Volume", ambientVolume);
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SFX_Volume", sfxVolume);
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Music_Volume", musicVolume);
-            //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Dialogue_Volume", dialogVolume);
         }
     }
 }
