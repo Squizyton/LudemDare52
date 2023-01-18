@@ -32,8 +32,8 @@ public class GameOverScreen : MonoBehaviour
 
     void UpdateSave()
     {
-        
-        GameManager.Instance.loadSaveFile.SaveFile(GameManager.Instance);
+        if (GameManager.Instance.loadSaveFile != null)
+            GameManager.Instance.loadSaveFile.SaveFile(GameManager.Instance);
         Destroy(GameManager.Instance.gameObject);
     }
 
