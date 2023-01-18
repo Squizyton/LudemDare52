@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
 
     //Managers
     [Header("Managers")] 
-    [SerializeField]private UIManager uiManager;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraManager camManager;
-    [SerializeField]private MonsterSpawner creditManager;
+    [SerializeField] private MonsterSpawner creditManager;
+    [SerializeField] private FMODSoundManager fmodSoundManager;
     public LoadSaveFile loadSaveFile;
     [SerializeField] public PlotGrid grid;
     //MOde
@@ -60,7 +61,10 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(this);
         loadSaveFile = FindObjectOfType<LoadSaveFile>();
-        
+
+        if(fmodSoundManager == null) { }
+            fmodSoundManager = FindObjectOfType<FMODSoundManager>();
+
         normalCowPosition = cow.position;
     }
 
@@ -107,6 +111,7 @@ public class GameManager : MonoBehaviour
         //Tell Camera Manager to change the camera mode
         camManager.ChangeMode(newMode);
         uiManager.ChangeModeUI(newMode);
+        if (fmodSoundManager != null) fmodSoundManager.ChangeSoundMode(newMode); 
     }
     public enum CurrentMode
     {
