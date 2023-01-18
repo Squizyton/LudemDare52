@@ -22,6 +22,7 @@ public class FMODSoundManager : MonoBehaviour
 
     //[Header("Current Music Mode")]
     //private MusicGameMode musicMode;
+    //private CurrentGun currentGun;
 
 
     private void Awake()
@@ -34,10 +35,10 @@ public class FMODSoundManager : MonoBehaviour
     void Start()
     {
         Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_InGame");
-        Music.start();
         InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
         muteSFXsnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/MuteFightSFX");
 
+        Music.start();
     }
 
     void Update()
@@ -51,14 +52,14 @@ public class FMODSoundManager : MonoBehaviour
             UpdateSoundVolumes();
     }
     public void ChangeSoundMode(GameManager.CurrentMode newMode)
-    {
+    {   
         switch (newMode)
         {
             case GameManager.CurrentMode.FPS:
                 if (!IsFPS) {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                     Music.setParameterByName("GameMode", 1);
-                    IsFPS = true;
+                    IsFPS = true;       //so it will not repeat in Update mode
                 }
                 muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 break;
@@ -67,7 +68,7 @@ public class FMODSoundManager : MonoBehaviour
                 if (IsFPS)  {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                     Music.setParameterByName("GameMode", 0);
-                    IsFPS = false;
+                    IsFPS = false;       //so it will not repeat in Update mode
                 }
                 muteSFXsnapshot.start();
                 break;
@@ -75,7 +76,7 @@ public class FMODSoundManager : MonoBehaviour
             case GameManager.CurrentMode.GameOver:
                 if (IsFPS)  {
                     Music.setParameterByName("GameMode", 0);
-                    IsFPS = false;
+                    IsFPS = false;       //so it will not repeat in Update mode
                 }
                 muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
@@ -101,14 +102,25 @@ public class FMODSoundManager : MonoBehaviour
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodParameter, value);
     }
 
-    /*
+
     #region EnumTypes
+    /*
+    private enum CurrentGun
+    {
+        Peashooter,
+        Carrotrifle,
+        MelonCanon,
+        Pepperflower,
+        Corngun,
+    }
+
+
     private enum MusicGameMode
     {
         Menu,
         FPS,
         RTS,
     }
-    #endregion
     */
+    #endregion
 }
