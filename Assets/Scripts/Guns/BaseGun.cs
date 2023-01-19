@@ -46,131 +46,6 @@ namespace Guns
             SpecificGunStart();
         }
 
-
-        //Called if you want the gun to do a specific thing on start
-        protected virtual void SpecificGunStart()
-        {
-            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
-            currentMagazine = 15;
-
-        }
-
-        //Use this to change the gun stats
-        //This is the base for the PEA SHOOTER. --------- Override this-------------
-        protected virtual void FeedStatsIntoGun(PlantInfo info) // Pea chooter ignores plantinfo because it can't change
-        {
-            maxAmmoPerClip = bulletList[currentBullet].GetBulletInfo().maxClipSize;
-            fireRate = bulletList[currentBullet].GetBulletInfo().gunFireRate;
-        }
-
-        public void SwapAmmo()
-        {
-
-            for (var i = 0; i < bulletList.Length - 1; i++)
-            {
-                var index = (i + currentBullet + 1) % bulletList.Length;
-                
-                var bullet = bulletList[index];
-
-                currentBullet = index;
-
-                //FMOD Changing bullet sound
-                SpecialGunBullet = currentBullet + 1;
-                ChangeFMODGunType(SpecialGunBullet);
-
-                AbortReloadSequence();
-                currentMagazine = 0;
-                FeedStatsIntoGun(bullet.GetBulletInfo());
-                ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
-                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
-                UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
-                UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
-                break;
-            }
-        }
-
-
-        public virtual void Shoot()
-        {
-            if (!canFire) return;
-
-            if (currentMagazine > 0)
-            {
-                GameManager.Instance.bulletsFired++;
-                animator.SetTrigger("Shoot");
-                CameraShake.Shake(3, 0.1f, 0.25f);
-                currentMagazine--;
-                canFire = false;
-                // Update ammo in inventory
-                var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
-                PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
-                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-
-                //rotate the bullet to face the hit point
-                var position = spawnPoint.position;
-                var rotation = Quaternion.LookRotation(hitPoint - position);
-                //spawn the bullet
-                var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
-                Instantiate(peaParticles, position, rotation);
-
-                //FMOD
-                FMODShootSound();
-
-                if (IsAutomatic())
-                    StartCoroutine(CoolDown());
-
-                if (currentMagazine == 0)
-                    ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
-            }
-        }
-        #region Sound
-        private void ChangeFMODGunType(int GunType)
-        {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
-        }
-
-        private void FMODShootSound()
-        {
-            if (hasInfiniteAmmo)
-            {
-                ChangeFMODGunType(0);
-            }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
-        }
-        #endregion
-
-        public void ReloadSequence(float timeToReload)
-        {
-            if (!hasInfiniteAmmo && ammoInSack <= 0) return;
-            animator.SetTrigger("Reload");
-            UIManager.Instance.ReloadGroupStatus(true, timeToReload);
-            isReloading = true;
-            ammoInSack += currentMagazine;
-            currentMagazine = 0;
-            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-
-            //FMOD
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Reload");
-
-            reloadTime = timeToReload;
-            totalReloadTime = 0;
-        }
-
-        public void AbortReloadSequence()
-        {
-            UIManager.Instance.ReloadGroupStatus(false, 0);
-            isReloading = false;
-            totalReloadTime = 0;
-            reloadTime = 0;
-        }
-
-        public void UpdateSack(PlantInfo info)
-        {
-            ammoInSack = PlayerInventory.Instance.GetAmmo(info);
-         
-        }
-
-
         private void Update()
         {
             //Shoot a ray from the middle of the screen
@@ -235,6 +110,141 @@ namespace Guns
             #endregion
         }
 
+        //Called if you want the gun to do a specific thing on start
+        protected virtual void SpecificGunStart()
+        {
+            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
+            currentMagazine = 15;
+
+        }
+
+        //Use this to change the gun stats
+        //This is the base for the PEA SHOOTER. --------- Override this-------------
+        protected virtual void FeedStatsIntoGun(PlantInfo info) // Pea chooter ignores plantinfo because it can't change
+        {
+            maxAmmoPerClip = bulletList[currentBullet].GetBulletInfo().maxClipSize;
+            fireRate = bulletList[currentBullet].GetBulletInfo().gunFireRate;
+        }
+
+        public void SwapAmmo()
+        {
+
+            for (var i = 0; i < bulletList.Length - 1; i++)
+            {
+                var index = (i + currentBullet + 1) % bulletList.Length;
+                
+                var bullet = bulletList[index];
+
+                currentBullet = index;
+
+                //FMOD Changing bullet
+                SpecialGunBullet = currentBullet + 1;
+                ChangeFmodGunType(SpecialGunBullet);
+
+                AbortReloadSequence();
+                currentMagazine = 0;
+                FeedStatsIntoGun(bullet.GetBulletInfo());
+                ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
+                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
+                UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
+                UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
+                break;
+            }
+        }
+
+
+        public virtual void Shoot()
+        {
+            if (!canFire)   return;
+
+            if (currentMagazine > 0)
+            {
+                GameManager.Instance.bulletsFired++;
+                animator.SetTrigger("Shoot");
+                CameraShake.Shake(3, 0.1f, 0.25f);
+                currentMagazine--;
+                canFire = false;
+
+                // Update ammo in inventory
+                var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
+                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
+
+                //rotate the bullet to face the hit point
+                var position = spawnPoint.position;
+                var rotation = Quaternion.LookRotation(hitPoint - position);
+
+                //spawn the bullet
+                var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+                Instantiate(peaParticles, position, rotation);
+
+                //FMOD
+                FmodShootSound();
+
+                if (IsAutomatic())
+                    StartCoroutine(CoolDown());
+
+                if (currentMagazine == 0)
+                    ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
+            }
+        }
+        #region FMOD Functions
+        private void ChangeFmodGunType(int GunType)
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
+        }
+
+        private void FmodShootSound()
+        {
+            if (hasInfiniteAmmo)
+            {
+                ChangeFmodGunType(0);
+            }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
+        }
+        private void FmodNoAmmo()
+        {
+            /*if (hasInfiniteAmmo)            
+                ChangeFmodGunType(0);
+            else
+                ChangeFmodGunType(1);*/
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_NoAmmo");
+            Debug.Log("no ammo to shoot");
+        }
+
+
+        #endregion
+
+        public void ReloadSequence(float timeToReload)
+        {
+            if (!hasInfiniteAmmo && ammoInSack <= 0) return;
+            animator.SetTrigger("Reload");
+            UIManager.Instance.ReloadGroupStatus(true, timeToReload);
+            isReloading = true;
+            ammoInSack += currentMagazine;
+            currentMagazine = 0;
+            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
+
+            //FMOD
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Reload");
+
+            reloadTime = timeToReload;
+            totalReloadTime = 0;
+        }
+
+        public void AbortReloadSequence()
+        {
+            UIManager.Instance.ReloadGroupStatus(false, 0);
+            isReloading = false;
+            totalReloadTime = 0;
+            reloadTime = 0;
+        }
+
+        public void UpdateSack(PlantInfo info)
+        {
+            ammoInSack = PlayerInventory.Instance.GetAmmo(info);
+        }
+
         private IEnumerator CoolDown()
         {
             yield return new WaitForSeconds(fireRate);
@@ -261,12 +271,10 @@ namespace Guns
             return isReloading;
         }
 
-
         public void SetCanFire(bool value)
         {
             this.canFire = value;
         }
-
 
         public bool CanFire()
         {
@@ -277,6 +285,5 @@ namespace Guns
         {
             return currentMagazine == maxAmmoPerClip;
         }
-
     }
 }
