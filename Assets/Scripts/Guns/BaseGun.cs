@@ -155,6 +155,7 @@ namespace Guns
 
         public virtual void Shoot()
         {
+
             if (!canFire)   return;
 
             if (currentMagazine > 0)
@@ -187,6 +188,8 @@ namespace Guns
                 if (currentMagazine == 0)
                     ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             }
+            else
+                FmodNoAmmo();
         }
         #region FMOD Functions
         private void ChangeFmodGunType(int GunType)
@@ -209,7 +212,6 @@ namespace Guns
             else
                 ChangeFmodGunType(1);*/
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_NoAmmo");
-            Debug.Log("no ammo to shoot");
         }
 
 
@@ -256,7 +258,7 @@ namespace Guns
             return currentMagazine;
         }
 
-        public bool GetIsInfinite()
+        public bool GetIsInfinite() 
         {
             return hasInfiniteAmmo;
         }
