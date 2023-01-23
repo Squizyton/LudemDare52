@@ -27,7 +27,7 @@ namespace UI
         [SerializeField] private CanvasGroup fpsCarrotIcon;
         [SerializeField] private CanvasGroup fpsMelonIcon;
         [SerializeField] private CanvasGroup fpsPepperIcon;
-        [SerializeField] private CanvasGroup hitIndicator;
+        [SerializeField] private GameObject hitIndicator;
         [SerializeField] private GameObject damageIndicator;
 
         [Header("Stats")] [SerializeField] private TextMeshProUGUI waveCount;
@@ -163,7 +163,18 @@ namespace UI
 
         public void TriggerHitIndicator()
         {
-            hitIndicator.alpha = 1;
+            HitIndicatorFadeOut hitIndicatorScript;
+            hitIndicator.TryGetComponent(out hitIndicatorScript);
+            if (hitIndicatorScript != null)
+                hitIndicatorScript.StartFade();
+        }
+
+        public void TriggerKillIndicator()
+        {
+            HitIndicatorFadeOut hitIndicatorScript;
+            hitIndicator.TryGetComponent(out hitIndicatorScript);
+            if (hitIndicatorScript != null)
+                hitIndicatorScript.StartFlash();
         }
 
         public void SetHealth(float newHealth)
@@ -195,8 +206,12 @@ namespace UI
                 dmgIndTransform.rotation = Quaternion.Euler(0, 0, angle);
             else
                 Debug.Log("Error: TriggerDamageIndicator");
-            damageIndicator.TryGetComponent<CanvasGroup>(out CanvasGroup grpInd);
-            grpInd.alpha = 1;
+            //damageIndicator.TryGetComponent<CanvasGroup>(out CanvasGroup grpInd);
+            //grpInd.alpha = 1;
+            HitIndicatorFadeOut damageIndicatorScript;
+            damageIndicator.TryGetComponent(out damageIndicatorScript);
+            if (damageIndicatorScript != null)
+                damageIndicatorScript.StartFade();
         }
 
         #endregion
