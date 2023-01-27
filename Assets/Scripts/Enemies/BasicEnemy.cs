@@ -154,6 +154,7 @@ namespace Enemies
 			isDead = true;
 			agent.enabled = false;
 			healthBar.gameObject.SetActive(false);
+			UIManager.Instance.TriggerKillIndicator();
 		
 			TryGetComponent(out Collider component);
 			component.enabled = false;

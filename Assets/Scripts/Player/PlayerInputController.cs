@@ -7,14 +7,8 @@ namespace Player
     public class PlayerInputController : MonoBehaviour
     {
         public static PlayerInputController Instance;
-
-
-       public PlayerControls playerControls;
-
-
-        public CameraRotation cameraRotationClass;
-    
-    
+        public PlayerControls playerControls;
+        public CameraRotation cameraRotationClass;  
         private bool isShooting;
 
         private void Awake()
