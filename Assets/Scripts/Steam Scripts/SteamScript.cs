@@ -8,7 +8,7 @@ namespace Steam_Scripts
 {
     public class SteamScript : MonoBehaviour
     {
-        private void Start()
+        private void Awake()
         {
             //Check to see if SteamManager is initialized
             if (!SteamManager.Initialized) return;
