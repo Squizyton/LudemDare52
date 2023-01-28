@@ -58,8 +58,6 @@ public class FMODSoundManager : MonoBehaviour
             case GameManager.CurrentMode.FPS:
                 if (!IsFPS) {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
-                    //Music.setParameterByName("GameMode", 1);
-
                     FMODSetParameterByName("GameMode", 1);
                     IsFPS = true;       //so it will not repeat in Update mode
                 }
@@ -69,8 +67,6 @@ public class FMODSoundManager : MonoBehaviour
             case GameManager.CurrentMode.TopDown:
                 if (IsFPS)  {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
-                    //Music.setParameterByName("GameMode", 0);
-
                     FMODSetParameterByName("GameMode", 0);
                     IsFPS = false;       //so it will not repeat in Update mode
                 }
@@ -79,8 +75,6 @@ public class FMODSoundManager : MonoBehaviour
 
             case GameManager.CurrentMode.GameOver:
                 if (IsFPS)  {
-                    //Music.setParameterByName("GameMode", 0);
-
                     FMODSetParameterByName("GameMode", 0);
                     IsFPS = false;       //so it will not repeat in Update mode
                 }
