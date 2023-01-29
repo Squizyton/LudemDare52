@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SaveFile;
+using Steamworks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,8 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject EnterNamePanel;
     [SerializeField]private TMP_InputField nameInputField;
     [SerializeField]private TMP_Text nameText;
+    [SerializeField]private TMP_Text placeHolderText;
+
 
 
     [Header("Stat Numbers")] 
@@ -39,12 +42,17 @@ public class MainMenuUI : MonoBehaviour
     public void EnterNameUI()
     {
         EnterNamePanel.SetActive(true);
+        
+        if(SteamManager.Initialized)
+            placeHolderText.text = SteamFriends.GetPersonaName();
+        
         SetSelectedButton(enterNameFirstSelectedButton);
     }
 
     public void EnteredName()
     {
-        if (nameInputField.text.Length <= 0) return;
+        if (nameInputField.text.Length <= 0)
+            nameInputField.text = placeHolderText.text;
 
 
         loadSaveFile.saveFile.farmerName = nameInputField.text;
