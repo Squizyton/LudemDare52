@@ -3352,6 +3352,7 @@ MonoBehaviour:
   EnterNamePanel: {fileID: 925928564}
   nameInputField: {fileID: 1894096491}
   nameText: {fileID: 1700627246}
+  placeHolderText: {fileID: 1869921303}
   waveNumber: {fileID: 1795378783}
   timeNumber: {fileID: 550124371}
   cropsHNumber: {fileID: 1767544176}

@@ -15,7 +15,7 @@ public class MelonBullet : BaseBullet
 	{
 		FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Explo", gameObject); //FMOD impact
 
-		int maxColliders = 10;
+		const int maxColliders = 10;
 		var hitColliders = new Collider[maxColliders];
 		int numColliders = Physics.OverlapSphereNonAlloc(this.transform.position, radius, hitColliders, whatIsOnlyEnemy);
 
