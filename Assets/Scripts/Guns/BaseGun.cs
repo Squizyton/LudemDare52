@@ -131,6 +131,8 @@ namespace Guns
 
             for (var i = 0; i < bulletList.Length - 1; i++)
             {
+                //Developers Note: I dont know why this is unreachable in Rider. It works fine in Unity
+                //This is probably cause this is on two guns. One with bullets and one without. 
                 var index = (i + currentBullet + 1) % bulletList.Length;
                 
                 var bullet = bulletList[index];
