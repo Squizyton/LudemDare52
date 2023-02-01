@@ -245,29 +245,6 @@ namespace UI
             ammoCount.text = inMagazine.ToString() + " / " + inSack.ToString();
         }
 
-        public void UpdateAmmoTotal(PlantInfo plantInfo, int amount)
-        {
-            switch (plantInfo.PlantName)
-            {
-                case "corn":
-                    cornBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "carrot":
-                    carrotBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "pepper":
-                    pepperBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "melon":
-                    melonBulletCount.text = "x" + amount.ToString();
-
-                    break;
-            }
-        }
-
         public void UpdateAmmoType(PlantInfo plantInfo)
         {
             fpsCornIcon.alpha = 0;
@@ -311,15 +288,19 @@ namespace UI
             {
                 case "corn":
                     cornSeedCount.text = "x" + seedCount.ToString();
+                    cornBulletCount.text = cornSeedCount.text;
                     break;
                 case "pepper":
                     pepperSeedCount.text = "x" + seedCount.ToString();
+                    pepperBulletCount.text = pepperSeedCount.text;
                     break;
                 case "melon":
                     melonSeedCount.text = "x" + seedCount.ToString();
+                    melonBulletCount.text = melonSeedCount.text;
                     break;
                 case "carrot":
                     carrotSeedCount.text = "x" + seedCount.ToString();
+                    carrotBulletCount.text = carrotSeedCount.text;
                     break;
                 case "starfruit":
                     starFruitSeedCount.text = "x" + seedCount.ToString();
