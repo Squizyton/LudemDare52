@@ -111,7 +111,8 @@ public class GameManager : MonoBehaviour
         //Tell Camera Manager to change the camera mode
         camManager.ChangeMode(newMode);
         uiManager.ChangeModeUI(newMode);
-        if (fmodSoundManager != null) fmodSoundManager.ChangeSoundMode(newMode); 
+        if (fmodSoundManager != null) 
+            fmodSoundManager.ChangeSoundMode(newMode);
     }
     public enum CurrentMode
     {
