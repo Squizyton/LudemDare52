@@ -1,3 +1,4 @@
+using FMOD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,17 +98,10 @@ public class FMODSoundManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("I had level number that was not added to FMOD");
+                UnityEngine.Debug.Log("I had level number that was not added to FMOD");
                 FMODSetParameterByNameWithLabel("CurrentLevel", "MainMenu");
                 oldLevel = level;
                 break;
-        }
-    }
-    void Start()
-    {
-        //if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-        //    PlayLevelMusic();
         }
     }
 
@@ -237,4 +231,5 @@ public class FMODSoundManager : MonoBehaviour
     }
     */
     #endregion
+
 }
