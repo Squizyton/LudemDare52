@@ -1988,10 +1988,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1789006963}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7264410423582995074}
   m_SourcePrefab: {fileID: 100100000, guid: 6d7e29cdb0308054e89d5b02bd72e0a1, type: 3}
 --- !u!1 &512521480817205630 stripped
 GameObject:
@@ -2123,19 +2119,21 @@ MonoBehaviour:
   eatTime: 10
   readyToGo: 0
   isEating: 0
---- !u!114 &7264410423582995074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 512521480817205630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e564fd3fbf519499952046002ccf9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ifShouldNotPlaySound: 0
+  ifDoNotPlaySound: 0
+  FmodFootstepEvent:
+    Guid:
+      Data1: 1772041778
+      Data2: 1223429866
+      Data3: 2053905826
+      Data4: -1054016196
+    Path: event:/SFX/Enemy/Felonious/Enemy_Felonious_FS
+  FmodBodyfallEvent:
+    Guid:
+      Data1: -645592829
+      Data2: 1192078809
+      Data3: 1687727522
+      Data4: -96539939
+    Path: event:/SFX/Enemy/Enemy_BodyfallSound
 --- !u!4 &889187417946176452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
