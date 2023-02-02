@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 657851676889147523}
   - component: {fileID: -4357486940137234534}
+  - component: {fileID: -5565237777376672867}
   m_Layer: 0
-  m_Name: SFX_ClickMenu
+  m_Name: UI_Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,3 +63,15 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &-5565237777376672867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108069635813955356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbd1963e230c684b84f38ce7d33007b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

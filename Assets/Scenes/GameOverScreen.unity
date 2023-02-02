@@ -2644,10 +2644,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -4357486940137234534, guid: 8d42bb77a100bb849a5a872438951489,
+      - m_Target: {fileID: -5565237777376672867, guid: 8d42bb77a100bb849a5a872438951489,
           type: 3}
-        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
-        m_MethodName: Play
+        m_TargetAssemblyTypeName: UI_Audio, Assembly-CSharp
+        m_MethodName: FmodClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
