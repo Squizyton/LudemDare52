@@ -1,6 +1,8 @@
 using System;
 using FMOD.Studio;
 using System.Collections;
+using System.Threading.Tasks;
+using Camera;
 using Cinemachine;
 using Player;
 using UI;
@@ -9,7 +11,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 namespace Guns
 {
-    public class BaseGun : MonoBehaviour
+    public abstract class BaseGun : MonoBehaviour
     {
         [Header("Important Things")] public Transform spawnPoint;
 
@@ -19,7 +21,8 @@ namespace Guns
 
         [Header("Base Stats")] [SerializeField]
         protected int maxAmmoPerClip;
-         [SerializeField] protected int currentMagazine;
+
+        [SerializeField] protected int currentMagazine;
         [SerializeField] protected int ammoInSack;
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float fireRate;
@@ -33,24 +36,35 @@ namespace Guns
         private bool canFire = true;
         private float totalReloadTime;
         private Vector3 hitPoint;
-                
+
 
         public LayerMask layerMask;
         [SerializeField] private Animator animator;
         public GameObject peaParticles;
 
-        private void Start()
+        private Task _task;
+        private static readonly int Reload = Animator.StringToHash("Reload");
+
+        #region Start Functions
+
+        public virtual void Start()
         {
-            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-            UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
-            SpecificGunStart();
+            GunStart();
         }
+
+        protected abstract void GunStart();
+
+        #endregion
+
+        #region Shooting Functions
+
+        public abstract void Shoot();
 
         private void Update()
         {
             //Shoot a ray from the middle of the screen
             //Camera.main is expensive, so...Idk find something to replace it
-            var ray = UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
 
             //If we hit something
@@ -58,196 +72,100 @@ namespace Guns
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
             {
                 hitPoint = hit.point;
-            } //Developer's note: I wanna make this cleaner. It's NOT pretty
-
-            #region Reloading
-
-            if (!isReloading) return;
-
-            if (reloadTime > 0f)
-            {
-                reloadTime -= Time.deltaTime;
-                totalReloadTime += Time.deltaTime;
-                UIManager.Instance.FeedReloadTime(totalReloadTime);
             }
-            else
+        }
+
+        #endregion
+
+        #region Reload
+
+        public async void StartReload()
+        {
+            if (isReloading) return;
+            _task = ReloadSequence(reloadTime);
+            Debug.Log("Reloading");
+            await _task;
+            Debug.Log("Reload Complete");
+        }
+
+        protected virtual async Task ReloadSequence(float timeToReload)
+        {
+            if (!hasInfiniteAmmo && ammoInSack <= 0) return;
+
+
+            var completed = false;
+            var time = timeToReload;
+
+            isReloading = true;
+            animator.SetTrigger(Reload);
+
+            while (!completed)
             {
-                if (!hasInfiniteAmmo)
+                if (time > 0)
                 {
-                    //get the difference between the current ammo and the max ammo
-                    var difference = maxAmmoPerClip - currentMagazine;
+                    time -= Time.deltaTime;
+                    Debug.Log(time);
+                    totalReloadTime += Time.deltaTime;
+                    UIManager.Instance.FeedReloadTime(totalReloadTime);
+                }
+                else completed = true;
 
-                    PlantInfo currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+                await Task.Yield();
+            }
 
-                    //Set ammoInSack to inventory amount
-                    ammoInSack = PlayerInventory.Instance.GetAmmo(currentAmmoType) - currentMagazine;
 
-                    //If the player has enough ammo to reload
-                    if (ammoInSack >= maxAmmoPerClip)
-                    {
-                        ammoInSack -= difference;
+            if (!hasInfiniteAmmo)
+            {
+                //get the difference between the current ammo and the max ammo
+                var difference = maxAmmoPerClip - currentMagazine;
 
-                        currentMagazine = maxAmmoPerClip;
+                var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
 
-                        Debug.Log(currentMagazine);
-                    }
-                    else
-                    {
-                        currentMagazine = ammoInSack;
-                        ammoInSack = 0;
-                    }
+                //Set ammoInSack to inventory amount
+                ammoInSack = PlayerInventory.Instance.GetAmmo(currentAmmoType) - currentMagazine;
+
+                //If the player has enough ammo to reload
+                if (ammoInSack >= maxAmmoPerClip)
+                {
+                    ammoInSack -= difference;
+
+                    currentMagazine = maxAmmoPerClip;
+
+                    Debug.Log(currentMagazine);
                 }
                 else
                 {
-                    currentMagazine = maxAmmoPerClip;
+                    currentMagazine = ammoInSack;
+                    ammoInSack = 0;
                 }
-
-                isReloading = false;
-                UIManager.Instance.ReloadGroupStatus(false, 0);
-                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-            }
-
-            #endregion
-        }
-
-        //Called if you want the gun to do a specific thing on start
-        protected virtual void SpecificGunStart()
-        {
-            FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
-            currentMagazine = 15;
-
-        }
-
-        //Use this to change the gun stats
-        //This is the base for the PEA SHOOTER. --------- Override this-------------
-        protected virtual void FeedStatsIntoGun(PlantInfo info) // Pea chooter ignores plantinfo because it can't change
-        {
-            maxAmmoPerClip = bulletList[currentBullet].GetBulletInfo().maxClipSize;
-            fireRate = bulletList[currentBullet].GetBulletInfo().gunFireRate;
-        }
-
-        public void SwapAmmo()
-        {
-
-            for (var i = 0; i < bulletList.Length - 1; i++)
-            {
-                //Developers Note: I dont know why this is unreachable in Rider. It works fine in Unity
-                //This is probably cause this is on two guns. One with bullets and one without. 
-                var index = (i + currentBullet + 1) % bulletList.Length;
-                
-                var bullet = bulletList[index];
-
-                currentBullet = index;
-
-                //FMOD Changing bullet
-                SpecialGunBullet = currentBullet + 1;
-                ChangeFmodGunType(SpecialGunBullet);
-
-                AbortReloadSequence();
-                currentMagazine = 0;
-                FeedStatsIntoGun(bullet.GetBulletInfo());
-                ammoInSack = PlayerInventory.Instance.GetAmmo(bullet.GetBulletInfo());
-                ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
-                UIManager.Instance.UpdateAmmoType(bulletList[currentBullet].GetBulletInfo());
-                UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
-                break;
-            }
-        }
-
-
-        public virtual void Shoot()
-        {
-
-            if (!canFire)   return;
-
-            if (currentMagazine > 0)
-            {
-                GameManager.Instance.bulletsFired++;
-                animator.SetTrigger("Shoot");
-                CameraShake.Shake(3, 0.1f, 0.25f);
-                currentMagazine--;
-                canFire = false;
-
-                // Update ammo in inventory
-                var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
-                PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
-                UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
-
-                //rotate the bullet to face the hit point
-                var position = spawnPoint.position;
-                var rotation = Quaternion.LookRotation(hitPoint - position);
-
-                //spawn the bullet
-                var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
-                Instantiate(peaParticles, position, rotation);
-
-                //FMOD
-                FmodShootSound();
-
-                if (IsAutomatic())
-                    StartCoroutine(CoolDown());
-
-                if (currentMagazine == 0)
-                    ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             }
             else
-                FmodNoAmmo();
-        }
-        #region FMOD Functions
-        private void ChangeFmodGunType(int GunType)
-        {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("GunType", GunType);
+            {
+                currentMagazine = maxAmmoPerClip;
+            }
+
+            isReloading = false;
+            UIManager.Instance.ReloadGroupStatus(false, 0);
+            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
         }
 
-        private void FmodShootSound()
+
+        public async void AbortReloadSequence()
         {
-            if (hasInfiniteAmmo)
-            {
-                ChangeFmodGunType(0);
-            }
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
-        }
-        private void FmodNoAmmo()
-        {
-            /*if (hasInfiniteAmmo)            
-                ChangeFmodGunType(0);
-            else
-                ChangeFmodGunType(1);*/
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_NoAmmo");
+            //Abort the reload sequence
+            isReloading = false;
+            animator.ResetTrigger(Reload);
+            UIManager.Instance.ReloadGroupStatus(false, 0);
+            
+            //Kill the task to free up memory
+            _task.Dispose();
         }
 
 
         #endregion
 
-        public void ReloadSequence(float timeToReload)
-        {
-            if (!hasInfiniteAmmo && ammoInSack <= 0) return;
-            animator.SetTrigger("Reload");
-            UIManager.Instance.ReloadGroupStatus(true, timeToReload);
-            isReloading = true;
-            ammoInSack += currentMagazine;
-            currentMagazine = 0;
-            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
 
-            //FMOD
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Reload");
-
-            reloadTime = timeToReload;
-            totalReloadTime = 0;
-        }
-
-        public void AbortReloadSequence()
-        {
-            UIManager.Instance.ReloadGroupStatus(false, 0);
-            isReloading = false;
-            totalReloadTime = 0;
-            reloadTime = 0;
-        }
-
-        public void UpdateSack(PlantInfo info)
-        {
-            ammoInSack = PlayerInventory.Instance.GetAmmo(info);
-        }
+        #region Setters/Getters
 
         private IEnumerator CoolDown()
         {
@@ -260,7 +178,7 @@ namespace Guns
             return currentMagazine;
         }
 
-        public bool GetIsInfinite() 
+        public bool GetIsInfinite()
         {
             return hasInfiniteAmmo;
         }
@@ -289,5 +207,7 @@ namespace Guns
         {
             return currentMagazine == maxAmmoPerClip;
         }
+
+        #endregion
     }
 }
