@@ -176,7 +176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4000014280216940}
   - component: {fileID: 205000011898519772}
-  - component: {fileID: 64000013481660090}
   m_Layer: 0
   m_Name: RockCluster_A
   m_TagString: Untagged
@@ -229,28 +228,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 23000011735264874}
   m_Enabled: 1
---- !u!64 &64000013481660090
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013857952760}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6294813292079172080, guid: 5e54d45e142a36d45a50435e34952efa, type: 3}
 --- !u!1 &1000014124738240
 GameObject:
   m_ObjectHideFlags: 0

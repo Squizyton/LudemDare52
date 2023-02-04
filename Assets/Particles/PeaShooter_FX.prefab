@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5787820069314883137}
   - component: {fileID: 5787820069314883140}
   m_Layer: 0
-  m_Name: PeaShooter
+  m_Name: PeaShooter_FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

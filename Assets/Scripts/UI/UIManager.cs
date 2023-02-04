@@ -218,11 +218,13 @@ namespace UI
 
         #region Reload
 
-        public void ReloadGroupStatus(bool value, float reloadTime)
+        public void ReloadGroupStatus(bool value, float reloadTime = 1f)
         {
             reloadGroup.alpha = value ? 1 : 0;
-            reloadSlider.value = 0;
+           
             reloadSlider.maxValue = reloadTime;
+            Debug.Log(reloadSlider.value);
+            reloadSlider.value = 0;
         }
 
         public void FeedReloadTime(float time)
