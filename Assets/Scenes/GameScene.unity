@@ -5713,7 +5713,7 @@ Terrain:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348785881}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 02c58808602682f4999466045039b547, type: 2}
   m_TreeDistance: 5000
@@ -9574,7 +9574,8 @@ PrefabInstance:
       value: ----FPSUI-----
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8379128586708573237, guid: ac2f25128bc148c49880cf36b8163daa, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8379128587049123977, guid: ac2f25128bc148c49880cf36b8163daa,
