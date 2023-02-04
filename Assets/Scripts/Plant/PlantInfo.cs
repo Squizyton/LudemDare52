@@ -10,7 +10,7 @@ public class PlantInfo : ScriptableObject
     public string PlantName;
     public float GrowTime;
     public int seedYield;
-    public int bulletYield;
+    public int plantCost;
     public GameObject plantModel;
     public Sprite seedIcon;
     public Sprite bulletIcon;
