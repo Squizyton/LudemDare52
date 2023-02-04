@@ -27,6 +27,8 @@ public class PlayerInventory : MonoBehaviour
         
         seedInventory = new Dictionary<PlantInfo, int>();
     }
+    
+    
     [SerializeField] PlantInfo CornSeed;
     [SerializeField] PlantInfo PepperSeed;
     [SerializeField] PlantInfo CarrotSeed;
@@ -56,6 +58,7 @@ public class PlayerInventory : MonoBehaviour
         //Set the Peashooter to the first gun
         //Add initial seeds
         seedInventory = new Dictionary<PlantInfo, int>();
+        
         AddSeed(seedInventory, CornSeed, 90);
         AddSeed(seedInventory, PepperSeed, 60);
         AddSeed(seedInventory, MelonSeed, 1);

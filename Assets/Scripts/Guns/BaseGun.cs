@@ -30,16 +30,16 @@ namespace Guns
 
         [Header("Is Clauses")] private bool isReloading;
         [SerializeField] protected bool isAutomatic;
-        [SerializeField] private bool hasInfiniteAmmo;
+        [SerializeField] protected  bool hasInfiniteAmmo;
 
         private int SpecialGunBullet;
-        private bool canFire = true;
+        protected bool canFire = true;
         private float totalReloadTime;
-        private Vector3 hitPoint;
+        protected Vector3 hitPoint;
 
 
         public LayerMask layerMask;
-        [SerializeField] private Animator animator;
+        [SerializeField] protected Animator animator;
         public GameObject peaParticles;
 
         private Task _task;
@@ -79,10 +79,10 @@ namespace Guns
 
         #region Reload
 
-        public async void StartReload()
+        public async void StartReload(float time)
         {
             if (isReloading) return;
-            _task = ReloadSequence(reloadTime);
+            _task = ReloadSequence(time);
             Debug.Log("Reloading");
             await _task;
             Debug.Log("Reload Complete");
@@ -149,7 +149,6 @@ namespace Guns
             UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
         }
 
-
         public async void AbortReloadSequence()
         {
             //Abort the reload sequence
@@ -167,7 +166,13 @@ namespace Guns
 
         #region Setters/Getters
 
-        private IEnumerator CoolDown()
+        
+        public void UpdateSack(PlantInfo info)
+        {
+            ammoInSack = PlayerInventory.Instance.GetAmmo(info);
+        }
+        
+        protected IEnumerator CoolDown()
         {
             yield return new WaitForSeconds(fireRate);
             canFire = true;

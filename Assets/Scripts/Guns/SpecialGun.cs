@@ -9,14 +9,14 @@ namespace Guns
     {
         [SerializeField] private PlayerInventory player;
 
-        protected override void FeedStatsIntoGun(PlantInfo newAmmo)
+        private void FeedStatsIntoGun(PlantInfo newAmmo)
         {
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
         }
 
-        protected override void SpecificGunStart()
+        protected void SpecificGunStart()
         {
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
         }
@@ -28,6 +28,17 @@ namespace Guns
                 ammoInSack = 0;
             UIManager.Instance.UpdateAmmoCount(GetCurrentMag(), ammoInSack, GetIsInfinite());
             
+        }
+
+
+        protected override void GunStart()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Shoot()
+        {
+            throw new NotImplementedException();
         }
     }
 }

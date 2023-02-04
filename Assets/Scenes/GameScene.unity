@@ -8979,6 +8979,7 @@ PrefabInstance:
     - {fileID: 5257447921394462717, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     - {fileID: 5257447922195116073, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     - {fileID: 5257447922195116072, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
+    - {fileID: 5257447923016512699, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5257447921394462711, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     m_AddedGameObjects:
@@ -8991,6 +8992,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1672516316}
+    - targetCorrespondingSourceObject: {fileID: 5257447923016512697, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5257447922682492196}
     - targetCorrespondingSourceObject: {fileID: 5257447922591553157, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       insertIndex: -1
@@ -9002,6 +9007,46 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5257447922682492192}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5257447922682492194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5257447923144407471, guid: 8f747239faf8c95429cec780631f8feb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5257447922682492192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5257447922682492195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5257447923016512697, guid: 8f747239faf8c95429cec780631f8feb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5257447922682492192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5257447922682492196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5257447922682492195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92080892d9b6a7f40999558b06f9ce84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 5257447922682492194}
+  currentBullet: 0
+  bulletList:
+  - {fileID: 6302676976050844464, guid: 3624e8c034aa16f4ca926fcc6db4c5f6, type: 3}
+  maxAmmoPerClip: 0
+  currentMagazine: 0
+  ammoInSack: 0
+  reloadTime: 0
+  fireRate: 0
+  isAutomatic: 0
+  hasInfiniteAmmo: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  animator: {fileID: 0}
+  peaParticles: {fileID: 0}
 --- !u!1 &5619854715197325855
 GameObject:
   m_ObjectHideFlags: 0
