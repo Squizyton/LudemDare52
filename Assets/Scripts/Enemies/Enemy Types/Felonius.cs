@@ -17,10 +17,15 @@ public class Felonius : BasicEnemy
     [SerializeField] private float eatTime;
 
     [SerializeField] private bool readyToGo;
-    [SerializeField]private bool isEating;
+    [SerializeField] private bool isEating;
+
+    [SerializeField] private bool ifDoNotPlaySound;
+
+    [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
+    [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
 
 
-    
+
     private void Start()
     {
         healthBar.maxValue = health;
@@ -103,5 +108,31 @@ public class Felonius : BasicEnemy
         }
         state = State.Moving;
     }
-   
+
+    #region FMOD
+    public void FmodPostFootstepsEvent()
+    {
+        PlaySound(FmodFootstepEvent);
+    }
+
+    public void DevourSound()
+    {
+        PlaySound("event:/SFX/Enemy/Felonious/Enemy_Felonious_Devour");
+    }
+
+    public void BodyfallSound()
+    {
+        PlaySound(FmodBodyfallEvent);
+    }
+
+    public void PlaySound(string sound)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+    }
+
+    public void PlaySound(FMODUnity.EventReference sound)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+    }
+    #endregion
 }

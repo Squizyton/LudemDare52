@@ -3334,10 +3334,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 48929518}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ae6b786e4d620a4c9be008e085720d6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5727447439654831879}
   m_SourcePrefab: {fileID: 100100000, guid: 9ae6b786e4d620a4c9be008e085720d6, type: 3}
 --- !u!4 &3279351256377870606 stripped
 Transform:
@@ -3478,16 +3474,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28cb4f14edc9f8d4f86e91fe057fb42f, type: 2}
   seedDropPrefab: {fileID: 3381231281083104587, guid: 517cc85a261a8a043930d23d9ffaac3f,
     type: 3}
---- !u!114 &5727447439654831879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7762936068148517878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e564fd3fbf519499952046002ccf9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ifShouldNotPlaySound: 0
+  ifDoNotPlaySound: 0
+  FmodFootstepEvent:
+    Guid:
+      Data1: 1576669396
+      Data2: 1251314314
+      Data3: 773630868
+      Data4: 210437740
+    Path: event:/SFX/Enemy/Greg/Enemy_Greg_FS
+  FmodBodyfallEvent:
+    Guid:
+      Data1: -645592829
+      Data2: 1192078809
+      Data3: 1687727522
+      Data4: -96539939
+    Path: event:/SFX/Enemy/Enemy_BodyfallSound

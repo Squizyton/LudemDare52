@@ -4,6 +4,11 @@ namespace Enemies.Enemy_Types
 {
     public class Greg : BasicEnemy
     {
+        [SerializeField] private bool ifDoNotPlaySound;
+
+        [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
+        [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+
         private void Start()
         {
             agent.speed = speed;
@@ -34,5 +39,22 @@ namespace Enemies.Enemy_Types
                 attackTimer = attackRate;
             }
         }
+
+        #region FMOD
+        public void FmodPostFootstepsEvent()
+        {
+            PlaySound(FmodFootstepEvent);
+        }
+
+        public void BodyfallSound()
+        {
+            PlaySound(FmodBodyfallEvent);
+        }
+
+        public void PlaySound(FMODUnity.EventReference sound)
+        {
+            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+        }
+        #endregion
     }
 }
