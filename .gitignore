@@ -79,8 +79,7 @@ crashlytics-build.properties
 # Log files can be ignored.
 fmod_editor.log
 UserSettings/Layouts/default-2022.dwlt
-UserSettings/Layouts/default-2022.dwlt
 UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 Assets/ConsolePro/Remote/LiteNetLib/LiteNetLib.csproj.meta
-UserSettings/Layouts/
+UserSettings/
 *.dwlt

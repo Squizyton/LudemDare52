@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4788400652919112665
 MonoBehaviour:
@@ -49,3 +49,53 @@ MonoBehaviour:
   ambientVolume: 100
   sfxVolume: 100
   musicVolume: 100
+  isPaused: 0
+  M_level1:
+    Guid:
+      Data1: 265745648
+      Data2: 1084904265
+      Data3: -750260559
+      Data4: 1317739014
+    Path: event:/Music/Music_InGame
+  M_level2:
+    Guid:
+      Data1: 265745648
+      Data2: 1084904265
+      Data3: -750260559
+      Data4: 1317739014
+    Path: event:/Music/Music_InGame
+  M_EndlessMode:
+    Guid:
+      Data1: 265745648
+      Data2: 1084904265
+      Data3: -750260559
+      Data4: 1317739014
+    Path: event:/Music/Music_InGame
+  M_GameOver:
+    Guid:
+      Data1: 265745648
+      Data2: 1084904265
+      Data3: -750260559
+      Data4: 1317739014
+    Path: event:/Music/Music_InGame
+  M_MainMenu:
+    Guid:
+      Data1: 265745648
+      Data2: 1084904265
+      Data3: -750260559
+      Data4: 1317739014
+    Path: event:/Music/Music_InGame
+  S_MuteFight:
+    Guid:
+      Data1: -530146194
+      Data2: 1181574099
+      Data3: 1348377275
+      Data4: -461360935
+    Path: snapshot:/MuteFight
+  S_GamePaused:
+    Guid:
+      Data1: 680549254
+      Data2: 1327252079
+      Data3: -1930108526
+      Data4: -1723346201
+    Path: snapshot:/GamePaused

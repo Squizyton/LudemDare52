@@ -1,56 +1,131 @@
+using FMOD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static GameManager;
+using static UnityEngine.ParticleSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class FMODSoundManager : MonoBehaviour
 {
     public static FMODSoundManager Instance { get; private set; }
 
-    [Header("Sound")][SerializeField] private bool isSoundVolumeModified;
+    [Header("Sound Test:")]  
+    [SerializeField] private bool isSoundVolumeModified;
     [SerializeField][Range(0, 100f)] private float masterVolume;
     [SerializeField][Range(0, 100f)] private float ambientVolume;
     [SerializeField][Range(0, 100f)] private float sfxVolume;
     [SerializeField][Range(0, 100f)] private float musicVolume;
     //[SerializeField] [Range(0, 100f)] private float dialogVolume;
+    [SerializeField] private bool isPaused;
 
-    private bool IsFPS;
-    FMOD.Studio.Bus InGameBus;
-    FMOD.Studio.EventInstance muteSFXsnapshot;
+    [Header("Music levels:")]
+    [SerializeField] private FMODUnity.EventReference M_level1;
+    [SerializeField] private FMODUnity.EventReference M_level2;
+    [SerializeField] private FMODUnity.EventReference M_EndlessMode;
+    [SerializeField] private FMODUnity.EventReference M_GameOver;
+    [SerializeField] private FMODUnity.EventReference M_MainMenu;
+
+    [Header("Snapshots:")]
+    [SerializeField] private FMODUnity.EventReference S_MuteFight;
+    [SerializeField] private FMODUnity.EventReference S_GamePaused;
+
+    private FMOD.Studio.Bus InGameBus;
+    private FMOD.Studio.EventInstance snapMuteFight;
+    private FMOD.Studio.EventInstance snapGamePaused;
     private FMOD.Studio.EventInstance Music;
+
+    private int oldLevel;
+
+    private bool wasPaused;
+    private bool IsFPS;
+
 
     //[Header("Current Music Mode")]
     //private MusicGameMode musicMode;
     //private CurrentGun currentGun;
 
-
+    #region Main
     private void Awake()
     {
         if (Instance != null && Instance != this) 
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         else 
             Instance = this;
-    }
-    void Start()
-    {
-        Music = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Music_InGame");
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        //Music = FMODUnity.RuntimeManager.CreateInstance(M_level1);
+
         InGameBus = FMODUnity.RuntimeManager.GetBus("Bus:/InGame");
-        muteSFXsnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/MuteFightSFX");
-
-        Music.start();
+        snapMuteFight = FMODUnity.RuntimeManager.CreateInstance(S_MuteFight);
+        snapGamePaused = FMODUnity.RuntimeManager.CreateInstance(S_GamePaused);
     }
 
-    void Update()
+    public void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
+        ChangeMusicLevel(scene.buildIndex);
+    }
 
+    private void ChangeMusicLevel(int level)
+    {
+        if (level == oldLevel)
+            return;
+        switch (level)
+        {
+            case 0:
+                FMODSetParameterByNameWithLabel("CurrentLevel", "MainMenu");
+
+                //PlayLevelMusic(M_MainMenu);
+                oldLevel = level;
+                break;
+
+            case 1:
+                FMODSetParameterByNameWithLabel("CurrentLevel", "EndlessMode");
+
+                PlayLevelMusic(M_EndlessMode);
+                oldLevel = level;
+                break;
+
+            case 2:
+                FMODSetParameterByNameWithLabel("CurrentLevel", "GameOverScreen");
+
+                //PlayLevelMusic(M_GameOver);
+                oldLevel = level;
+                break;
+
+            default:
+                UnityEngine.Debug.Log("I had level number that was not added to FMOD");
+                FMODSetParameterByNameWithLabel("CurrentLevel", "MainMenu");
+                oldLevel = level;
+                break;
+        }
     }
 
     private void FixedUpdate()
     {
         if (isSoundVolumeModified)
             UpdateSoundVolumes();
+        if (isPaused)
+            if (!wasPaused) 
+                GamePaused();
+            else return;
+        else
+            if (wasPaused) 
+                GameResumed();
+            else return;
     }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    #endregion
+
+    #region Script Functions
     public void ChangeSoundMode(GameManager.CurrentMode newMode)
     {   
         switch (newMode)
@@ -58,28 +133,28 @@ public class FMODSoundManager : MonoBehaviour
             case GameManager.CurrentMode.FPS:
                 if (!IsFPS) {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
-                    Music.setParameterByName("GameMode", 1);
+                    FMODSetParameterByName("GameMode", 1);
+
                     IsFPS = true;       //so it will not repeat in Update mode
                 }
-                muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 break;
 
             case GameManager.CurrentMode.TopDown:
                 if (IsFPS)  {
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
-                    Music.setParameterByName("GameMode", 0);
+                    FMODSetParameterByName("GameMode", 0);
+
                     IsFPS = false;       //so it will not repeat in Update mode
                 }
-                muteSFXsnapshot.start();
                 break;
 
             case GameManager.CurrentMode.GameOver:
                 if (IsFPS)  {
-                    Music.setParameterByName("GameMode", 0);
+                    FMODSetParameterByName("GameMode", 0);
+
+                    InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     IsFPS = false;       //so it will not repeat in Update mode
                 }
-                muteSFXsnapshot.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 break;
 
             default:
@@ -87,6 +162,18 @@ public class FMODSoundManager : MonoBehaviour
         }
     }
 
+    public void GamePaused()
+    {
+        snapGamePaused.start();
+        wasPaused = true;
+    }
+
+    public void GameResumed()
+    {
+        snapGamePaused.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //snapGamePaused.release();
+        wasPaused = false;
+    }
 
     public void UpdateSoundVolumes()
     {
@@ -97,11 +184,32 @@ public class FMODSoundManager : MonoBehaviour
         //FMODSetParameterByName("Dialogue_Volume", dialogVolume);
     }
 
+    private void PlayLevelMusic(FMODUnity.EventReference MusicEvent)
+    {
+        FMOD.Studio.PLAYBACK_STATE playbackState;
+        Music.getPlaybackState(out playbackState);
+
+        if (playbackState == FMOD.Studio.PLAYBACK_STATE.PLAYING)
+        {
+            Music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            Music.release();
+        }
+        
+        Music = FMODUnity.RuntimeManager.CreateInstance(MusicEvent);
+        Music.start();
+    }
+
     private void FMODSetParameterByName(string fmodParameter, float value)
     {
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodParameter, value);
     }
 
+    private void FMODSetParameterByNameWithLabel(string fmodParameter, string label)
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel(fmodParameter, label);
+    }
+
+    #endregion
 
     #region EnumTypes
     /*
@@ -123,4 +231,5 @@ public class FMODSoundManager : MonoBehaviour
     }
     */
     #endregion
+
 }

@@ -332,6 +332,7 @@ namespace UI
             {
                 EndTutorial();
             }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Menu_Click");
         }
 
         public void EndTutorial()

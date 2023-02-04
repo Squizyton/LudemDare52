@@ -9,6 +9,11 @@ public class Lenny : BasicEnemy
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform[] spawnPoints;
 
+    [SerializeField] private bool ifDoNotPlaySound;
+
+    [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
+    [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+
     private bool atTarget;
     private Vector3 moveToTarget;
 
@@ -99,4 +104,21 @@ public class Lenny : BasicEnemy
         attackTimer = attackRate;
         attacked = true;
     }
+
+    #region FMOD
+    public void FmodPostFootstepsEvent()
+    {
+        PlaySound(FmodFootstepEvent);
+    }
+
+    public void BodyfallSound()
+    {
+        PlaySound(FmodBodyfallEvent);
+    }
+
+    public void PlaySound(FMODUnity.EventReference sound)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+    }
+    #endregion
 }
