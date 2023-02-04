@@ -9,6 +9,19 @@ namespace Guns
     {
         [SerializeField] private PlayerInventory player;
 
+        protected override void GunStart()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnEnable()
+        {
+            ammoInSack = PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()) - GetCurrentMag();
+            if (ammoInSack < 0)
+                ammoInSack = 0;
+            UIManager.Instance.UpdateAmmoCount(GetCurrentMag(), ammoInSack, GetIsInfinite());
+        }
+
         private void FeedStatsIntoGun(PlantInfo newAmmo)
         {
             maxAmmoPerClip = newAmmo.maxClipSize;
@@ -21,19 +34,9 @@ namespace Guns
             FeedStatsIntoGun(bulletList[currentBullet].GetBulletInfo());
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            ammoInSack = PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()) - GetCurrentMag();
-            if (ammoInSack < 0)
-                ammoInSack = 0;
-            UIManager.Instance.UpdateAmmoCount(GetCurrentMag(), ammoInSack, GetIsInfinite());
-            
-        }
-
-
-        protected override void GunStart()
-        {
-            throw new NotImplementedException();
+           GetRaycastHit();
         }
 
         public override void Shoot()

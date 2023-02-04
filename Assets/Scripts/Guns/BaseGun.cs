@@ -60,13 +60,11 @@ namespace Guns
 
         public abstract void Shoot();
 
-        private void Update()
+        protected void GetRaycastHit()
         {
             //Shoot a ray from the middle of the screen
             //Camera.main is expensive, so...Idk find something to replace it
             var ray = PlayerInputController.Instance.cameraRotationClass.GetMainCamera().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-
             //If we hit something
             //Store the hit point
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
@@ -94,8 +92,10 @@ namespace Guns
 
 
             var completed = false;
+            totalReloadTime = 0;
             var time = timeToReload;
-
+            UIManager.Instance.ReloadGroupStatus(true, time);
+            
             isReloading = true;
             animator.SetTrigger(Reload);
 
@@ -104,7 +104,6 @@ namespace Guns
                 if (time > 0)
                 {
                     time -= Time.deltaTime;
-                    Debug.Log(time);
                     totalReloadTime += Time.deltaTime;
                     UIManager.Instance.FeedReloadTime(totalReloadTime);
                 }
@@ -145,11 +144,11 @@ namespace Guns
             }
 
             isReloading = false;
-            UIManager.Instance.ReloadGroupStatus(false, 0);
+            UIManager.Instance.ReloadGroupStatus(false);
             UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
         }
 
-        public async void AbortReloadSequence()
+        public void AbortReloadSequence()
         {
             //Abort the reload sequence
             isReloading = false;
