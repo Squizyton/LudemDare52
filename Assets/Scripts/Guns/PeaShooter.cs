@@ -28,9 +28,6 @@ namespace Guns
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
         }
-
-        
-        
         
         public override async void Shoot()
         {
@@ -64,7 +61,7 @@ namespace Guns
                 StartCoroutine(CoolDown());
 
             if (currentMagazine == 0)
-               await ReloadSequence(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
+                StartReload(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
             //else
             //FmodNoAmmo();
         }

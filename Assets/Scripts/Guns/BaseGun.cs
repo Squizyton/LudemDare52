@@ -1,6 +1,7 @@
 using System;
 using FMOD.Studio;
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using Camera;
 using Cinemachine;
@@ -42,16 +43,16 @@ namespace Guns
         [SerializeField] protected Animator animator;
         public GameObject peaParticles;
 
+        
+        //Async stuff
         private Task _task;
+        private CancellationTokenSource _tokenSource;
+        
+        
         private static readonly int Reload = Animator.StringToHash("Reload");
 
         #region Start Functions
-
-        public virtual void Start()
-        {
-            GunStart();
-        }
-
+        
         protected abstract void GunStart();
 
         #endregion
@@ -80,13 +81,14 @@ namespace Guns
         public async void StartReload(float time)
         {
             if (isReloading) return;
-            _task = ReloadSequence(time);
+            _tokenSource = new CancellationTokenSource();
+            _task = ReloadSequence(time, _tokenSource.Token);
             Debug.Log("Reloading");
             await _task;
             Debug.Log("Reload Complete");
         }
 
-        protected virtual async Task ReloadSequence(float timeToReload)
+        protected virtual async Task ReloadSequence(float timeToReload, CancellationToken token)
         {
             if (!hasInfiniteAmmo && ammoInSack <= 0) return;
 
@@ -101,6 +103,12 @@ namespace Guns
 
             while (!completed)
             {
+
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 if (time > 0)
                 {
                     time -= Time.deltaTime;
@@ -152,11 +160,10 @@ namespace Guns
         {
             //Abort the reload sequence
             isReloading = false;
-            animator.ResetTrigger(Reload);
             UIManager.Instance.ReloadGroupStatus(false, 0);
-            
+            totalReloadTime = 0;
             //Kill the task to free up memory
-            _task.Dispose();
+            _tokenSource?.Cancel();
         }
 
 

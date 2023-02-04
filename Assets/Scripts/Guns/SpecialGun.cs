@@ -11,7 +11,6 @@ namespace Guns
 
         protected override void GunStart()
         {
-            throw new NotImplementedException();
         }
 
         private void OnEnable()
@@ -39,9 +38,70 @@ namespace Guns
            GetRaycastHit();
         }
 
-        public override void Shoot()
+        public override async void Shoot()
         {
-            throw new NotImplementedException();
+            if (!canFire) return;
+
+            if (currentMagazine <= 0) return;
+
+            GameManager.Instance.bulletsFired++;
+            animator.SetTrigger("Shoot");
+            CameraShake.Shake(3, 0.1f, 0.25f);
+            currentMagazine--;
+            canFire = false;
+
+            // Update ammo in inventory
+            var currentAmmoType = bulletList[currentBullet].GetBulletInfo();
+            PlayerInventory.Instance.RemoveAmmo(currentAmmoType);
+            UIManager.Instance.UpdateAmmoCount(currentMagazine, ammoInSack, hasInfiniteAmmo);
+
+            //rotate the bullet to face the hit point
+            var position = spawnPoint.position;
+            var rotation = Quaternion.LookRotation(hitPoint - position);
+
+            //spawn the bullet
+            var bullet = Instantiate(bulletList[currentBullet].gameObject, position, rotation);
+            Instantiate(peaParticles, position, rotation);
+
+            //FMOD
+            //FmodShootSound();
+
+            if (IsAutomatic())
+                StartCoroutine(CoolDown());
+
+            if (currentMagazine == 0)
+                StartReload(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
+            //else
+            //FmodNoAmmo();
         }
+
+
+        public void SwapAmmo()
+        {
+            //Get the new index
+            var index = (currentBullet + 1) % bulletList.Length;
+            
+            //Get the new ammo type
+            var bullet = bulletList[index].GetBulletInfo();
+            
+            //Set current bullet to the new index
+            currentBullet = index;
+            
+            //If we are already reloading, abort the reload
+            AbortReloadSequence();
+            
+            //Set the current magazine to 0
+            currentMagazine = 0;
+            FeedStatsIntoGun(bullet);
+            
+            //Start the reload sequence
+            ammoInSack = PlayerInventory.Instance.GetAmmo(bullet);
+            StartReload(bullet.gunReloadTime);
+            
+            //Update the UI
+            UIManager.Instance.UpdateAmmoType(bullet);
+            UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
+        }
+
     }
 }
