@@ -72,6 +72,7 @@ public class FMODSoundManager : MonoBehaviour
 
     private void ChangeMusicLevel(int level)
     {
+        UpdateHealth(100);
         if (level == oldLevel)
             return;
         switch (level)
@@ -197,6 +198,10 @@ public class FMODSoundManager : MonoBehaviour
         
         Music = FMODUnity.RuntimeManager.CreateInstance(MusicEvent);
         Music.start();
+    }
+    public void UpdateHealth(float health)
+    {
+        FMODSetParameterByName("health", health);
     }
 
     private void FMODSetParameterByName(string fmodParameter, float value)
