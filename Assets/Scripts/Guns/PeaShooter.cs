@@ -27,6 +27,7 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
+            fmodBullet = newAmmo.FmodBulletName;
         }
         
         public override async void Shoot()
@@ -55,15 +56,16 @@ namespace Guns
             Instantiate(peaParticles, position, rotation);
 
             //FMOD
-            //FmodShootSound();
+            FmodShootSound();
 
             if (IsAutomatic())
                 StartCoroutine(CoolDown());
 
             if (currentMagazine == 0)
+            {
+                FmodNoAmmo();
                 StartReload(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
-            //else
-            //FmodNoAmmo();
+            }
         }
 
         // Update is called once per frame

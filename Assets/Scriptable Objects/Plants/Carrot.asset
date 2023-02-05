@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletSpeed: 30
   bulletDamage: 10
   bulletLifeTime: 10
+  FmodBulletName: Carrot
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0
