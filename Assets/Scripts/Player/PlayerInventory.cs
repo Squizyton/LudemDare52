@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FlyingWormConsole3.LiteNetLib.Utils;
 using Guns;
 using Plots;
 using UI;
@@ -12,6 +13,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] private FMODSoundManager fmodSoundManager;
     public static PlayerInventory Instance { get; private set; }
 
     private void Awake()
@@ -26,6 +28,9 @@ public class PlayerInventory : MonoBehaviour
         }
         
         seedInventory = new Dictionary<PlantInfo, int>();
+
+        if (fmodSoundManager == null) 
+            fmodSoundManager = FindObjectOfType<FMODSoundManager>();
     }
     
     
@@ -97,7 +102,10 @@ public class PlayerInventory : MonoBehaviour
         
         health -= damageTaken;
         UIManager.Instance.UpdateHealth();
-        
+
+        if (fmodSoundManager != null)
+            fmodSoundManager.UpdateHealth(health);
+
         if (health <= 0)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Voice_Death");

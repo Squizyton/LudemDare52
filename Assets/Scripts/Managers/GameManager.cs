@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         loadSaveFile = FindObjectOfType<LoadSaveFile>();
 
-        if(fmodSoundManager == null) { }
+        if(fmodSoundManager == null)
             fmodSoundManager = FindObjectOfType<FMODSoundManager>();
 
         normalCowPosition = cow.position;
