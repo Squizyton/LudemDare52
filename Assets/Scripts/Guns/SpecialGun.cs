@@ -26,6 +26,7 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
+            fmodBullet = newAmmo.FmodBulletName;
         }
 
         protected void SpecificGunStart()
@@ -64,16 +65,18 @@ namespace Guns
             Instantiate(peaParticles, position, rotation);
 
             //FMOD
-            //FmodShootSound();
+            FmodShootSound();
 
             if (IsAutomatic())
                 StartCoroutine(CoolDown());
 
             if (currentMagazine == 0)
+            {
                 StartReload(bulletList[currentBullet].GetBulletInfo().gunReloadTime);
-            //else
-            //FmodNoAmmo();
+                FmodNoAmmo();
+            }
         }
+
 
 
         public void SwapAmmo()
@@ -83,7 +86,7 @@ namespace Guns
             
             //Get the new ammo type
             var bullet = bulletList[index].GetBulletInfo();
-            
+
             //Set current bullet to the new index
             currentBullet = index;
             
@@ -101,6 +104,9 @@ namespace Guns
             //Update the UI
             UIManager.Instance.UpdateAmmoType(bullet);
             UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
+
+            //Change FMOD ammo type
+            ChangeFMODGunType();
         }
 
     }

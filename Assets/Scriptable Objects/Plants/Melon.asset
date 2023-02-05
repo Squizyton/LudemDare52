@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletDamage: 10
   bulletLifeTime: 13
+  FmodBulletName: Wattermellon
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0

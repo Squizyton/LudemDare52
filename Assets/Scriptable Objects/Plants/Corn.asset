@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletSpeed: 20
   bulletDamage: 1
   bulletLifeTime: 0
+  FmodBulletName: Corn
   isAutomatic: 1
   gunFireRate: 0.05
   gunBulletSpread: 0

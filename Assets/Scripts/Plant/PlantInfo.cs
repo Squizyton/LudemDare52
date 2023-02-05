@@ -18,6 +18,7 @@ public class PlantInfo : ScriptableObject
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletLifeTime;
+    public string FmodBulletName;
     [Header("Gun Info")] public bool isAutomatic;
     public float gunFireRate;
     public float gunBulletSpread;

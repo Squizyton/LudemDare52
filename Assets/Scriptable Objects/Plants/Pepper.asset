@@ -23,6 +23,7 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletDamage: 1
   bulletLifeTime: 1
+  FmodBulletName: Pepper
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 1

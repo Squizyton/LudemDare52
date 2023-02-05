@@ -15,11 +15,14 @@ MonoBehaviour:
   PlantName: pea
   GrowTime: 0
   seedYield: 0
-  bulletYield: 0
+  plantCost: 0
   plantModel: {fileID: 0}
+  seedIcon: {fileID: 0}
+  bulletIcon: {fileID: 0}
   bulletSpeed: 20
   bulletDamage: 1
   bulletLifeTime: 5
+  FmodBulletName: Pea
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0

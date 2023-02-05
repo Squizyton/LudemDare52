@@ -27,6 +27,7 @@ namespace Guns
         [SerializeField] protected int ammoInSack;
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float fireRate;
+        [SerializeField] protected string fmodBullet;
 
 
         [Header("Is Clauses")] private bool isReloading;
@@ -37,6 +38,7 @@ namespace Guns
         protected bool canFire = true;
         private float totalReloadTime;
         protected Vector3 hitPoint;
+        private EventInstance fmodReload;
 
 
         public LayerMask layerMask;
@@ -84,6 +86,10 @@ namespace Guns
             _tokenSource = new CancellationTokenSource();
             _task = ReloadSequence(time, _tokenSource.Token);
             Debug.Log("Reloading");
+
+            fmodReload = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Player/Guns/GUNS_Reload");
+            fmodReload.start();
+
             await _task;
             Debug.Log("Reload Complete");
         }
@@ -115,8 +121,11 @@ namespace Guns
                     totalReloadTime += Time.deltaTime;
                     UIManager.Instance.FeedReloadTime(totalReloadTime);
                 }
-                else completed = true;
-
+                else
+                {
+                    completed = true;
+                    FmodStopReloadSound();
+                }
                 await Task.Yield();
             }
 
@@ -164,15 +173,13 @@ namespace Guns
             totalReloadTime = 0;
             //Kill the task to free up memory
             _tokenSource?.Cancel();
+            FmodStopReloadSound();
         }
-
-
         #endregion
-
 
         #region Setters/Getters
 
-        
+
         public void UpdateSack(PlantInfo info)
         {
             ammoInSack = PlayerInventory.Instance.GetAmmo(info);
@@ -219,6 +226,29 @@ namespace Guns
             return currentMagazine == maxAmmoPerClip;
         }
 
+        #endregion
+
+        #region FMOD Functions
+        public void ChangeFMODGunType()
+        {
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", fmodBullet);
+        }
+
+        public void FmodShootSound()
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
+        }
+
+        public void FmodNoAmmo()
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_NoAmmo");
+        }
+
+        private void FmodStopReloadSound()
+        {
+            fmodReload.stop(STOP_MODE.ALLOWFADEOUT);
+            fmodReload.release();
+        }
         #endregion
     }
 }
