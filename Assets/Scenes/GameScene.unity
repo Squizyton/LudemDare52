@@ -4850,6 +4850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc198346708c4887b697696ea0794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tensionControler: {fileID: 0}
   availableCredits: 50
   monsterList:
   - {fileID: 11400000, guid: 805da6ea9c31b9147b53ee1d2f293b60, type: 2}
@@ -4903,6 +4904,99 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -326}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1136906646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1136906647}
+  - component: {fileID: 1136906649}
+  - component: {fileID: 1136906648}
+  m_Layer: 0
+  m_Name: TensionControler
+  m_TagString: TensionControler
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1136906647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136906646}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 642887780}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1136906648
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136906646}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1136906649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136906646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574d9a7a9b114ac40b4012de0876bc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tensionLevel: 0
+  heartRate: 0
+  enemycounter: 0
+  enemyKilledTimer: 0
+  currentHealth: 0
+  currentStamina: 0
+  m_hit: 0
+  m_enemyClose: 0
+  m_enemySpawn: 0
+  m_health: 0
+  m_stamina: 0
+  m_enemycounter: 0
+  m_excerciseTension: 0
+  m_hitMAX: 10
+  m_enemyCloseMAX: 30
+  m_enemySpawnMAX: 15
+  m_healthMAX: 100
+  m_staminaMAX: 100
+  m_enemycounterMAX: 30
+  excerciseTensionMAX: 15
+  enemyKilledTimerMAX: 7
+  m_hitDrop: 5
+  m_enemySpawnDrop: 5
+  m_enemyCloseDrop: 10
+  excerciseTensionDrop: 5
 --- !u!1001 &1140329784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9093,6 +9187,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5257447921394462711, guid: 8f747239faf8c95429cec780631f8feb, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5257447922195116074, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1136906647}
     - targetCorrespondingSourceObject: {fileID: 5257447923043253217, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       insertIndex: -1
@@ -9150,6 +9248,7 @@ MonoBehaviour:
   ammoInSack: 0
   reloadTime: 0
   fireRate: 0
+  fmodBullet: 
   isAutomatic: 0
   hasInfiniteAmmo: 1
   layerMask:
@@ -9359,6 +9458,7 @@ MonoBehaviour:
   ammoInSack: 0
   reloadTime: 0
   fireRate: 0
+  fmodBullet: 
   isAutomatic: 0
   hasInfiniteAmmo: 0
   layerMask:

@@ -132,7 +132,8 @@ namespace UI
         {
             remainingEnemies.text = "Enemies: " + numEnemies.ToString();
 
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
+            player.GetComponentInChildren<TensionControler>().EnemyCounter(numEnemies);
+            //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
         }
 
         public void UpdateTimeAlive(float newTimeAlive)
@@ -167,6 +168,8 @@ namespace UI
             hitIndicator.TryGetComponent(out hitIndicatorScript);
             if (hitIndicatorScript != null)
                 hitIndicatorScript.StartFade();
+
+            player.GetComponentInChildren<TensionControler>().WasHit();
         }
 
         public void TriggerKillIndicator()
@@ -175,6 +178,8 @@ namespace UI
             hitIndicator.TryGetComponent(out hitIndicatorScript);
             if (hitIndicatorScript != null)
                 hitIndicatorScript.StartFlash();
+
+            player.GetComponentInChildren<TensionControler>().KilledEnemy();
         }
 
         public void SetHealth(float newHealth)

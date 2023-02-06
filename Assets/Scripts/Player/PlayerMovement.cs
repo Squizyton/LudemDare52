@@ -122,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
 		{
             staminaAmount -= staminaDrain * Time.deltaTime;
             UIManager.Instance.UpdateStaminaSlider(staminaAmount);
+            this.GetComponentInChildren<TensionControler>().UpdateStamina(staminaAmount,sprinting);
+
             FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
         }
         else
@@ -159,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         PlayerJumpSFX();
+        this.GetComponentInChildren<TensionControler>().AddJump();
         hadJumped = true;
         canJump = false;
     }
@@ -173,7 +176,8 @@ public class PlayerMovement : MonoBehaviour
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
 			yield return staminaRegenTic;
-		}
+            this.GetComponentInChildren<TensionControler>().UpdateStamina(staminaAmount, false);
+        }
 		staminaAmount = staminaMax;
 
 		if(exhausted)
