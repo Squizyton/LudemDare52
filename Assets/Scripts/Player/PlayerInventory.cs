@@ -90,7 +90,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public float GetHealth()
-    { 
+    {
         return health;
     }
     public void TakeDamage(Vector3 attackerPos, int damageTaken)
@@ -102,9 +102,11 @@ public class PlayerInventory : MonoBehaviour
         
         health -= damageTaken;
         UIManager.Instance.UpdateHealth();
-
+        /*
         if (fmodSoundManager != null)
             fmodSoundManager.UpdateHealth(health);
+        */
+        this.GetComponentInChildren<TensionControler>().UpdateHealth(health);
 
         if (health <= 0)
         {

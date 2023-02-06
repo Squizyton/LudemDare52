@@ -15,7 +15,6 @@ public class FMODSoundManager : MonoBehaviour
     [SerializeField][Range(0, 100f)] private float ambientVolume;
     [SerializeField][Range(0, 100f)] private float sfxVolume;
     [SerializeField][Range(0, 100f)] private float musicVolume;
-    //[SerializeField] [Range(0, 100f)] private float dialogVolume;
     [SerializeField] private bool isPaused;
 
     [Header("Music levels:")]
@@ -62,7 +61,7 @@ public class FMODSoundManager : MonoBehaviour
 
     private void ChangeMusicLevel(int level)
     {
-        UpdateHealth(100);
+        StudioSystem.setParameterByName("health", 100);
         if (level == oldLevel)
             return;
         switch (level)
@@ -188,11 +187,11 @@ public class FMODSoundManager : MonoBehaviour
         Music = CreateInstance(MusicEvent);
         Music.start();
     }
-
+    /*
     public void UpdateHealth(float health)
     {
         StudioSystem.setParameterByName("health", health);
-    }
+    }*/
     private void ReleaseWithFade(EventInstance FmodEvent)
     {
         FmodEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
