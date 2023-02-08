@@ -89,7 +89,7 @@ public class TensionControler : MonoBehaviour
         if (enemyKilledTimer > 0)                           //For Killing enemies (burst lowering tension)
             enemyKilledTimer -= m_enemyKilledDrop;
 
-        m_enemycounter = enemycounter * 2.5f;                      //For Enemy counter it's static number with max level)
+        m_enemycounter = enemycounter * 2.5f;               //For Enemy counter it's static number with max level)
 
         if (m_enemyClose > 0)                               //For Enemies close (dynamic)
             m_enemyClose -= m_enemyCloseDrop;
