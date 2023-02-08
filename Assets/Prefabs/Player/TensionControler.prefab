@@ -70,6 +70,13 @@ MonoBehaviour:
   m_enemySpawnDrop: 5
   m_enemyCloseDrop: 10
   excerciseTensionDrop: 5
+  hearbeatEvent:
+    Guid:
+      Data1: 950745822
+      Data2: 1254020788
+      Data3: 759836839
+      Data4: 2093285844
+    Path: event:/SFX/Player/Player_Heartbeat
 --- !u!136 &3003188846861520499
 CapsuleCollider:
   m_ObjectHideFlags: 0
