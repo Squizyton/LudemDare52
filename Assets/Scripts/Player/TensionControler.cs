@@ -1,9 +1,9 @@
-using System;
-using UnityEngine;
 using FMOD.Studio;
-using static FMODUnity.RuntimeManager;
-using Unity.VisualScripting;
 using FMODUnity;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
+using static FMODUnity.RuntimeManager;
 
 public class TensionControler : MonoBehaviour
 {
@@ -23,22 +23,25 @@ public class TensionControler : MonoBehaviour
     [SerializeField] private float m_stamina;
     [SerializeField] private float m_enemycounter;
     [SerializeField] private float m_excerciseTension;
+    [SerializeField] private float m_UnderFire;
 
     [Header("MAX:")]
     [SerializeField][Range(0, 100f)] private float m_hitMAX;
-    [SerializeField][Range(0, 100f)] private float m_enemyCloseMAX;
     [SerializeField][Range(0, 100f)] private float m_enemySpawnMAX;
-    [SerializeField][Range(0, 100f)] private float m_healthMAX;
-    [SerializeField][Range(0, 100f)] private float m_staminaMAX;
-    [SerializeField][Range(0, 100f)] private float m_enemycounterMAX;
-    [SerializeField][Range(0, 100f)] private float excerciseTensionMAX;
-    [SerializeField][Range(0, 100f)] private float enemyKilledTimerMAX;
+    [SerializeField][Range(0, 100f)] private float m_enemyCloseMAX;
+    [SerializeField][Range(0, 100f)] private float m_enemyKilledTimerMAX;
+    [SerializeField][Range(0, 100f)] private float m_excerciseTensionMAX;
+    [SerializeField][Range(0, 100f)] private float l_healthMAX;
+    [SerializeField][Range(0, 100f)] private float l_staminaMAX; 
+    [SerializeField][Range(0, 100f)] private float l_enemycounterMAX; 
+    [SerializeField][Range(0, 100f)] private float m_UnderFireMAX;
 
     [Header("Dropping speed:")]
     [SerializeField][Range(0, 10f)] private float m_hitDrop;
     [SerializeField][Range(0, 10f)] private float m_enemySpawnDrop;
     [SerializeField][Range(0, 10f)] private float m_enemyCloseDrop;
-    [SerializeField][Range(0, 10f)] private float excerciseTensionDrop;
+    [SerializeField][Range(0, 10f)] private float m_enemyKilledDrop;
+    [SerializeField][Range(0, 10f)] private float m_excerciseTensionDrop;
 
     GameObject[] enemiesClose;
     [SerializeField] private EventReference hearbeatEvent;
@@ -72,33 +75,27 @@ public class TensionControler : MonoBehaviour
 
 
     private void OnTimeUpdate()
-    {   //For health it's done by UpdateHealth()
+    {                                                       //For health it's done by UpdateHealth()
 
-        //For Getting hit by enemy (burst)
-        if (m_hit > 0)        
+        if (m_hit > 0)                                      //For Getting hit by enemy (burst)        
             m_hit -= m_hitDrop;
-
-        //For Spawn of enemies (burst - lower but longer)
-        if (m_enemySpawn > 0)
+                
+        if (m_enemySpawn > 0)                               //For Spawn of enemies (burst - lower but longer)   
             m_enemySpawn -= m_enemySpawnDrop;
+                
+        if (!isSprinting && hasExcercised)                  //For Sprint / jump (burst, depending on stamina)        
+            m_excerciseTension -= m_excerciseTensionDrop;
 
-        //For Sprint / jump (burst, depending on stamina)
-        if (!isSprinting && hasExcercised)        
-            m_excerciseTension -= excerciseTensionDrop;
+        if (enemyKilledTimer > 0)                           //For Killing enemies (burst lowering tension)
+            enemyKilledTimer -= m_enemyKilledDrop;
 
-        if (isSprinting)
-            m_excerciseTension += excerciseTensionDrop;
+        m_enemycounter = enemycounter * 2.5f;                      //For Enemy counter it's static number with max level)
 
-        //For Killing enemies (burst lowering tension)
-        if (enemyKilledTimer > 0)
-            enemyKilledTimer -= 1f;
-
-        //For Enemy counter (static with max level)
-        m_enemycounter = enemycounter;
-
-        //For Enemies close (dynamic)
-        if (m_enemyClose > 0)
+        if (m_enemyClose > 0)                               //For Enemies close (dynamic)
             m_enemyClose -= m_enemyCloseDrop;
+
+        if (m_UnderFire > 0)                                //If Lenny shoot us
+            m_UnderFire -= 1f;
 
 
         CheckValues();
@@ -110,21 +107,23 @@ public class TensionControler : MonoBehaviour
 
     private void CheckValues()
     {
-        if (m_hit < 0)      m_hit = 0;
-        if (m_enemycounter > m_enemycounterMAX)     m_enemycounter = m_enemycounterMAX;
-        if (m_enemySpawn < 0)       m_enemySpawn = 0;
-        if (m_excerciseTension > excerciseTensionMAX)       m_excerciseTension = excerciseTensionMAX;
-        if (m_excerciseTension < 0)     m_excerciseTension = 0;
+        if (m_enemycounter > l_enemycounterMAX)             m_enemycounter = l_enemycounterMAX;
+        if (m_excerciseTension > m_excerciseTensionMAX)     m_excerciseTension = m_excerciseTensionMAX;
+        if (m_hit < 0)                                      m_hit = 0;
+        if (m_enemySpawn < 0)                               m_enemySpawn = 0;
+        if (m_excerciseTension < 0)                         m_excerciseTension = 0;
+        if (m_UnderFire < 0)                                m_UnderFire = 0;
     }
 
     private void CurrentTension()
     {
-        //General level of tension during gamepla 
-        tensionLevel = m_hit + m_enemyClose + m_enemySpawn + m_health + m_enemycounter + m_excerciseTension - enemyKilledTimer;
+        //General level of tension during gameplay 
+        tensionLevel = m_hit + m_enemyClose + m_UnderFire + m_enemySpawn + m_health * 0.5f + m_enemycounter + m_excerciseTension - enemyKilledTimer;
+        if(tensionLevel < 0) tensionLevel = 0;
 
         //Should be more responding to health and players fear
-        heartRate = 60 + m_hit + m_health * 0.5f + m_excerciseTension * 0.7f + m_enemySpawn * 0.5f;
-        if (heartRate > maxHeartBeat) heartRate = maxHeartBeat; //so our heart won't just die
+        heartRate = 60 + m_hit + m_health * 0.5f + m_excerciseTension * 0.7f + m_enemySpawn * 0.5f + m_UnderFire;
+        if (heartRate > maxHeartBeat) heartRate = maxHeartBeat;         //so our heart won't just die
     }
 
     private void FMODParametersUpdate()
@@ -134,26 +133,28 @@ public class TensionControler : MonoBehaviour
         StudioSystem.setParameterByName("EnemyCounter", enemycounter);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)                             
     {
-        CheckEnemiesClose();
+        if (other.gameObject.tag == "Enemy")            m_enemyClose = m_enemyCloseMAX;
+        if (other.gameObject.tag == "EnemyBullet")      EnemyShooting();                    // !!!not detected due to layer "HitBox"!!!
     }
-    private void OnTriggerExit(Collider other)
+    public void EnemyShooting()
     {
-        CheckEnemiesClose();
+        Debug.Log("They are shooting at us!");
+        m_UnderFire += 5;
+
+        if (m_UnderFire > m_UnderFireMAX)
+            m_UnderFire = m_UnderFireMAX;
     }
 
-
-
-
-    #region Public Callouts
+    #region Public Functions
     public void UpdateHealth(float newHealth)
     {
-        m_health = m_healthMAX - newHealth;
-        currentHealth = newHealth;
-        if (m_health < 0)
-            m_health = 0;
         StudioSystem.setParameterByName("health", newHealth);
+        if(newHealth < 40)
+            m_health = 40 - newHealth;
+        currentHealth = newHealth;
+
     }
 
     public void WasHit()
@@ -163,14 +164,12 @@ public class TensionControler : MonoBehaviour
     public void UpdateStamina(float newStamina, bool sprint)
     {
         isSprinting = sprint;
-
-        m_stamina = m_staminaMAX - newStamina;
-        if (m_stamina < 0) 
-            m_stamina = 0;
-        
         currentStamina = newStamina;
-        if (m_stamina > 0 && !sprint)
-            hasExcercised = true;
+        m_stamina = l_staminaMAX - newStamina;
+
+        if (isSprinting)                    m_excerciseTension += m_excerciseTensionDrop;
+        if (m_stamina < 0)                  m_stamina = 0;
+        if (m_stamina > 0 && !sprint)       hasExcercised = true;
     }
 
     public void EnemyCounter(float enemiesAlive)
@@ -180,26 +179,17 @@ public class TensionControler : MonoBehaviour
 
     public void KilledEnemy()               
     {
-        enemyKilledTimer = enemyKilledTimerMAX;
-        CheckEnemiesClose();
+        enemyKilledTimer = m_enemyKilledTimerMAX;
     }
 
-    public void SpawnEnemies()              //activated once on round start
+    public void SpawnEnemies()              
     {
         m_enemySpawn = m_enemySpawnMAX;
     }
-    public void AddJump()                  //called when jumped on PlayerMovement
+    public void AddJump()                   
     {
         m_excerciseTension = m_excerciseTension + 10;
         hasExcercised = true;
     }
     #endregion
-
-    private void CheckEnemiesClose()        //checked when enemies enter/leave the trigger area, and when you kill the enemy
-    {
-        enemiesClose = null;
-        enemiesClose = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemiesClose.Length > 0)
-            m_enemyClose = m_enemyCloseMAX;
-    }
 }
