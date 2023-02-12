@@ -23,6 +23,7 @@ public class FMODSoundManager : MonoBehaviour
     [SerializeField] private EventReference M_EndlessMode;
     [SerializeField] private EventReference M_GameOver;
     [SerializeField] private EventReference M_MainMenu;
+    [SerializeField] private EventReference TestMusic;
 
     [Header("Snapshots:")]
     [SerializeField] private EventReference S_MuteFight;
@@ -89,7 +90,11 @@ public class FMODSoundManager : MonoBehaviour
 
             default:
                 Debug.Log("I had level number that was not added to FMOD");
-                StudioSystem.setParameterByNameWithLabel("CurrentLevel", "MainMenu");
+                if(SceneManager.GetSceneByBuildIndex(level).name == "JohannTestScene")
+                {
+                    StudioSystem.setParameterByNameWithLabel("CurrentLevel", "TestMusic");
+                    PlayLevelMusic(TestMusic);
+                }
 
                 oldLevel = level;
                 break;
