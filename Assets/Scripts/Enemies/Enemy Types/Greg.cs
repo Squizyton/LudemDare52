@@ -8,6 +8,7 @@ namespace Enemies.Enemy_Types
 
         [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
         [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+        [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
 
         private void Start()
         {
@@ -49,6 +50,15 @@ namespace Enemies.Enemy_Types
         public void BodyfallSound()
         {
             PlaySound(FmodBodyfallEvent);
+        }
+        public void FmodPostDeathEvent()
+        {
+            PlaySound(FmodDeathEvent);
+        }
+
+        public void PlaySound(string sound)
+        {
+            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
         }
 
         public void PlaySound(FMODUnity.EventReference sound)

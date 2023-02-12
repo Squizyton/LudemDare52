@@ -2150,3 +2150,10 @@ MonoBehaviour:
       Data3: 1687727522
       Data4: -96539939
     Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: -1591707693
+      Data2: 1253183128
+      Data3: -1471370085
+      Data4: -1154626726
+    Path: event:/SFX/Enemy/Felonious/Enemy_Felonious_Death

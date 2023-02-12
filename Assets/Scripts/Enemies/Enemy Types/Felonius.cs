@@ -23,6 +23,7 @@ public class Felonius : BasicEnemy
 
     [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
     [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+    [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
 
 
 
@@ -118,6 +119,10 @@ public class Felonius : BasicEnemy
     public void DevourSound()
     {
         PlaySound("event:/SFX/Enemy/Felonious/Enemy_Felonious_Devour");
+    }
+    public void FmodPostDeathEvent()
+    {
+        PlaySound(FmodDeathEvent);
     }
 
     public void BodyfallSound()
