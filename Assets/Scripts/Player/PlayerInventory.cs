@@ -114,7 +114,10 @@ public class PlayerInventory : MonoBehaviour
             Die();
         }
         else
+        {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Voice_Hurt");
+            this.GetComponentInChildren<TensionControler>().WasHit();
+        }
         
     }
 

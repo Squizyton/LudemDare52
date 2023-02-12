@@ -168,8 +168,6 @@ namespace UI
             hitIndicator.TryGetComponent(out hitIndicatorScript);
             if (hitIndicatorScript != null)
                 hitIndicatorScript.StartFade();
-
-            player.GetComponentInChildren<TensionControler>().WasHit();
         }
 
         public void TriggerKillIndicator()
