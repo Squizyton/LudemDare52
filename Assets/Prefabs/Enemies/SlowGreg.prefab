@@ -3351,6 +3351,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7456295121877886631}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3333209091731218879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3946308951519295720, guid: 9ae6b786e4d620a4c9be008e085720d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7456295121877886631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6985273881787302220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
@@ -3506,3 +3512,4 @@ MonoBehaviour:
       Data3: -259179904
       Data4: -924631436
     Path: event:/SFX/Enemy/Greg/Enemy_Greg_Death
+  head: {fileID: 3333209091731218879}

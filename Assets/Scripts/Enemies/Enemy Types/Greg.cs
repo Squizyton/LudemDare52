@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 namespace Enemies.Enemy_Types
 {
@@ -9,12 +10,13 @@ namespace Enemies.Enemy_Types
         [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
         [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
         [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
-
+        [SerializeField] private GameObject head;
         private void Start()
         {
             agent.speed = speed;
             healthBar.maxValue = health;
             healthBar.value = health;
+            if (head == null)               head = gameObject;
         }
 
 
@@ -44,16 +46,16 @@ namespace Enemies.Enemy_Types
         #region FMOD
         public void FmodPostFootstepsEvent()
         {
-            PlaySound(FmodFootstepEvent);
+            PlaySound(FmodFootstepEvent, gameObject);
         }
 
         public void BodyfallSound()
         {
-            PlaySound(FmodBodyfallEvent);
+            PlaySound(FmodBodyfallEvent, gameObject);
         }
         public void FmodPostDeathEvent()
         {
-            PlaySound(FmodDeathEvent);
+            PlaySound(FmodDeathEvent, head);
         }
 
         public void PlaySound(string sound)
@@ -61,9 +63,9 @@ namespace Enemies.Enemy_Types
             if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
         }
 
-        public void PlaySound(FMODUnity.EventReference sound)
+        public void PlaySound(FMODUnity.EventReference sound, GameObject source)
         {
-            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, source);   //FMOD
         }
         #endregion
     }

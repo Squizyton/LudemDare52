@@ -89,7 +89,6 @@ namespace Enemies
 
 			if (!(health <= 0)) return currentFireCooldown > 0;
 		
-			//FMODUnity.RuntimeManager.PlayOneShotAttached("event:/SFX/Enemy/Greg/Enemy_Greg_Death", gameObject);
 			OnDeath();
 
 			return currentFireCooldown > 0;
