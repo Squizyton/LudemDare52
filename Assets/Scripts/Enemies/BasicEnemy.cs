@@ -180,6 +180,11 @@ namespace Enemies
 			return damage;
 		}
 
+		public bool GetIsDead()
+		{
+			return isDead;
+		}
+
 
 		protected enum State
 		{

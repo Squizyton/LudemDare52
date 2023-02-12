@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
     //Game Stats
     [Header("Game Stats")] 
     public float timeAlive;
-     public int currentWave;
-     public int currentScore;
-     public int currentKills;
-     public int totalAmountOfWaves;
-     public int cropsHarvested;
+    public int currentWave;
+    public int currentScore;
+    public int currentKills;
+    public int totalAmountOfWaves;
+    public int cropsHarvested;
     public int cropsPlanted;
-     public int bulletsFired;
+    public int bulletsFired;
     
     
 
