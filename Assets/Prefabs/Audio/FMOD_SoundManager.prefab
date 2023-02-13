@@ -73,18 +73,25 @@ MonoBehaviour:
     Path: event:/Music/Music_InGame
   M_GameOver:
     Guid:
-      Data1: 265745648
-      Data2: 1084904265
-      Data3: -750260559
-      Data4: 1317739014
-    Path: event:/Music/Music_InGame
+      Data1: 2021428142
+      Data2: 1163413462
+      Data3: -1155884402
+      Data4: 232273468
+    Path: event:/Music/Test/Music_Menu
   M_MainMenu:
     Guid:
-      Data1: 265745648
-      Data2: 1084904265
-      Data3: -750260559
-      Data4: 1317739014
-    Path: event:/Music/Music_InGame
+      Data1: 2021428142
+      Data2: 1163413462
+      Data3: -1155884402
+      Data4: 232273468
+    Path: event:/Music/Test/Music_Menu
+  TestMusic:
+    Guid:
+      Data1: -1046503152
+      Data2: 1143043109
+      Data3: 597809287
+      Data4: 170581379
+    Path: event:/Music/Test/Music_TestTension
   S_MuteFight:
     Guid:
       Data1: -530146194

@@ -37,16 +37,21 @@ public class FMODSoundManager : MonoBehaviour
     private int oldLevel;
 
     private bool wasPaused;
-    private bool IsFPS;
+    private bool isFPS;
+    private bool isAnotherOne;
 
 
     #region Main
     private void Awake()
     {
         if (Instance != null && Instance != this)
+        {
+            isAnotherOne = true;
             Destroy(gameObject);
+        }
         else
             Instance = this;
+        oldLevel = -1;
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -70,7 +75,7 @@ public class FMODSoundManager : MonoBehaviour
             case 0:
                 StudioSystem.setParameterByNameWithLabel("CurrentLevel", "MainMenu");
 
-                //PlayLevelMusic(M_MainMenu);
+                PlayLevelMusic(M_MainMenu);
                 oldLevel = level;
                 break;
 
@@ -84,7 +89,9 @@ public class FMODSoundManager : MonoBehaviour
             case 2:
                 StudioSystem.setParameterByNameWithLabel("CurrentLevel", "GameOverScreen");
 
-                //PlayLevelMusic(M_GameOver);
+                InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                PlayOneShot("event:/SFX/Player/Voice/Player_Voice_Death");
+                PlayLevelMusic(M_GameOver);
                 oldLevel = level;
                 break;
 
@@ -117,10 +124,14 @@ public class FMODSoundManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        ReleaseWithFade(snapGamePaused);
-        ReleaseWithFade(snapMuteFight);
-        ReleaseWithFade(Music);
+        if (!isAnotherOne)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+
+            ReleaseWithFade(snapGamePaused);
+            ReleaseWithFade(snapMuteFight);
+            ReleaseWithFade(Music);
+        }
     }
     #endregion
 
@@ -130,29 +141,28 @@ public class FMODSoundManager : MonoBehaviour
         switch (newMode)
         {
             case GameManager.CurrentMode.FPS:
-                if (!IsFPS) {
+                if (!isFPS) {
                     PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                     StudioSystem.setParameterByName("GameMode", 1);
 
-                    IsFPS = true;       //so it will not repeat in Update mode
+                    isFPS = true;       //so it will not repeat in Update mode
                 }
                 break;
 
             case GameManager.CurrentMode.TopDown:
-                if (IsFPS) {
+                if (isFPS) {
                     PlayOneShot("event:/SFX/UI/UI_Game_ModeTransistion");
                     StudioSystem.setParameterByName("GameMode", 0);
 
-                    IsFPS = false;       //so it will not repeat in Update mode
+                    isFPS = false;       //so it will not repeat in Update mode
                 }
                 break;
 
             case GameManager.CurrentMode.GameOver:
-                if (IsFPS) {
+                if (isFPS) {
                     StudioSystem.setParameterByName("GameMode", 0);
 
-                    InGameBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                    IsFPS = false;       //so it will not repeat in Update mode
+                    isFPS = false;       //so it will not repeat in Update mode
                 }
                 break;
 
@@ -187,10 +197,12 @@ public class FMODSoundManager : MonoBehaviour
         Music.getPlaybackState(out playbackState);
 
         if (playbackState == PLAYBACK_STATE.PLAYING)
+        {
             ReleaseWithFade(Music);
+        }
 
-        Music = CreateInstance(MusicEvent);
-        Music.start();
+            Music = CreateInstance(MusicEvent);
+            Music.start();
     }
     /*
     public void UpdateHealth(float health)
