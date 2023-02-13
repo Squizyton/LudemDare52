@@ -110,7 +110,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (health <= 0)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Voice_Death");
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Voice/Player_Voice_Death");
             Die();
         }
         else
