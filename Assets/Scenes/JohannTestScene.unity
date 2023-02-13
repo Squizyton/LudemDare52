@@ -3869,7 +3869,7 @@ PrefabInstance:
     - target: {fileID: 4788400652919112665, guid: dfbc4c1b586d30e46b7de2f84180bc6a,
         type: 3}
       propertyPath: TestMusic.Path
-      value: event:/Music/Music_TestTension
+      value: event:/Music/Test/Music_TestTension
       objectReference: {fileID: 0}
     - target: {fileID: 4788400652919112665, guid: dfbc4c1b586d30e46b7de2f84180bc6a,
         type: 3}
