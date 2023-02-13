@@ -32,8 +32,8 @@ public class TensionControler : MonoBehaviour
     [SerializeField][Range(0, 100f)] private float m_enemyKilledTimerMAX;
     [SerializeField][Range(0, 100f)] private float m_excerciseTensionMAX;
     [SerializeField][Range(0, 100f)] private float l_healthMAX;
-    [SerializeField][Range(0, 100f)] private float l_staminaMAX; 
-    [SerializeField][Range(0, 100f)] private float l_enemycounterMAX; 
+    [SerializeField][Range(0, 100f)] private float l_staminaMAX;
+    [SerializeField][Range(0, 100f)] private float l_enemycounterMAX;
     [SerializeField][Range(0, 100f)] private float m_UnderFireMAX;
 
     [Header("Dropping speed:")]
@@ -64,15 +64,17 @@ public class TensionControler : MonoBehaviour
     {
         fmodHeartbeat.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         fmodHeartbeat.release();
-    }
 
-    private void Update()
+        FMODParametersUpdate(0, 60, 0);
+        UpdateHealth(l_healthMAX);
+
+    }
+    private void FixedUpdate()
     {
         updateTimer += Time.unscaledDeltaTime;
         if (updateTimer > 1f)
             OnTimeUpdate();
     }
-
 
     private void OnTimeUpdate()
     {                                                       //For health it's done by UpdateHealth()
@@ -100,10 +102,12 @@ public class TensionControler : MonoBehaviour
 
         CheckValues();
         CurrentTension();
-        FMODParametersUpdate();
+        FMODParametersUpdate(tensionLevel, heartRate, enemycounter);
 
         updateTimer = 0f;
     }
+
+
 
     private void CheckValues()
     {
@@ -126,17 +130,17 @@ public class TensionControler : MonoBehaviour
         if (heartRate > maxHeartBeat) heartRate = maxHeartBeat;         //so our heart won't just die
     }
 
-    private void FMODParametersUpdate()
+    private void FMODParametersUpdate(float tension, float heart, float enemies)
     {
-        StudioSystem.setParameterByName("TensionLevel", tensionLevel);
-        StudioSystem.setParameterByName("HeartRate", heartRate);
-        StudioSystem.setParameterByName("EnemyCounter", enemycounter);
+        StudioSystem.setParameterByName("TensionLevel", tension);
+        StudioSystem.setParameterByName("HeartRate", heart);
+        StudioSystem.setParameterByName("EnemyCounter", enemies);
     }
 
     private void OnTriggerEnter(Collider other)                             
     {
         if (other.gameObject.tag == "Enemy")            m_enemyClose = m_enemyCloseMAX;
-        if (other.gameObject.tag == "EnemyBullet")      EnemyShooting();                    // !!!not detected due to layer "HitBox"!!!
+        if (other.gameObject.tag == "EnemyBullet")      EnemyShooting();                    // !!!not detected due to layer "HitBox" used by Lenny's bullet!!!
     }
     public void EnemyShooting()
     {
@@ -192,4 +196,33 @@ public class TensionControler : MonoBehaviour
         hasExcercised = true;
     }
     #endregion
+
+
+    /*
+    private void RiseDecrease(float currentValue, float desiredValue, float step, float minValue, float maxValue, bool isRising, bool isDropping)
+    {
+        if (isRising)
+        {
+            currentValue += step;
+            if (currentValue > desiredValue)
+            {
+                currentValue = desiredValue;
+                isRising = false;
+            }
+        }
+        if (isDropping)
+        {
+            currentValue -= step;
+            if (currentValue < desiredValue)
+            {
+                currentValue = desiredValue;
+                isDropping = false;
+            }
+        }
+        if (currentValue > maxValue)
+            currentValue = maxValue;
+        if (currentValue < minValue)
+            currentValue = minValue;
+    }
+    */
 }

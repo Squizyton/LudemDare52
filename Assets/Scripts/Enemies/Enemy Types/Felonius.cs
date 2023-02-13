@@ -23,6 +23,8 @@ public class Felonius : BasicEnemy
 
     [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
     [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+    [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
+    [SerializeField] private GameObject head;
 
 
 
@@ -32,6 +34,7 @@ public class Felonius : BasicEnemy
         healthBar.value = health;
         agent.speed = speed;
         ChooseTargetPoint();
+        if (head == null) head = gameObject;
     }
 
 
@@ -112,17 +115,20 @@ public class Felonius : BasicEnemy
     #region FMOD
     public void FmodPostFootstepsEvent()
     {
-        PlaySound(FmodFootstepEvent);
+        PlaySound(FmodFootstepEvent, gameObject);
     }
 
     public void DevourSound()
     {
         PlaySound("event:/SFX/Enemy/Felonious/Enemy_Felonious_Devour");
     }
-
     public void BodyfallSound()
     {
-        PlaySound(FmodBodyfallEvent);
+        PlaySound(FmodBodyfallEvent, gameObject);
+    }
+    public void FmodPostDeathEvent()
+    {
+        PlaySound(FmodDeathEvent, head);
     }
 
     public void PlaySound(string sound)
@@ -130,9 +136,9 @@ public class Felonius : BasicEnemy
         if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
     }
 
-    public void PlaySound(FMODUnity.EventReference sound)
+    public void PlaySound(FMODUnity.EventReference sound, GameObject source)
     {
-        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, source);   //FMOD
     }
     #endregion
 }

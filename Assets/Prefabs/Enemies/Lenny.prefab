@@ -2690,6 +2690,14 @@ MonoBehaviour:
       Data3: 1687727522
       Data4: -96539939
     Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: -1756348749
+      Data2: 1169838615
+      Data3: -767584864
+      Data4: -1926724101
+    Path: event:/SFX/Enemy/Lenny/Enemy_Lenny_Death
+  head: {fileID: 7585393532105734116}
 --- !u!4 &5076598810761254312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 739911763991900403, guid: 30e9850d98a53db4792a664e9301af21,
@@ -2705,6 +2713,12 @@ Transform:
 --- !u!4 &5809713518006710353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7163188765038095094, guid: 30e9850d98a53db4792a664e9301af21,
+    type: 3}
+  m_PrefabInstance: {fileID: 5491860937495733595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7585393532105734116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2698704383393387199, guid: 30e9850d98a53db4792a664e9301af21,
     type: 3}
   m_PrefabInstance: {fileID: 5491860937495733595}
   m_PrefabAsset: {fileID: 0}

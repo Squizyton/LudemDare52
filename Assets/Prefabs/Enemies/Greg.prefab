@@ -3346,6 +3346,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7456295121877886631}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3640743915171968602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3027384708859227907, guid: 9ae6b786e4d620a4c9be008e085720d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7456295121877886631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6985273881787302220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ae6b786e4d620a4c9be008e085720d6,
@@ -3494,3 +3500,11 @@ MonoBehaviour:
       Data3: 1687727522
       Data4: -96539939
     Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: 2040947499
+      Data2: 1118187776
+      Data3: -259179904
+      Data4: -924631436
+    Path: event:/SFX/Enemy/Greg/Enemy_Greg_Death
+  head: {fileID: 3640743915171968602}

@@ -2139,9 +2139,23 @@ MonoBehaviour:
       Data3: 1687727522
       Data4: -96539939
     Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: -1591707693
+      Data2: 1253183128
+      Data3: -1471370085
+      Data4: -1154626726
+    Path: event:/SFX/Enemy/Felonious/Enemy_Felonious_Death
+  head: {fileID: 5931582062608036618}
 --- !u!4 &889187417946176452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 855048702057831471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5931582062608036618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2770689904659370203, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
     type: 3}
   m_PrefabInstance: {fileID: 855048702057831471}
   m_PrefabAsset: {fileID: 0}
