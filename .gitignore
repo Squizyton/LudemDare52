@@ -83,3 +83,5 @@ UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 Assets/ConsolePro/Remote/LiteNetLib/LiteNetLib.csproj.meta
 UserSettings/
 *.dwlt
+Assets/Scripts/FMOD/TEST
+Assets/Scripts/FMOD/TEST.meta
