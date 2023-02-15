@@ -124,7 +124,7 @@ public class Felonius : BasicEnemy
     }
     public void BodyfallSound()
     {
-        PlaySound(FmodBodyfallEvent, gameObject);
+        PlaySound(FmodBodyfallEvent, head);
     }
     public void FmodPostDeathEvent()
     {
