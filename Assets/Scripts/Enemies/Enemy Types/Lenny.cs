@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
+using UnityEditor;
 
 public class Lenny : BasicEnemy
 {
@@ -116,7 +117,7 @@ public class Lenny : BasicEnemy
 
     public void BodyfallSound()
     {
-        PlaySound(FmodBodyfallEvent, gameObject);
+        PlaySound(FmodBodyfallEvent, head);
     }
     public void FmodPostDeathEvent()
     {
@@ -133,5 +134,10 @@ public class Lenny : BasicEnemy
         if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, source);   //FMOD
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(this.transform.position, 0.5f);
+
+    }
     #endregion
 }

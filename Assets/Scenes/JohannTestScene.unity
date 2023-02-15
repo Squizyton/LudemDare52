@@ -8329,17 +8329,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tensionControler: {fileID: 0}
-  availableCredits: 50
+  availableCredits: 500
   monsterList:
-  - {fileID: 11400000, guid: 805da6ea9c31b9147b53ee1d2f293b60, type: 2}
-  - {fileID: 11400000, guid: 0ea5bde2ad78cc64ab3d546e6e3cd6e7, type: 2}
-  - {fileID: 11400000, guid: 4144de0aec40a764188077f607f5b5ab, type: 2}
+  - {fileID: 11400000, guid: d7a675d3bb9949341adf4d65fa305528, type: 2}
+  - {fileID: 11400000, guid: c779750248d0d734193e5e6af70268ee, type: 2}
+  - {fileID: 11400000, guid: aa5c6b9b8d77dd54db442776b0f3cf49, type: 2}
   - {fileID: 11400000, guid: 6121c0e608c38874381dba073203d030, type: 2}
   - {fileID: 11400000, guid: f7e63c3be512edf46acf0ba42db31514, type: 2}
   - {fileID: 11400000, guid: 72cbe1e0a7741a1429155ceb52430205, type: 2}
-  - {fileID: 11400000, guid: aa5c6b9b8d77dd54db442776b0f3cf49, type: 2}
-  - {fileID: 11400000, guid: d7a675d3bb9949341adf4d65fa305528, type: 2}
-  - {fileID: 11400000, guid: c779750248d0d734193e5e6af70268ee, type: 2}
+  - {fileID: 11400000, guid: 805da6ea9c31b9147b53ee1d2f293b60, type: 2}
+  - {fileID: 11400000, guid: 0ea5bde2ad78cc64ab3d546e6e3cd6e7, type: 2}
+  - {fileID: 11400000, guid: 4144de0aec40a764188077f607f5b5ab, type: 2}
   spawnPoints:
   - {fileID: 421521470}
   - {fileID: 1298146513}
