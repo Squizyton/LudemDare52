@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4961306071312345512}
-  - component: {fileID: 2725097133589904301}
+  - component: {fileID: 4384553336917444708}
+  - component: {fileID: 7639554270842060707}
   m_Layer: 0
   m_Name: SFX_AmbBarn
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_GameObject: {fileID: 6628746688542997647}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.1122844, y: 1, z: 1.1066}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2725097133589904301
+--- !u!114 &4384553336917444708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,24 +42,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 6628746688542997647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: fca8daabbe96da0418a34cb252489e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
+  player: {fileID: 0}
+  colliderEdge: {fileID: 7639554270842060707}
+  childColliders: []
+  AmbientEvent:
     Guid:
       Data1: -1593802546
       Data2: 1110332231
       Data3: -41845374
       Data4: 1669511985
     Path: event:/SFX/Enviroment/AMB_Barn
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  useChildColliders: 0
+  useOcclusion: 0
+  isPlayerInside: 0
+  distanceToPlayer: 0
+  maxDistance: 0
+--- !u!65 &7639554270842060707
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6628746688542997647}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
