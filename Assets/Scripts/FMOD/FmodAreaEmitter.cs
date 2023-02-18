@@ -73,7 +73,7 @@ public class FmodAreaEmitter : MonoBehaviour
     private void FixedUpdate()
     {
         FindPointForEmitter();
-        if (distanceToPlayer > maxDistance || distanceToPlayer < 0)
+        if (distanceToPlayer > maxDistance || distanceToPlayer < 0)                 //When Player is too far, there is no point for further calculations
             return;
 
         AttachSoundToEmitter();
@@ -81,11 +81,11 @@ public class FmodAreaEmitter : MonoBehaviour
 
     private void FindPointForEmitter()
     {
-        if (isPlayerInside)
+        if (isPlayerInside)         //When Player is inside, collider we want sounds to be played as 2D events
         {
             emitterPoint = player.transform.position;
         }
-        else
+        else                        //When we are outside, audio will behave like 3D source for which we shall provide a position that will be feeling more natural especially for large areas - the closest point between player and area
         {
             if (useChildColliders)
                 GetDistanceToChildColliders();
