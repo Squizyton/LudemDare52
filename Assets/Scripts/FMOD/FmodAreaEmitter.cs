@@ -131,8 +131,7 @@ public class FmodAreaEmitter : MonoBehaviour
             Vector3 newpoint = edge.ClosestPoint(player.transform.position);
             y = Vector3.Distance(newpoint, player.transform.position);
 
-            if (x > y)
-            {
+            if (x > y)      {
                 newclosestpoint = newpoint;
                 x = y;
             }
@@ -142,7 +141,7 @@ public class FmodAreaEmitter : MonoBehaviour
         distanceToPlayer = x;
     }
 
-    private void AttachSoundToEmitter()                             //
+    private void AttachSoundToEmitter()                             //The in case you would use this script for other needs than FMOD's positioning, this is function you will personalize
     {
         AmbientEmitter.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(emitterPoint)); 
     }
