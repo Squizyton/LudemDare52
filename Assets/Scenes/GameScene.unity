@@ -1479,21 +1479,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca8daabbe96da0418a34cb252489e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useChildColliders: 1
   player: {fileID: 0}
-  colliderEdge: {fileID: 0}
-  childColliders: []
-  AmbientEvent:
+  emitterCollider: {fileID: 0}
+  emitersChildColliders: []
+  fmodEvent:
     Guid:
       Data1: -1658841418
       Data2: 1313710821
       Data3: -1719863399
       Data4: -1836863655
     Path: event:/SFX/Enviroment/AMB_Forest
-  useChildColliders: 1
-  useOcclusion: 0
   isPlayerInside: 0
   distanceToPlayer: 0
-  maxDistance: 0
 --- !u!54 &368119474
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3057,6 +3055,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d041bcd993a179d4aa16aeea15826239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &642887789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328495188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca54ce6ba16822c45929eaea86a592e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &645556277
@@ -6080,6 +6090,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1275406367}
     m_Modifications:
+    - target: {fileID: 4384553336917444708, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
+        type: 3}
+      propertyPath: fmodEvent.Path
+      value: event:/SFX/Enviroment/AMB_Barn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384553336917444708, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
+        type: 3}
+      propertyPath: fmodEvent.Guid.Data1
+      value: -1593802546
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384553336917444708, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
+        type: 3}
+      propertyPath: fmodEvent.Guid.Data2
+      value: 1110332231
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384553336917444708, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
+        type: 3}
+      propertyPath: fmodEvent.Guid.Data3
+      value: -41845374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4384553336917444708, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
+        type: 3}
+      propertyPath: fmodEvent.Guid.Data4
+      value: 1669511985
+      objectReference: {fileID: 0}
     - target: {fileID: 4961306071312345512, guid: 6dc0e5d96de6d1649a95f5eb1d9faf7c,
         type: 3}
       propertyPath: m_RootOrder
@@ -7362,6 +7397,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2051447198}
     m_Modifications:
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: EventReference.Path
+      value: event:/SFX/Enviroment/AMB_Forest
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: OverrideMinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -1658841418
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1313710821
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: -1719863399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725097133589904301, guid: 02954ee4133d7a94792843a29f4b4a48,
+        type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1836863655
+      objectReference: {fileID: 0}
     - target: {fileID: 4961306071312345512, guid: 02954ee4133d7a94792843a29f4b4a48,
         type: 3}
       propertyPath: m_RootOrder
@@ -7420,7 +7490,7 @@ PrefabInstance:
     - target: {fileID: 6628746688542997647, guid: 02954ee4133d7a94792843a29f4b4a48,
         type: 3}
       propertyPath: m_Name
-      value: SFX_AmbientGeneral
+      value: Amb_General
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8756,7 +8826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2051447198}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: FMOD_Ambiences
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9467,6 +9537,11 @@ PrefabInstance:
       propertyPath: guns.Array.data[1]
       value: 
       objectReference: {fileID: 6202200341620999344}
+    - target: {fileID: 5257447922195116071, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5257447922195116074, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       propertyPath: m_RootOrder
@@ -9630,6 +9705,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6726536114180464138}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5257447922195116065, guid: 8f747239faf8c95429cec780631f8feb,
+        type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 642887789}
     - targetCorrespondingSourceObject: {fileID: 5257447922286474433, guid: 8f747239faf8c95429cec780631f8feb,
         type: 3}
       insertIndex: -1
