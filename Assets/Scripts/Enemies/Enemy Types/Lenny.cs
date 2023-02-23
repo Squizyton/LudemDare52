@@ -112,7 +112,8 @@ public class Lenny : BasicEnemy
     #region FMOD
     public void FmodPostFootstepsEvent()
     {
-        PlaySound(FmodFootstepEvent, gameObject);
+        string surfaceLayer = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLeyer", surfaceLayer);   //FMOD
     }
 
     public void BodyfallSound()

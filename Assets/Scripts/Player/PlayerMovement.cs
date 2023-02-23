@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 	private bool isMovement;
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
+	private string fmodSurface;
 
     [HideInInspector]
 	public Vector2 movePos;
@@ -147,6 +148,12 @@ public class PlayerMovement : MonoBehaviour
         {
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
+            string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+            if (fmodSurface != newFmodSurface)
+			{
+				fmodSurface = newFmodSurface;
+                FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
+            }
             if (!isWalking && canJump)			
 				PlayerMoveSFX();
         }

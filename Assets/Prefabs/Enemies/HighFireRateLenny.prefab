@@ -2553,6 +2553,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 861244514}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -345043007452439626}
   m_SourcePrefab: {fileID: 100100000, guid: 30e9850d98a53db4792a664e9301af21, type: 3}
 --- !u!1 &4681047322380720138 stripped
 GameObject:
@@ -2708,6 +2712,18 @@ MonoBehaviour:
       Data4: -1926724101
     Path: event:/SFX/Enemy/Lenny/Enemy_Lenny_Death
   head: {fileID: 7585393532105734116}
+--- !u!114 &-345043007452439626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681047322380720138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca54ce6ba16822c45929eaea86a592e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5076598810761254312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 739911763991900403, guid: 30e9850d98a53db4792a664e9301af21,

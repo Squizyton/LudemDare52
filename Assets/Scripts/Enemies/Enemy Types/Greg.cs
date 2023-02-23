@@ -1,3 +1,5 @@
+using FMOD;
+using System.Reflection;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
@@ -46,7 +48,8 @@ namespace Enemies.Enemy_Types
         #region FMOD
         public void FmodPostFootstepsEvent()
         {
-            PlaySound(FmodFootstepEvent, gameObject);
+            string surfaceLayer = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLeyer", surfaceLayer);   //FMOD
         }
 
         public void BodyfallSound()
