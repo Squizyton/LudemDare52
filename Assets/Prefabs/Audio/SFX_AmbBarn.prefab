@@ -45,21 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca8daabbe96da0418a34cb252489e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useChildColliders: 0
   player: {fileID: 0}
-  colliderEdge: {fileID: 7639554270842060707}
-  childColliders: []
-  AmbientEvent:
+  emitterCollider: {fileID: 0}
+  emitersChildColliders: []
+  fmodEvent:
     Guid:
       Data1: -1593802546
       Data2: 1110332231
       Data3: -41845374
       Data4: 1669511985
     Path: event:/SFX/Enviroment/AMB_Barn
-  useChildColliders: 0
-  useOcclusion: 0
   isPlayerInside: 0
   distanceToPlayer: 0
-  maxDistance: 0
 --- !u!65 &7639554270842060707
 BoxCollider:
   m_ObjectHideFlags: 0
