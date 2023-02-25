@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -32,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
 	private string fmodSurface;
+
+    private float _NextFootStepIn = 0;
 
     [HideInInspector]
 	public Vector2 movePos;
@@ -146,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (isMovement)
         {
+            //FScounter();      //for possible redone of footsteps sounds
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
             string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
@@ -234,4 +240,47 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Sprint.performed -= GetSprint;
         controls.Player.Sprint.canceled -= GetSprint;
     }
+
+    // Possible use for redone walk sound code
+
+    /*
+    private void Second()
+    {
+        _NextFootStepIn -= 0.1f;
+    }
+
+    private void FScounter()
+    {
+        if (_NextFootStepIn <= 0)
+        {
+            if (isWalking)
+            {
+                PlayFootsSound();
+
+                if (!IsInvoking("Second"))
+                {
+                    InvokeRepeating("Second", 0, 0.1f);
+                }
+            }
+            else if (IsInvoking("Second"))
+            {
+                CancelInvoke("Second");
+            }
+        }
+    }
+
+    private void PlayFootsSound()
+    {
+        if (sprinting) // Sprint sounds
+        {
+            _NextFootStepIn = UnityEngine.Random.Range(0.2f, 0.3f);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Footsteps_Sprint");
+        }
+        else if (!sprinting) // Foot sounds (standard)
+        {
+            _NextFootStepIn = UnityEngine.Random.Range(0.3f, 0.5f);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Footsteps_Walk");
+        }
+    }
+    */
 }
