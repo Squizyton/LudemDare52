@@ -18,10 +18,15 @@ public class PlantInfo : ScriptableObject
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletLifeTime;
-    public string FmodBulletName;
-    [Header("Gun Info")] public bool isAutomatic;
+    public string FmodBulletName;    //to be discontinued
+    [Header("Gun Info")] 
+    public bool isAutomatic;
     public float gunFireRate;
     public float gunBulletSpread;
     public int maxClipSize;
     public float gunReloadTime;
+    [Header("FMOD Info")]
+    public FMODUnity.EventReference fmodGunFire;
+    public FMODUnity.EventReference fmodAltFire;
+    public FMODUnity.EventReference fmodReload;
 }

@@ -26,7 +26,8 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
-            fmodBullet = newAmmo.FmodBulletName;
+            fmodBullet = newAmmo.FmodBulletName;    //to be discontinued
+            fmodGunFire = newAmmo.fmodGunFire;
         }
 
         protected void SpecificGunStart()
@@ -106,7 +107,7 @@ namespace Guns
             UIManager.Instance.UpdateAmmoCount(0, PlayerInventory.Instance.GetAmmo(bulletList[currentBullet].GetBulletInfo()), hasInfiniteAmmo);
 
             //Change FMOD ammo type
-            ChangeFMODGunType();
+            ChangeFMODGunType();    //to be discontinued
         }
 
     }

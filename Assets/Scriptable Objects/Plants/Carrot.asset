@@ -29,3 +29,24 @@ MonoBehaviour:
   gunBulletSpread: 0
   maxClipSize: 1
   gunReloadTime: 1.5
+  fmodGunFire:
+    Guid:
+      Data1: 1922196134
+      Data2: 1284346178
+      Data3: -822752580
+      Data4: -1091359436
+    Path: event:/SFX/Player/Guns/Carrot/GUNS_Carrot_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: 1922196134
+      Data2: 1284346178
+      Data3: -822752580
+      Data4: -1091359436
+    Path: event:/SFX/Player/Guns/Carrot/GUNS_Carrot_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload
