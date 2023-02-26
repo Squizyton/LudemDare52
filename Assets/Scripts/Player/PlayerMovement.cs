@@ -151,21 +151,30 @@ public class PlayerMovement : MonoBehaviour
 
 		if (isMovement)
         {
-            //FScounter();      //for possible redone of footsteps sounds
+            CheckSurface();
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
-            string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
-            if (fmodSurface != newFmodSurface)
-			{
-				fmodSurface = newFmodSurface;
-                FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
-            }
             if (!isWalking && canJump)			
 				PlayerMoveSFX();
         }
         else
 			if(isWalking ||!canJump)
 				PlayerStopMoveSFX();
+    }
+	private void CheckSurface()
+	{
+		if (_NextFootStepIn <= 0)
+		{
+			string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+			if (fmodSurface != newFmodSurface)
+			{
+				fmodSurface = newFmodSurface;
+				FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
+			}
+			_NextFootStepIn = 5f;
+		}
+		else
+			_NextFootStepIn--;
     }
 
     private void Jump()
@@ -231,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void PlayerLandSFX()
 	{
+		CheckSurface();
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
 		return;
 	}
@@ -240,47 +250,4 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Sprint.performed -= GetSprint;
         controls.Player.Sprint.canceled -= GetSprint;
     }
-
-    // Possible use for redone walk sound code
-
-    /*
-    private void Second()
-    {
-        _NextFootStepIn -= 0.1f;
-    }
-
-    private void FScounter()
-    {
-        if (_NextFootStepIn <= 0)
-        {
-            if (isWalking)
-            {
-                PlayFootsSound();
-
-                if (!IsInvoking("Second"))
-                {
-                    InvokeRepeating("Second", 0, 0.1f);
-                }
-            }
-            else if (IsInvoking("Second"))
-            {
-                CancelInvoke("Second");
-            }
-        }
-    }
-
-    private void PlayFootsSound()
-    {
-        if (sprinting) // Sprint sounds
-        {
-            _NextFootStepIn = UnityEngine.Random.Range(0.2f, 0.3f);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Footsteps_Sprint");
-        }
-        else if (!sprinting) // Foot sounds (standard)
-        {
-            _NextFootStepIn = UnityEngine.Random.Range(0.3f, 0.5f);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Footsteps_Walk");
-        }
-    }
-    */
 }
