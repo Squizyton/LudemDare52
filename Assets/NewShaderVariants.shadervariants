@@ -293,6 +293,11 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS _TERRAIN_INSTANCED_PERPIXEL_NORMAL
         passType: 13
+  - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
   - first: {fileID: 4800000, guid: 341b058cd7dee4f5cba5cc59a513619e, type: 3}
     second:
       variants:
@@ -303,7 +308,7 @@ ShaderVariantCollection:
       variants:
       - keywords: 
         passType: 0
-  - first: {fileID: -6465566751694194690, guid: 85827a98514358f438446da0fc64b0f0,
+  - first: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511,
       type: 3}
     second:
       variants:
@@ -355,57 +360,7 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
         passType: 13
-  - first: {fileID: -6465566751694194690, guid: 5666065488ed57a4d9f76658a82b25c7,
-      type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 8
-      - keywords: LOD_FADE_CROSSFADE
-        passType: 8
-      - keywords: PROCEDURAL_INSTANCING_ON
-        passType: 8
-      - keywords: 
-        passType: 13
-      - keywords: FOG_EXP2 LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS
-          _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING
-          _REFLECTION_PROBE_BOX_PROJECTION _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
-        passType: 13
-      - keywords: FOG_EXP2 SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
-          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
-          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
-          _SCREEN_SPACE_OCCLUSION
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
-          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS
-        passType: 13
-      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
-        passType: 13
-      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
-          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
-          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
-          _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION _SCREEN_SPACE_OCCLUSION
-          _SHADOWS_SOFT
-        passType: 13
-      - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
-        passType: 13
-  - first: {fileID: -6465566751694194690, guid: cd32417db29324f4f8f49c2a0e918511,
+  - first: {fileID: -6465566751694194690, guid: 85827a98514358f438446da0fc64b0f0,
       type: 3}
     second:
       variants:
@@ -530,6 +485,56 @@ ShaderVariantCollection:
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
         passType: 13
+  - first: {fileID: -6465566751694194690, guid: 5666065488ed57a4d9f76658a82b25c7,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+      - keywords: LOD_FADE_CROSSFADE
+        passType: 8
+      - keywords: PROCEDURAL_INSTANCING_ON
+        passType: 8
+      - keywords: 
+        passType: 13
+      - keywords: FOG_EXP2 LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS
+          _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING
+          _REFLECTION_PROBE_BOX_PROJECTION _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
+        passType: 13
+      - keywords: FOG_EXP2 SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
+          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
+          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+          _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
+          _SCREEN_SPACE_OCCLUSION
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
+          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS
+        passType: 13
+      - keywords: LOD_FADE_CROSSFADE _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
+        passType: 13
+      - keywords: SHADOWS_SHADOWMASK _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+          _MAIN_LIGHT_SHADOWS_CASCADE _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION
+          _SCREEN_SPACE_OCCLUSION _SHADOWS_SOFT
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
+          _REFLECTION_PROBE_BLENDING _REFLECTION_PROBE_BOX_PROJECTION _SCREEN_SPACE_OCCLUSION
+          _SHADOWS_SOFT
+        passType: 13
+      - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
+        passType: 13
   - first: {fileID: -6465566751694194690, guid: dc1a634184354e343a9a36dd032cf2bf,
       type: 3}
     second:
@@ -571,18 +576,6 @@ ShaderVariantCollection:
           _SHADOWS_SOFT
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
-        passType: 13
-  - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-    second:
-      variants:
-      - keywords: 
-        passType: 0
-  - first: {fileID: 4800000, guid: ae2955334940edc49a89633dc0bb3a6b, type: 3}
-    second:
-      variants:
-      - keywords: FOG_EXP2 INSTANCING_ON
-        passType: 13
-      - keywords: INSTANCING_ON
         passType: 13
   - first: {fileID: -6465566751694194690, guid: 271d1d92cfcbe39489655abce699ad1e,
       type: 3}
@@ -626,4 +619,16 @@ ShaderVariantCollection:
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS
         passType: 13
       - keywords: _ADDITIONAL_LIGHTS _MAIN_LIGHT_SHADOWS_CASCADE
+        passType: 13
+  - first: {fileID: 4800000, guid: ae2955334940edc49a89633dc0bb3a6b, type: 3}
+    second:
+      variants:
+      - keywords: FOG_EXP2 INSTANCING_ON
+        passType: 13
+      - keywords: INSTANCING_ON
+        passType: 13
+  - first: {fileID: 4800000, guid: 788537373510f9a459f4939b68980014, type: 3}
+    second:
+      variants:
+      - keywords: FOG_EXP2 INSTANCING_ON
         passType: 13
