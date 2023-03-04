@@ -49,7 +49,7 @@ namespace Enemies.Enemy_Types
         public void FmodPostFootstepsEvent()
         {
             string surfaceLayer = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
-            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLeyer", surfaceLayer);   //FMOD
+            if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLayer", surfaceLayer);   //FMOD
         }
 
         public void BodyfallSound()

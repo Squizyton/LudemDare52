@@ -28,6 +28,7 @@ namespace Guns
         [SerializeField] protected float reloadTime;
         [SerializeField] protected float fireRate;
         [SerializeField] protected string fmodBullet;
+        [SerializeField] protected FMODUnity.EventReference fmodGunFire;
 
 
         [Header("Is Clauses")] private bool isReloading;
@@ -228,15 +229,15 @@ namespace Guns
 
         #endregion
 
-        #region FMOD Functions
-        public void ChangeFMODGunType()
+        #region FMOD Functions 
+        public void ChangeFMODGunType()    //to be discontinued
         {
             FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("GunType", fmodBullet);
         }
 
         public void FmodShootSound()
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Guns/GUNS_Shoot");
+            FMODUnity.RuntimeManager.PlayOneShot(fmodGunFire);
         }
 
         public void FmodNoAmmo()

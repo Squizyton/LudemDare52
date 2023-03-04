@@ -23,8 +23,30 @@ MonoBehaviour:
   bulletSpeed: 0
   bulletDamage: 25
   bulletLifeTime: 0
+  FmodBulletName: 
   isAutomatic: 0
   gunFireRate: 0
   gunBulletSpread: 0
   maxClipSize: 0
   gunReloadTime: 0
+  fmodGunFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  fmodAltFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  fmodReload:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 

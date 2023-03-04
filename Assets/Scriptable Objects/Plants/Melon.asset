@@ -29,3 +29,24 @@ MonoBehaviour:
   gunBulletSpread: 0
   maxClipSize: 1
   gunReloadTime: 3
+  fmodGunFire:
+    Guid:
+      Data1: -851502985
+      Data2: 1189087176
+      Data3: 1333601188
+      Data4: -207461134
+    Path: event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: -851502985
+      Data2: 1189087176
+      Data3: 1333601188
+      Data4: -207461134
+    Path: event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

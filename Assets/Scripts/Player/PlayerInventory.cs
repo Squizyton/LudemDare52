@@ -153,7 +153,7 @@ public class PlayerInventory : MonoBehaviour
         if(currentActiveGun.bulletList[currentActiveGun.currentBullet].GetBulletInfo().PlantName == "pea")
             UIManager.Instance.UpdateAmmoCount(currentActiveGun.GetCurrentMag(),0,currentActiveGun.GetIsInfinite());
 
-        currentActiveGun.ChangeFMODGunType();
+        currentActiveGun.ChangeFMODGunType();    //to be discontinued
     }
 
     private void HarvestSeeds(InputAction.CallbackContext context)

@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -32,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
 	private string fmodSurface;
+
+    private float _NextFootStepIn = 0;
 
     [HideInInspector]
 	public Vector2 movePos;
@@ -146,20 +151,30 @@ public class PlayerMovement : MonoBehaviour
 
 		if (isMovement)
         {
+            CheckSurface();
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
-            string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
-            if (fmodSurface != newFmodSurface)
-			{
-				fmodSurface = newFmodSurface;
-                FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
-            }
             if (!isWalking && canJump)			
 				PlayerMoveSFX();
         }
         else
 			if(isWalking ||!canJump)
 				PlayerStopMoveSFX();
+    }
+	private void CheckSurface()
+	{
+		if (_NextFootStepIn <= 0)
+		{
+			string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+			if (fmodSurface != newFmodSurface)
+			{
+				fmodSurface = newFmodSurface;
+				FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
+			}
+			_NextFootStepIn = 5f;
+		}
+		else
+			_NextFootStepIn--;
     }
 
     private void Jump()
@@ -225,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void PlayerLandSFX()
 	{
+		CheckSurface();
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
 		return;
 	}

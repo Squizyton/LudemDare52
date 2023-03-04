@@ -29,3 +29,24 @@ MonoBehaviour:
   gunBulletSpread: 1
   maxClipSize: 3
   gunReloadTime: 1.75
+  fmodGunFire:
+    Guid:
+      Data1: 1302281685
+      Data2: 1193560605
+      Data3: 1165080220
+      Data4: -1288277391
+    Path: event:/SFX/Player/Guns/Pepper/GUNS_Pepper_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: 1302281685
+      Data2: 1193560605
+      Data3: 1165080220
+      Data4: -1288277391
+    Path: event:/SFX/Player/Guns/Pepper/GUNS_Pepper_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

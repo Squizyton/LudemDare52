@@ -27,7 +27,8 @@ namespace Guns
             maxAmmoPerClip = newAmmo.maxClipSize;
             fireRate = newAmmo.gunFireRate;
             isAutomatic = newAmmo.isAutomatic;
-            fmodBullet = newAmmo.FmodBulletName;
+            fmodBullet = newAmmo.FmodBulletName;    //to be discontinued
+            fmodGunFire = newAmmo.fmodGunFire;
         }
         
         public override async void Shoot()

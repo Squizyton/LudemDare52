@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 2
+  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 2
 --- !u!108 &77832259
 Light:
   m_ObjectHideFlags: 0
@@ -1655,6 +1655,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5246314}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b38d1c5405e4ea4e9fdfb1aede78e97,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1275406368}
     - targetCorrespondingSourceObject: {fileID: 5010573443351668588, guid: 6b38d1c5405e4ea4e9fdfb1aede78e97,
         type: 3}
       insertIndex: -1
@@ -4372,6 +4376,12 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &882256413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b38d1c5405e4ea4e9fdfb1aede78e97,
+    type: 3}
+  m_PrefabInstance: {fileID: 371151039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &916472348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5737,6 +5747,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 371151039}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1275406368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882256413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7732cbd65d6789c4c9599801034225be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaceType: {fileID: 11400000, guid: 00637ba7ddc2fe74d8ff11f79616f45c, type: 2}
 --- !u!1 &1279929639
 GameObject:
   m_ObjectHideFlags: 0
@@ -7946,6 +7969,13 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!114 &1677071711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8104,7 +8134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 2
+  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
@@ -8114,7 +8144,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 2
 --- !u!108 &1793931004
 Light:
   m_ObjectHideFlags: 0
@@ -9762,6 +9792,13 @@ MonoBehaviour:
   reloadTime: 0
   fireRate: 0
   fmodBullet: 
+  fmodGunFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   isAutomatic: 0
   hasInfiniteAmmo: 1
   layerMask:
@@ -9972,6 +10009,13 @@ MonoBehaviour:
   reloadTime: 0
   fireRate: 0
   fmodBullet: 
+  fmodGunFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   isAutomatic: 0
   hasInfiniteAmmo: 0
   layerMask:
