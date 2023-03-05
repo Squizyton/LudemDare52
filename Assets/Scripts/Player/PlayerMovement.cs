@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
 	private bool isMovement;
 
     private FMOD.Studio.EventInstance FMODPlayerWalk;
+	private string fmodSurface;
+
+    private float _NextFootStepIn = 0;
 
     [HideInInspector]
 	public Vector2 movePos;
@@ -122,6 +128,8 @@ public class PlayerMovement : MonoBehaviour
 		{
             staminaAmount -= staminaDrain * Time.deltaTime;
             UIManager.Instance.UpdateStaminaSlider(staminaAmount);
+            this.GetComponentInChildren<TensionControler>().UpdateStamina(staminaAmount,sprinting);
+
             FMODUnity.RuntimeManager.StudioSystem.setParameterByNameWithLabel("IsSprinting", "Sprinting");
         }
         else
@@ -143,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if (isMovement)
         {
+            CheckSurface();
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Speed", currentSpeed);
 
             if (!isWalking && canJump)			
@@ -152,6 +161,21 @@ public class PlayerMovement : MonoBehaviour
 			if(isWalking ||!canJump)
 				PlayerStopMoveSFX();
     }
+	private void CheckSurface()
+	{
+		if (_NextFootStepIn <= 0)
+		{
+			string newFmodSurface = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+			if (fmodSurface != newFmodSurface)
+			{
+				fmodSurface = newFmodSurface;
+				FMODPlayerWalk.setParameterByNameWithLabel("SurfaceLayer", fmodSurface);
+			}
+			_NextFootStepIn = 5f;
+		}
+		else
+			_NextFootStepIn--;
+    }
 
     private void Jump()
     {
@@ -159,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         PlayerJumpSFX();
+        this.GetComponentInChildren<TensionControler>().AddJump();
         hadJumped = true;
         canJump = false;
     }
@@ -173,7 +198,8 @@ public class PlayerMovement : MonoBehaviour
 			staminaAmount += staminaDrain * Time.deltaTime;
 			UIManager.Instance.UpdateStaminaSlider(staminaAmount);
 			yield return staminaRegenTic;
-		}
+            this.GetComponentInChildren<TensionControler>().UpdateStamina(staminaAmount, false);
+        }
 		staminaAmount = staminaMax;
 
 		if(exhausted)
@@ -214,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void PlayerLandSFX()
 	{
+		CheckSurface();
 		FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Movement/Player_Land");
 		return;
 	}

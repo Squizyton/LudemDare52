@@ -15,16 +15,38 @@ MonoBehaviour:
   PlantName: starfruit
   GrowTime: 300
   seedYield: 2
-  bulletYield: 15
+  plantCost: 1
   plantModel: {fileID: 519113573296484023, guid: bb4310c8ca2f61d49bf94aba1f6638de,
     type: 3}
   seedIcon: {fileID: 21300000, guid: bccc213555d21b94c8e9811d5df98f38, type: 3}
   bulletIcon: {fileID: 21300000, guid: bccc213555d21b94c8e9811d5df98f38, type: 3}
   bulletSpeed: 0
-  bulletDamage: 0
+  bulletDamage: 25
   bulletLifeTime: 0
+  FmodBulletName: 
   isAutomatic: 0
   gunFireRate: 0
   gunBulletSpread: 0
   maxClipSize: 0
   gunReloadTime: 0
+  fmodGunFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  fmodAltFire:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  fmodReload:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 

@@ -132,7 +132,8 @@ namespace UI
         {
             remainingEnemies.text = "Enemies: " + numEnemies.ToString();
 
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
+            player.GetComponentInChildren<TensionControler>().EnemyCounter(numEnemies);
+            //FMODUnity.RuntimeManager.StudioSystem.setParameterByName("EnemyCounter", numEnemies);
         }
 
         public void UpdateTimeAlive(float newTimeAlive)
@@ -175,6 +176,8 @@ namespace UI
             hitIndicator.TryGetComponent(out hitIndicatorScript);
             if (hitIndicatorScript != null)
                 hitIndicatorScript.StartFlash();
+
+            player.GetComponentInChildren<TensionControler>().KilledEnemy();
         }
 
         public void SetHealth(float newHealth)
@@ -218,11 +221,13 @@ namespace UI
 
         #region Reload
 
-        public void ReloadGroupStatus(bool value, float reloadTime)
+        public void ReloadGroupStatus(bool value, float reloadTime = 1f)
         {
             reloadGroup.alpha = value ? 1 : 0;
-            reloadSlider.value = 0;
+           
             reloadSlider.maxValue = reloadTime;
+            Debug.Log(reloadSlider.value);
+            reloadSlider.value = 0;
         }
 
         public void FeedReloadTime(float time)
@@ -243,29 +248,6 @@ namespace UI
             }
 
             ammoCount.text = inMagazine.ToString() + " / " + inSack.ToString();
-        }
-
-        public void UpdateAmmoTotal(PlantInfo plantInfo, int amount)
-        {
-            switch (plantInfo.PlantName)
-            {
-                case "corn":
-                    cornBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "carrot":
-                    carrotBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "pepper":
-                    pepperBulletCount.text = "x" + amount.ToString();
-
-                    break;
-                case "melon":
-                    melonBulletCount.text = "x" + amount.ToString();
-
-                    break;
-            }
         }
 
         public void UpdateAmmoType(PlantInfo plantInfo)
@@ -311,15 +293,19 @@ namespace UI
             {
                 case "corn":
                     cornSeedCount.text = "x" + seedCount.ToString();
+                    cornBulletCount.text = cornSeedCount.text;
                     break;
                 case "pepper":
                     pepperSeedCount.text = "x" + seedCount.ToString();
+                    pepperBulletCount.text = pepperSeedCount.text;
                     break;
                 case "melon":
                     melonSeedCount.text = "x" + seedCount.ToString();
+                    melonBulletCount.text = melonSeedCount.text;
                     break;
                 case "carrot":
                     carrotSeedCount.text = "x" + seedCount.ToString();
+                    carrotBulletCount.text = carrotSeedCount.text;
                     break;
                 case "starfruit":
                     starFruitSeedCount.text = "x" + seedCount.ToString();
@@ -351,6 +337,7 @@ namespace UI
             {
                 EndTutorial();
             }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_Menu_Click");
         }
 
         public void EndTutorial()

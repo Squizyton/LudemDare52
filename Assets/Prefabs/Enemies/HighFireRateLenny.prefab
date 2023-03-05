@@ -1492,6 +1492,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 920199133525343845, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       propertyPath: m_Layer
@@ -2551,7 +2556,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30e9850d98a53db4792a664e9301af21,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8807671222381138695}
+      addedObject: {fileID: -345043007452439626}
   m_SourcePrefab: {fileID: 100100000, guid: 30e9850d98a53db4792a664e9301af21, type: 3}
 --- !u!1 &4681047322380720138 stripped
 GameObject:
@@ -2684,7 +2689,30 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 8248347698836742065}
   - {fileID: 2003779751}
---- !u!114 &8807671222381138695
+  ifDoNotPlaySound: 0
+  FmodFootstepEvent:
+    Guid:
+      Data1: 1217490209
+      Data2: 1315297113
+      Data3: -433517933
+      Data4: 232039848
+    Path: event:/SFX/Enemy/Lenny/Enemy_Lenny_FS
+  FmodBodyfallEvent:
+    Guid:
+      Data1: -645592829
+      Data2: 1192078809
+      Data3: 1687727522
+      Data4: -96539939
+    Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: -1756348749
+      Data2: 1169838615
+      Data3: -767584864
+      Data4: -1926724101
+    Path: event:/SFX/Enemy/Lenny/Enemy_Lenny_Death
+  head: {fileID: 7585393532105734116}
+--- !u!114 &-345043007452439626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2693,10 +2721,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4681047322380720138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e564fd3fbf519499952046002ccf9d, type: 3}
+  m_Script: {fileID: 11500000, guid: ca54ce6ba16822c45929eaea86a592e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ifShouldNotPlaySound: 0
 --- !u!4 &5076598810761254312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 739911763991900403, guid: 30e9850d98a53db4792a664e9301af21,
@@ -2712,6 +2739,12 @@ Transform:
 --- !u!4 &5809713518006710353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7163188765038095094, guid: 30e9850d98a53db4792a664e9301af21,
+    type: 3}
+  m_PrefabInstance: {fileID: 5491860937495733595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7585393532105734116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2698704383393387199, guid: 30e9850d98a53db4792a664e9301af21,
     type: 3}
   m_PrefabInstance: {fileID: 5491860937495733595}
   m_PrefabAsset: {fileID: 0}

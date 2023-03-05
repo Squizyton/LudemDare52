@@ -17,16 +17,24 @@ public class Felonius : BasicEnemy
     [SerializeField] private float eatTime;
 
     [SerializeField] private bool readyToGo;
-    [SerializeField]private bool isEating;
+    [SerializeField] private bool isEating;
+
+    [SerializeField] private bool ifDoNotPlaySound;
+
+    [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
+    [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+    [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
+    [SerializeField] private GameObject head;
 
 
-    
+
     private void Start()
     {
         healthBar.maxValue = health;
         healthBar.value = health;
         agent.speed = speed;
         ChooseTargetPoint();
+        if (head == null) head = gameObject;
     }
 
 
@@ -103,5 +111,35 @@ public class Felonius : BasicEnemy
         }
         state = State.Moving;
     }
-   
+
+    #region FMOD
+    public void FmodPostFootstepsEvent()
+    {
+        string surfaceLayer = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLayer", surfaceLayer);   //FMOD
+    }
+
+    public void DevourSound()
+    {
+        PlaySound("event:/SFX/Enemy/Felonious/Enemy_Felonious_Devour");
+    }
+    public void BodyfallSound()
+    {
+        PlaySound(FmodBodyfallEvent, head);
+    }
+    public void FmodPostDeathEvent()
+    {
+        PlaySound(FmodDeathEvent, head);
+    }
+
+    public void PlaySound(string sound)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+    }
+
+    public void PlaySound(FMODUnity.EventReference sound, GameObject source)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, source);   //FMOD
+    }
+    #endregion
 }

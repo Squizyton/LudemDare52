@@ -17,7 +17,7 @@ namespace Plots
 		private float timeElapsed; //Growth stuff/models
 		[SerializeField] private Image mesh;
 		[SerializeField] private PlantInfo plantInfo;
-		[SerializeField] private GameObject player;
+		[SerializeField] private PlayerInventory player;
 
 		[SerializeField] private Slider timeSlider;
 		[SerializeField] private Image seedIcon;
@@ -40,7 +40,7 @@ namespace Plots
 			}
 
 
-			if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed)) return;
+			if (!playerInventory.RemoveSeed(playerInventory.SelectedSeed, playerInventory.SelectedSeed.plantCost)) return;
 
 
 			FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/UI_RTS_Plant");
@@ -82,14 +82,7 @@ namespace Plots
 
 		private void Start()
 		{
-			//TODO: Change this to something more performant
-			player = FindObjectOfType<PlayerInventory>().gameObject;
-
-			player.TryGetComponent(typeof(PlayerInventory), out Component inventory);
-			if (inventory)
-			{
-				playerInventory = (PlayerInventory)inventory;
-			}
+			playerInventory = PlayerInventory.Instance;
 			defaultSprite = mesh.sprite;
 			position = transform.position;
 		}

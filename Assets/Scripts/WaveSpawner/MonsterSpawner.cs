@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    [SerializeField] private TensionControler tensionControler;
+
     [Header("Credits")]
     public float availableCredits;
     
@@ -22,7 +24,8 @@ public class MonsterSpawner : MonoBehaviour
     private int attemptsToSpawn = 0;
     private void Start()
     {
-        
+        if (tensionControler == null)
+            tensionControler = FindObjectOfType<TensionControler>();
     }
 
     public void StartWave()
@@ -30,6 +33,8 @@ public class MonsterSpawner : MonoBehaviour
         attemptsToSpawn = 0;
         _isSpawning = true;
         SpawnEnemy();
+
+        tensionControler.SpawnEnemies();
     }
 
     public bool IsSpawning()

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: carrot
   GrowTime: 150
-  seedYield: 4
-  bulletYield: 25
+  seedYield: 10
+  plantCost: 5
   plantModel: {fileID: 787842647920921354, guid: f3c7b23b1ab3ce6479123a0151cb1990,
     type: 3}
   seedIcon: {fileID: 21300000, guid: e62af254cd20761468554769f4c95b92, type: 3}
@@ -23,8 +23,30 @@ MonoBehaviour:
   bulletSpeed: 30
   bulletDamage: 10
   bulletLifeTime: 10
+  FmodBulletName: Carrot
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0
   maxClipSize: 1
   gunReloadTime: 1.5
+  fmodGunFire:
+    Guid:
+      Data1: 1922196134
+      Data2: 1284346178
+      Data3: -822752580
+      Data4: -1091359436
+    Path: event:/SFX/Player/Guns/Carrot/GUNS_Carrot_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: 1922196134
+      Data2: 1284346178
+      Data3: -822752580
+      Data4: -1091359436
+    Path: event:/SFX/Player/Guns/Carrot/GUNS_Carrot_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

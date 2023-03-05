@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: corn
   GrowTime: 90
-  seedYield: 4
-  bulletYield: 90
+  seedYield: 60
+  plantCost: 30
   plantModel: {fileID: 2571890862195184635, guid: 452ebd65997eaa7428bb86815ac6d6a5,
     type: 3}
   seedIcon: {fileID: 21300000, guid: e63a93268a48472448b92b21b115f615, type: 3}
@@ -23,8 +23,30 @@ MonoBehaviour:
   bulletSpeed: 20
   bulletDamage: 1
   bulletLifeTime: 0
+  FmodBulletName: Corn
   isAutomatic: 1
   gunFireRate: 0.05
   gunBulletSpread: 0
   maxClipSize: 30
   gunReloadTime: 1.5
+  fmodGunFire:
+    Guid:
+      Data1: 1238543601
+      Data2: 1304469733
+      Data3: -1697112670
+      Data4: 471453192
+    Path: event:/SFX/Player/Guns/Corn/GUNS_Corn_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: 1238543601
+      Data2: 1304469733
+      Data3: -1697112670
+      Data4: 471453192
+    Path: event:/SFX/Player/Guns/Corn/GUNS_Corn_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

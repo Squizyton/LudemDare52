@@ -27,13 +27,13 @@ public class GameManager : MonoBehaviour
     //Game Stats
     [Header("Game Stats")] 
     public float timeAlive;
-     public int currentWave;
-     public int currentScore;
-     public int currentKills;
-     public int totalAmountOfWaves;
-     public int cropsHarvested;
+    public int currentWave;
+    public int currentScore;
+    public int currentKills;
+    public int totalAmountOfWaves;
+    public int cropsHarvested;
     public int cropsPlanted;
-     public int bulletsFired;
+    public int bulletsFired;
     
     
 
@@ -62,14 +62,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         loadSaveFile = FindObjectOfType<LoadSaveFile>();
 
-        if(fmodSoundManager == null) { }
-            fmodSoundManager = FindObjectOfType<FMODSoundManager>();
-
         normalCowPosition = cow.position;
     }
 
     private void Start()
     {
+        if (fmodSoundManager == null)
+            fmodSoundManager = FindObjectOfType<FMODSoundManager>();
         ChangeMode(CurrentMode.TopDown);
 
         if (loadSaveFile != null && !loadSaveFile.saveFile.didTutorial)
@@ -111,7 +110,8 @@ public class GameManager : MonoBehaviour
         //Tell Camera Manager to change the camera mode
         camManager.ChangeMode(newMode);
         uiManager.ChangeModeUI(newMode);
-        if (fmodSoundManager != null) fmodSoundManager.ChangeSoundMode(newMode); 
+        
+        fmodSoundManager.ChangeSoundMode(newMode);
     }
     public enum CurrentMode
     {

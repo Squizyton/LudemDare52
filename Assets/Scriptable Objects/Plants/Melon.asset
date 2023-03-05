@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlantName: melon
   GrowTime: 210
-  seedYield: 8
-  bulletYield: 3
+  seedYield: 2
+  plantCost: 1
   plantModel: {fileID: 5061482205910781971, guid: 8b4bd5dec81460c4fa0b1a3fade75520,
     type: 3}
   seedIcon: {fileID: 21300000, guid: 8f41b1d0b38723f4f90cf427aaa2c618, type: 3}
@@ -23,8 +23,30 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletDamage: 10
   bulletLifeTime: 13
+  FmodBulletName: Wattermellon
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0
   maxClipSize: 1
   gunReloadTime: 3
+  fmodGunFire:
+    Guid:
+      Data1: -851502985
+      Data2: 1189087176
+      Data3: 1333601188
+      Data4: -207461134
+    Path: event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: -851502985
+      Data2: 1189087176
+      Data3: 1333601188
+      Data4: -207461134
+    Path: event:/SFX/Player/Guns/Watermelon/GUNS_Watermelon_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

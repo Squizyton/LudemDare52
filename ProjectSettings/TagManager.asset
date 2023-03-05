@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - FMODSoundManager
+  - TensionControler
+  - Enemy
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - Obstacle
   - Portal
   - HitBox
-  - 
+  - EnemyBullet
   - 
   - 
   - 

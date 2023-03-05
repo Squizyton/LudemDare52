@@ -1185,7 +1185,6 @@ retry:
                 RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + path);
             }
         }
-
         public static void PlayOneShotAttached(FMOD.GUID guid, GameObject gameObject)
         {
             var instance = CreateInstance(guid);
@@ -1196,6 +1195,32 @@ retry:
             #else
             AttachInstanceToGameObject(instance, gameObject.transform);
             #endif
+            instance.start();
+            instance.release();
+        }
+        public static void PlayOneShotAttached(EventReference eventReference, GameObject gameObject, string functionParameter, string functionLabel)
+        {
+            try
+            {
+                PlayOneShotAttachedWithParameter(eventReference.Guid, gameObject, functionParameter, functionLabel);
+            }
+            catch (EventNotFoundException)
+            {
+                RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + eventReference);
+            }
+        }
+
+        public static void PlayOneShotAttachedWithParameter(FMOD.GUID guid, GameObject gameObject, string functionParameter, string functionLabel)
+        {
+            var instance = CreateInstance(guid);
+            #if UNITY_PHYSICS_EXIST
+            AttachInstanceToGameObject(instance, gameObject.transform, gameObject.GetComponent<Rigidbody>());
+            #elif UNITY_PHYSICS2D_EXIST
+            AttachInstanceToGameObject(instance, gameObject.transform, gameObject.GetComponent<Rigidbody2D>());
+            #else
+            AttachInstanceToGameObject(instance, gameObject.transform);
+            #endif
+            instance.setParameterByNameWithLabel(functionParameter, functionLabel);
             instance.start();
             instance.release();
         }

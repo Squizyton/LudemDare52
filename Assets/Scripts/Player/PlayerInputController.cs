@@ -1,4 +1,5 @@
 using Camera;
+using Guns;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,7 @@ namespace Player
     {
         public static PlayerInputController Instance;
         public PlayerControls playerControls;
-        public CameraRotation cameraRotationClass;  
+        public CameraRotation cameraRotationClass;
         private bool isShooting;
 
         private void Awake()
@@ -28,6 +29,7 @@ namespace Player
 
 
         #region Shooting
+
         private void Shoot()
         {
             isShooting = true;
@@ -37,11 +39,12 @@ namespace Player
         private void Update()
         {
             if (GameManager.Instance.currentMode == GameManager.CurrentMode.TopDown) return;
-        
+
             if (!isShooting) return;
-        
+
             //TODO: These two are redundant. Fix it.
             if (PlayerInventory.Instance.currentActiveGun.IsReloading()) return;
+
             var gunController = PlayerInventory.Instance.currentActiveGun;
             if (gunController.IsAutomatic())
             {
@@ -52,41 +55,44 @@ namespace Player
                 gunController.Shoot();
                 gunController.SetCanFire(false);
             }
-
         }
 
         private void ChangeAmmo(InputAction.CallbackContext ctx)
         {
+            if (PlayerInventory.Instance.currentActiveGun is not SpecialGun) return;
+
             Debug.Log("ATTEMPTING TO CHANGE AMMO");
-            var gunController = PlayerInventory.Instance.currentActiveGun;
-            //if (gunController.IsReloading()) return;
-            gunController.SwapAmmo();
+
+            PlayerInventory.Instance.currentActiveGun.TryGetComponent(out SpecialGun specialGun);
+            if (specialGun.IsReloading()) return;
+
+            //TODO: Fix this. It's not working.
+            specialGun.SwapAmmo();
         }
 
         private void StopShoot()
         {
             var gunController = PlayerInventory.Instance.currentActiveGun;
-        
-            if(!gunController.IsAutomatic())
+
+            if (!gunController.IsAutomatic())
                 gunController.SetCanFire(true);
 
 
             isShooting = false;
         }
-    
+
         private void OnReload()
         {
-        
-        
             var gunController = PlayerInventory.Instance.currentActiveGun;
-        
-            if(gunController.IsReloading()) return;
+
+            if (gunController.IsReloading()) return;
             BaseBullet bullet = gunController.bulletList[gunController.currentBullet];
             if (gunController.IsMagFull()) return;
-            gunController.ReloadSequence(bullet.GetBulletInfo().gunReloadTime);
+            gunController.StartReload(bullet.GetBulletInfo().gunReloadTime);
         }
 
         #endregion
+
         private void OnDestroy()
         {
             playerControls.Player.AmmoSwapping.performed -= ChangeAmmo;

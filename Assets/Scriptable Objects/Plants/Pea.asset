@@ -15,13 +15,37 @@ MonoBehaviour:
   PlantName: pea
   GrowTime: 0
   seedYield: 0
-  bulletYield: 0
+  plantCost: 0
   plantModel: {fileID: 0}
+  seedIcon: {fileID: 0}
+  bulletIcon: {fileID: 0}
   bulletSpeed: 20
   bulletDamage: 1
   bulletLifeTime: 5
+  FmodBulletName: Pea
   isAutomatic: 0
   gunFireRate: 1
   gunBulletSpread: 0
   maxClipSize: 15
   gunReloadTime: 2.5
+  fmodGunFire:
+    Guid:
+      Data1: 801162047
+      Data2: 1295864903
+      Data3: -469007707
+      Data4: -1901272534
+    Path: event:/SFX/Player/Guns/Peashooter/GUNS_Peashooter_Shoot
+  fmodAltFire:
+    Guid:
+      Data1: 801162047
+      Data2: 1295864903
+      Data3: -469007707
+      Data4: -1901272534
+    Path: event:/SFX/Player/Guns/Peashooter/GUNS_Peashooter_Shoot
+  fmodReload:
+    Guid:
+      Data1: -390131091
+      Data2: 1106694759
+      Data3: -937726830
+      Data4: -712498806
+    Path: event:/SFX/Player/Guns/GUNS_Reload

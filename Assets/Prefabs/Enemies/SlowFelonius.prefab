@@ -1170,6 +1170,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 920199133525343845, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
         type: 3}
       propertyPath: m_Layer
@@ -1996,8 +2001,14 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7204042798589386682}
+      addedObject: {fileID: 6712134263707462381}
   m_SourcePrefab: {fileID: 100100000, guid: 6d7e29cdb0308054e89d5b02bd72e0a1, type: 3}
+--- !u!1 &1363334921868831046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2770689904659370203, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5433313491897550435}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5162928391798209330 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,
@@ -2128,7 +2139,30 @@ MonoBehaviour:
   eatTime: 1
   readyToGo: 0
   isEating: 0
---- !u!114 &7204042798589386682
+  ifDoNotPlaySound: 0
+  FmodFootstepEvent:
+    Guid:
+      Data1: 1772041778
+      Data2: 1223429866
+      Data3: 2053905826
+      Data4: -1054016196
+    Path: event:/SFX/Enemy/Felonious/Enemy_Felonious_FS
+  FmodBodyfallEvent:
+    Guid:
+      Data1: -645592829
+      Data2: 1192078809
+      Data3: 1687727522
+      Data4: -96539939
+    Path: event:/SFX/Enemy/Enemy_BodyfallSound
+  FmodDeathEvent:
+    Guid:
+      Data1: -1591707693
+      Data2: 1253183128
+      Data3: -1471370085
+      Data4: -1154626726
+    Path: event:/SFX/Enemy/Felonious/Enemy_Felonious_Death
+  head: {fileID: 1363334921868831046}
+--- !u!114 &6712134263707462381
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2137,10 +2171,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5162928391798209330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e564fd3fbf519499952046002ccf9d, type: 3}
+  m_Script: {fileID: 11500000, guid: ca54ce6ba16822c45929eaea86a592e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ifShouldNotPlaySound: 0
 --- !u!4 &5543289748113154440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d7e29cdb0308054e89d5b02bd72e0a1,

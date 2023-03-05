@@ -3,11 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
+using UnityEditor;
 
 public class Lenny : BasicEnemy
 {
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform[] spawnPoints;
+
+    [SerializeField] private bool ifDoNotPlaySound;
+
+    [SerializeField] private FMODUnity.EventReference FmodFootstepEvent;
+    [SerializeField] private FMODUnity.EventReference FmodBodyfallEvent;
+    [SerializeField] private FMODUnity.EventReference FmodDeathEvent;
+    [SerializeField] private GameObject head;
 
     private bool atTarget;
     private Vector3 moveToTarget;
@@ -21,6 +29,7 @@ public class Lenny : BasicEnemy
         healthBar.maxValue = health;
         healthBar.value = health;
         atTarget = true;
+        if (head == null) head = gameObject;
     }
 
     public override void OnMove(float distance)
@@ -99,4 +108,37 @@ public class Lenny : BasicEnemy
         attackTimer = attackRate;
         attacked = true;
     }
+
+    #region FMOD
+    public void FmodPostFootstepsEvent()
+    {
+        string surfaceLayer = this.GetComponent<TerrainTextureFinder>().CheckLayers(this.transform.position);
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(FmodFootstepEvent, gameObject, "SurfaceLayer", surfaceLayer);   //FMOD
+    }
+
+    public void BodyfallSound()
+    {
+        PlaySound(FmodBodyfallEvent, head);
+    }
+    public void FmodPostDeathEvent()
+    {
+        PlaySound(FmodDeathEvent, head);
+    }
+
+    public void PlaySound(string sound)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, gameObject);   //FMOD
+    }
+
+    public void PlaySound(FMODUnity.EventReference sound, GameObject source)
+    {
+        if (!ifDoNotPlaySound) FMODUnity.RuntimeManager.PlayOneShotAttached(sound, source);   //FMOD
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(this.transform.position, 0.5f);
+
+    }
+    #endregion
 }
