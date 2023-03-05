@@ -1185,6 +1185,7 @@ retry:
                 RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + path);
             }
         }
+
         public static void PlayOneShotAttached(FMOD.GUID guid, GameObject gameObject)
         {
             var instance = CreateInstance(guid);
@@ -1198,6 +1199,7 @@ retry:
             instance.start();
             instance.release();
         }
+
         public static void PlayOneShotAttached(EventReference eventReference, GameObject gameObject, string functionParameter, string functionLabel)
         {
             try
